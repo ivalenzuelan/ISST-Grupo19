@@ -15,7 +15,7 @@ import {SeguroService} from './service/segurosservice'
 function App() {
 
   const [loading, setLoading] = useState(true);
-  const [seguro, setSeguro] = useState();
+  const [seguro, setSeguro] = useState({});
   const url = new SeguroService()
 
   const callServer = async (param) =>{
@@ -30,7 +30,7 @@ function App() {
         callServer();
           setTimeout(()=>{
             setLoading(false);
-          },15);		
+          },20);		
       }
   
       fetchData();
@@ -45,8 +45,8 @@ function App() {
        <Routes>
         {console.log(seguro.seguros)}
           <Route path="/" element={<Inicio/>} />
-          <Route path="/segurostipo" element={<Seguros/>} />
-          <Route path="/seguros" element={<SeguroTipo losseguros={seguro.seguros}/>} />
+          <Route path="/seguros" element={<Seguros/>} />
+          <Route path="/seguros/:tipo" element={<SeguroTipo losseguros={seguro.seguros}/>} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
     }
