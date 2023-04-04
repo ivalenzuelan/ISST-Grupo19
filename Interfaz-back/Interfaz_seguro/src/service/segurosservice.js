@@ -10,8 +10,6 @@ export class SeguroService {
     baseUrl = "http://localhost:8080/";
 
 
-
-
     getAll() {
         return axios.get(this.baseUrl+"seguros").then(res => {
             return res.data
@@ -27,6 +25,18 @@ export class SeguroService {
     save(seguro) {
         console.log(seguro)
         return axios.post(this.baseUrl+"seguros/new", seguro, {headers:{"Content-Type" : "application/json"}}).then(res => {console.log(res.data)
+    })
+    }
+
+    getAllClientes() {
+        return axios.get(this.baseUrl+"clientes").then(res => {
+            return res.data
+        })
+    }
+
+
+    saveCliente(cliente) {
+        return axios.post(this.baseUrl+"clientes", cliente, {headers:{"Content-Type" : "application/json"}}).then(res => {console.log(res.data)
     })
     }
 

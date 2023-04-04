@@ -12,17 +12,23 @@ import Inicio from './UserView/Inicio';
 import {mockdata1} from './constants/seguros'
 import {SeguroService} from './service/segurosservice'
 import SegurosCorredor from './CorredorView/SegurosCorredor';
+import ClientesCorredor from './CorredorView/ClientesCorredor';
 
 function App() {
 
   const [loading, setLoading] = useState(true);
   const [seguro, setSeguro] = useState({});
+  const[cliente, setCliente] = useState({});
   const url = new SeguroService()
 
   const callServer = async (param) =>{
         await url.getAll().then(data => {
           setSeguro({seguros: data})
         })
+        await url.getAllClientes().then(data => {
+          setCliente({clientes: data})
+        })
+        console.log(cliente)
         console.log(seguro.seguros)
     }
 
@@ -49,6 +55,7 @@ function App() {
           <Route path="/seguros" element={<SegurosUnTipo/>} />
           <Route path="/seguros/:tipo" element={<SegurosTipo losseguros={seguro.seguros}/>} />
           <Route path="/segurosCorredor" element={<SegurosCorredor losseguros={seguro.seguros}/>} />
+          <Route path="/clientesCorredor" element={<ClientesCorredor losclientes={cliente.clientes}/>} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
     }
