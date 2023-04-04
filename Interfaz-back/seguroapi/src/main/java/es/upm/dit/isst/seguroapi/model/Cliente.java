@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
+@Table (name = "CLIENTE")
 public class Cliente {
     @Id
     @Column(name="ID")
@@ -40,7 +41,7 @@ public class Cliente {
     private String telefono;
 
     @OneToMany(mappedBy = "cliente")
-    Set<Poliza> polizas;
+    Set<Poliza> poliza;
     
     public Cliente() {
     }

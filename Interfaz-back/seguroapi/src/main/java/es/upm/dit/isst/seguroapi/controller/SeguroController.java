@@ -123,6 +123,7 @@ public class SeguroController {
     ResponseEntity<Cliente> createCliente (@RequestBody Cliente newCliente) throws URISyntaxException {
         Cliente result = clienteRepository.save(newCliente);
         return ResponseEntity.created(new URI("/clientes/" + result.getNombre() + result.getApellidos())).body(result);
+
     }
 
     @GetMapping("/clientes/{id}")

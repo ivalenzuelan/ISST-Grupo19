@@ -31,7 +31,7 @@ public class Seguro {
     private String aseguradora;
 
     @OneToMany(mappedBy = "seguro")
-    Set<Poliza> polizas;
+    Set<Poliza> poliza;
 
     /* Constructors */
     public Seguro() {
