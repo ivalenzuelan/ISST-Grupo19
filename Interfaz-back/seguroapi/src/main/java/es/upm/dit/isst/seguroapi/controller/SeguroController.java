@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin
 public class SeguroController {
 
     private final SeguroRepository seguroRepository;
@@ -42,7 +42,7 @@ public class SeguroController {
 
     }
 
-    @PostMapping("/seguros")
+    @PostMapping("/seguros/new")
 
     ResponseEntity<Seguro> create(@RequestBody Seguro newSeguro) throws URISyntaxException {
 
