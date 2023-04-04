@@ -2,7 +2,9 @@ package es.upm.dit.isst.seguroapi.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import es.upm.dit.isst.seguroapi.model.Cliente;
 import es.upm.dit.isst.seguroapi.model.Seguro;
+import es.upm.dit.isst.seguroapi.repository.ClienteRepository;
 import es.upm.dit.isst.seguroapi.repository.SeguroRepository;
 
 import java.net.URI;
@@ -20,31 +22,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
 public class SeguroController {
 
     private final SeguroRepository seguroRepository;
+    private final ClienteRepository clienteRepository;
 
     public static final Logger log = LoggerFactory.getLogger(SeguroController.class);
 
-    public SeguroController(SeguroRepository s) {
+    public SeguroController(SeguroRepository s, ClienteRepository c) {
 
         this.seguroRepository = s;
+        this.clienteRepository = c;
+
 
     }
 
     @GetMapping("/seguros")
-    List<Seguro> readAll() {
+    List<Seguro> readAllSeguro() {
         return (List<Seguro>) seguroRepository.findAll();
 
     }
 
     @PostMapping("/seguros")
 
-    ResponseEntity<Seguro> create(@RequestBody Seguro newSeguro) throws URISyntaxException {
+    ResponseEntity<Seguro> createSeguro(@RequestBody Seguro newSeguro) throws URISyntaxException {
 
         Seguro result = seguroRepository.save(newSeguro);
 
@@ -52,30 +56,20 @@ public class SeguroController {
 
     }
 
-    @GetMapping("/seguros/{tipo}")
-
-    List<Seguro> read(@PathVariable String tipo) {
-
+    @GetMapping("/seguros/tipo/{tipo}")
+    List<Seguro> readSeguroTipo(@PathVariable String tipo) {
         return (List<Seguro>) seguroRepository.findByTipo(tipo);
     }
 
-    /*
-     * @GetMapping("/seguros/{id}")
-     * 
-     * ResponseEntity<Seguro> read(@PathVariable Integer id) {
-     * 
-     * return seguroRepository.findById(id).map(tfg ->
-     * 
-     * ResponseEntity.ok().body(tfg)
-     * 
-     * ).orElse(new ResponseEntity<Seguro>(HttpStatus.NOT_FOUND));
-     * 
-     * }
-     */
+    @GetMapping("/seguros/{id}")
+    ResponseEntity<Seguro> readSeguro(@PathVariable Integer id) {
+        return seguroRepository.findById(id).map(tfg ->
+        ResponseEntity.ok().body(tfg)
+        ).orElse(new ResponseEntity<Seguro>(HttpStatus.NOT_FOUND));
+    }
 
     @PutMapping("/seguros/{id}")
-
-    ResponseEntity<Seguro> update(@RequestBody Seguro newSeguro, @PathVariable Integer id) {
+    ResponseEntity<Seguro> updateSeguro(@RequestBody Seguro newSeguro, @PathVariable Integer id) {
 
         return seguroRepository.findById(id).map(seguro -> {
 
@@ -103,12 +97,57 @@ public class SeguroController {
 
     @DeleteMapping("/seguros/{id}")
 
-    ResponseEntity<Seguro> delete(@PathVariable Integer id) {
+    ResponseEntity<Seguro> deleteSeguro(@PathVariable Integer id) {
 
         seguroRepository.deleteById(id);
 
         return ResponseEntity.ok().body(null);
 
     }
+
+
+    @GetMapping("/clientes")
+    List<Cliente> readAllCliente() {
+        return (List<Cliente>) clienteRepository.findAll();
+    }
+
+    @PostMapping("/clientes")
+    ResponseEntity<Cliente> createCliente (@RequestBody Cliente newCliente) throws URISyntaxException {
+        Cliente result = clienteRepository.save(newCliente);
+        return ResponseEntity.created(new URI("/clientes/" + result.getNombre() + result.getApellidos())).body(result);
+    }
+
+    @GetMapping("/clientes/{id}")
+    ResponseEntity<Cliente>readClientes(@PathVariable Integer id) {
+        return clienteRepository.findById(id).map(cliente->
+        ResponseEntity.ok().body(cliente)
+        ).orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping("/clientes/{id}")
+    ResponseEntity<Cliente>updateCliente(@RequestBody Cliente newCliente, @PathVariable Integer id) {
+        return clienteRepository.findById(id).map(cliente->{
+            cliente.setId(newCliente.getId());
+            cliente.setNombre(newCliente.getNombre());
+            cliente.setApellidos(newCliente.getApellidos());
+            cliente.setIdFiscal(newCliente.getIdFiscal());
+            cliente.setDireccion(newCliente.getDireccion());
+            cliente.setMail(newCliente.getMail());
+            cliente.setNacimiento(newCliente.getNacimiento());
+            cliente.setTelefono(newCliente.getTelefono());
+            cliente.setUsername(newCliente.getUsername());
+            cliente.setPassword(newCliente.getPassword());
+            /* TODO */
+            clienteRepository.save(cliente);
+            return ResponseEntity.ok().body(cliente);
+        }).orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
+    }
+
+    @DeleteMapping("clientes/{id}")
+    ResponseEntity<Cliente> deleteCliente(@PathVariable Integer id) {
+        clienteRepository.deleteById(id);
+        return ResponseEntity.ok().body(null);
+    }
+
 
 }

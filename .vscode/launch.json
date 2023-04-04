@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SeguroapiApplication<seguroapi>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "es.upm.dit.isst.seguroapi.SeguroapiApplication",
+            "projectName": "seguroapi",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
