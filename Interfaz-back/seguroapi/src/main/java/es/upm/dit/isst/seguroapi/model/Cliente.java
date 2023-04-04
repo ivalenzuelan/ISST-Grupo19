@@ -1,37 +1,52 @@
 package es.upm.dit.isst.seguroapi.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Cliente {
     @Id
+    @Column(name="ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name="MAIL", nullable = false)
     private String mail;
+
+    @Column(name="ID_FISCAL", nullable = false)
     private String idFiscal;
+
+    @Column(name="USERNAME", nullable = false)
     private String username;
+
+    @Column(name="NOMBRE", nullable = false)
     private String nombre;
+
+    @Column(name="APELLIDOS", nullable = false)
     private String apellidos;
+
+    @Column(name="PASSWORD", nullable = false)
     private String password;
-    private Date nacimiento;
+
+    @Column(name="NACIMIENTO")
+    private LocalDate nacimiento;
+
+    @Column(name="DIRECCION")
     private String direccion;
+
+    @Column(name="TELEFONO")
     private String telefono;
 
+    @OneToMany(mappedBy = "cliente")
+    Set<Poliza> polizas;
     
     public Cliente() {
     }
-
     
-
-    
-
-
-
-    public Cliente(Integer id, String mail, String idFiscal, String username, String nombre, String apellidos,
-            String password, Date nacimiento, String direccion, String telefono) {
-        this.id = id;
+    public Cliente(String mail, String idFiscal, String username, String nombre, String apellidos,
+            String password, LocalDate nacimiento, String direccion, String telefono) {
         this.mail = mail;
         this.idFiscal = idFiscal;
         this.username = username;
@@ -115,12 +130,12 @@ public class Cliente {
     }
 
 
-    public Date getNacimiento() {
+    public LocalDate getNacimiento() {
         return nacimiento;
     }
 
 
-    public void setNacimiento(Date nacimiento) {
+    public void setNacimiento(LocalDate nacimiento) {
         this.nacimiento = nacimiento;
     }
 
