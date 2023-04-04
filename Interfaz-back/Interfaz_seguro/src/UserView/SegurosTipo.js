@@ -2,14 +2,13 @@ import {useState, useEffect} from "react"
 import Form from 'react-bootstrap/Form';
 import { MDBCardText } from 'mdb-react-ui-kit';
 import { useParams} from 'react-router-dom';
-import {SeguroService} from './service/segurosservice'
+import {SeguroService} from '../service/segurosservice'
 
-export default function SeguroTipo(props){ 
+export default function SegurosTipo(props){ 
 
     let {tipo} = useParams()
     const [filtro,setFiltro]=useState(null)
     const [seguro, setSeguro] = useState(props.losseguros);
-    console.log(seguro)
     const url = new SeguroService()
   
     const callServer = async (param) =>{
