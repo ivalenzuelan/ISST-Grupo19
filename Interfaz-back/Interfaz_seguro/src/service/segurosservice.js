@@ -24,8 +24,10 @@ export class SeguroService {
         })
     }
 
-    save(persona) {
-        return axios.post(this.baseUrl+"/seguros", persona).then(res => res.data)
+    save(seguro) {
+        console.log(seguro)
+        return axios.post(this.baseUrl+"seguros/new", seguro, {headers:{"Content-Type" : "application/json"}}).then(res => {console.log(res.data)
+    })
     }
 
 
