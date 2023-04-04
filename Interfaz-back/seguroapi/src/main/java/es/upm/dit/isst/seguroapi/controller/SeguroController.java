@@ -37,7 +37,6 @@ public class SeguroController {
         this.seguroRepository = s;
         this.clienteRepository = c;
 
-
     }
 
     @GetMapping("/seguros")
@@ -61,12 +60,14 @@ public class SeguroController {
         return (List<Seguro>) seguroRepository.findByTipo(tipo);
     }
 
-    @GetMapping("/seguros/{id}")
-    ResponseEntity<Seguro> readSeguro(@PathVariable Integer id) {
-        return seguroRepository.findById(id).map(tfg ->
-        ResponseEntity.ok().body(tfg)
-        ).orElse(new ResponseEntity<Seguro>(HttpStatus.NOT_FOUND));
-    }
+    /*
+     * @GetMapping("/seguros/{id}")
+     * ResponseEntity<Seguro> readSeguro(@PathVariable Integer id) {
+     * return seguroRepository.findById(id).map(tfg ->
+     * ResponseEntity.ok().body(tfg)
+     * ).orElse(new ResponseEntity<Seguro>(HttpStatus.NOT_FOUND));
+     * }
+     */
 
     @PutMapping("/seguros/{id}")
     ResponseEntity<Seguro> updateSeguro(@RequestBody Seguro newSeguro, @PathVariable Integer id) {
@@ -105,28 +106,29 @@ public class SeguroController {
 
     }
 
-
     @GetMapping("/clientes")
     List<Cliente> readAllCliente() {
         return (List<Cliente>) clienteRepository.findAll();
     }
 
     @PostMapping("/clientes")
-    ResponseEntity<Cliente> createCliente (@RequestBody Cliente newCliente) throws URISyntaxException {
+    ResponseEntity<Cliente> createCliente(@RequestBody Cliente newCliente) throws URISyntaxException {
         Cliente result = clienteRepository.save(newCliente);
         return ResponseEntity.created(new URI("/clientes/" + result.getNombre() + result.getApellidos())).body(result);
     }
 
-    @GetMapping("/clientes/{id}")
-    ResponseEntity<Cliente>readClientes(@PathVariable Integer id) {
-        return clienteRepository.findById(id).map(cliente->
-        ResponseEntity.ok().body(cliente)
-        ).orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
-    }
+    /*
+     * @GetMapping("/clientes/{id}")
+     * ResponseEntity<Cliente>readClientes(@PathVariable Integer id) {
+     * return clienteRepository.findById(id).map(cliente->
+     * ResponseEntity.ok().body(cliente)
+     * ).orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
+     * }
+     */
 
     @PutMapping("/clientes/{id}")
-    ResponseEntity<Cliente>updateCliente(@RequestBody Cliente newCliente, @PathVariable Integer id) {
-        return clienteRepository.findById(id).map(cliente->{
+    ResponseEntity<Cliente> updateCliente(@RequestBody Cliente newCliente, @PathVariable Integer id) {
+        return clienteRepository.findById(id).map(cliente -> {
             cliente.setId(newCliente.getId());
             cliente.setNombre(newCliente.getNombre());
             cliente.setApellidos(newCliente.getApellidos());
@@ -148,6 +150,5 @@ public class SeguroController {
         clienteRepository.deleteById(id);
         return ResponseEntity.ok().body(null);
     }
-
 
 }
