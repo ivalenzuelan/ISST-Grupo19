@@ -34,7 +34,7 @@ const tipos_seguro = [ {
      },
 
 ]
-export default function Lista(){
+export default function SegurosUnTipo(){
     return (
     <div className="seguros">
             {tipos_seguro.map((item,index)=>(

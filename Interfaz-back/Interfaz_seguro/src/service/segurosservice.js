@@ -24,6 +24,10 @@ export class SeguroService {
         })
     }
 
+    save(persona) {
+        return axios.post(this.baseUrl+"/seguros", persona).then(res => res.data)
+    }
+
 
 
 // De esta manera ya podemos consumir el nuestra API REST (Estamos llamando al servicio de obtener todos los seguros)

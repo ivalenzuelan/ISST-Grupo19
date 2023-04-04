@@ -5,12 +5,13 @@ import {Routes, Route} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import Header from './Header'
 import Footer from './Footer'
-import SeguroTipo from './SeguroTipo.js';
-import Seguros from './Seguros.js';
+import SegurosTipo from './UserView/SegurosTipo';
+import SegurosUnTipo from './UserView/SegurosUnTipo';
 import NoMatch from './NoMatch';
-import Inicio from './Inicio';
+import Inicio from './UserView/Inicio';
 import {mockdata1} from './constants/seguros'
 import {SeguroService} from './service/segurosservice'
+import SegurosCorredor from './CorredorView/SegurosCorredor';
 
 function App() {
 
@@ -45,8 +46,9 @@ function App() {
        <Routes>
         {console.log(seguro.seguros)}
           <Route path="/" element={<Inicio/>} />
-          <Route path="/seguros" element={<Seguros/>} />
-          <Route path="/seguros/:tipo" element={<SeguroTipo losseguros={seguro.seguros}/>} />
+          <Route path="/seguros" element={<SegurosUnTipo/>} />
+          <Route path="/seguros/:tipo" element={<SegurosTipo losseguros={seguro.seguros}/>} />
+          <Route path="/segurosCorredor" element={<SegurosCorredor losseguros={seguro.seguros}/>} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
     }
