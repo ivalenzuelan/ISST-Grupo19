@@ -13,31 +13,42 @@ import {mockdata1} from './constants/seguros'
 import {SeguroService} from './service/segurosservice'
 import SegurosCorredor from './CorredorView/SegurosCorredor';
 import ClientesCorredor from './CorredorView/ClientesCorredor';
+import EditarCliente from './CorredorView/EditarCliente';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 function App() {
 
   const [loading, setLoading] = useState(true);
   const [seguro, setSeguro] = useState({});
-  const[cliente, setCliente] = useState({});
+  const [cliente, setCliente] = useState({});
   const url = new SeguroService()
 
-  const callServer = async (param) =>{
+  const callServerSeguros = async (param) =>{
         await url.getAll().then(data => {
           setSeguro({seguros: data})
         })
-        await url.getAllClientes().then(data => {
-          setCliente({clientes: data})
-        })
-        console.log(cliente)
-        console.log(seguro.seguros)
     }
+    const callServerClientes = async (param) =>{
+      await url.getAllClientes().then(data => {
+        console.log(data)
+        setCliente({clientes: data})   
+      })
+  }
 
   useEffect(() => {
       function fetchData() {	
-        callServer();
+        callServerSeguros();
           setTimeout(()=>{
             setLoading(false);
-          },20);		
+          },50);		
+        callServerClientes();
+        setTimeout(()=>{
+          setLoading(false);
+        },50);
       }
   
       fetchData();
@@ -50,12 +61,12 @@ function App() {
       <Header/>
       {loading ? <Header/> :
        <Routes>
-        {console.log(seguro.seguros)}
           <Route path="/" element={<Inicio/>} />
           <Route path="/seguros" element={<SegurosUnTipo/>} />
-          <Route path="/seguros/:tipo" element={<SegurosTipo losseguros={seguro.seguros}/>} />
+          <Route path="/seguros/tipo/:tipo" element={<SegurosTipo losseguros={seguro.seguros}/>} />
           <Route path="/segurosCorredor" element={<SegurosCorredor losseguros={seguro.seguros}/>} />
           <Route path="/clientesCorredor" element={<ClientesCorredor losclientes={cliente.clientes}/>} />
+          <Route path="/clientesCorredor/:id" element={<EditarCliente losseguros={seguro.seguros}/>}/>
           <Route path="*" element={<NoMatch />} />
         </Routes>
     }

@@ -43,11 +43,12 @@ export default function SegurosUnTipo(){
                         <Card.Body style={{background: "white"}}>
                             <Card.Title style={{color: 'rgb(72, 87, 117)'}}>{item.tipo}</Card.Title>
                             <Card.Text style={{color: "black"}}>{item.descripción}</Card.Text>
-                            <Link to={"/seguros/" + (item.tipo)}><button className='register_button'>Ver seguros</button> </Link>
+                            <Link to={"/seguros/tipo/" + (item.tipo)}><button className='register_button'>Ver seguros</button> </Link>
                         </Card.Body>
                     </Card>
              ))}
 
     </div>
+    
     )
 }

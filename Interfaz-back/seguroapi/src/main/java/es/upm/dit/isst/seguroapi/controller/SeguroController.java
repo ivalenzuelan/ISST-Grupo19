@@ -43,16 +43,15 @@ public class SeguroController {
 
     }
 
-
     // SEGUROS //
 
-    @GetMapping("/seguros") //ok
+    @GetMapping("/seguros") // ok
     List<Seguro> readAllSeguro() {
         return (List<Seguro>) seguroRepository.findAll();
 
     }
 
-    @PostMapping("/seguros") //ok
+    @PostMapping("/seguros") // ok
     ResponseEntity<Seguro> createSeguro(@RequestBody Seguro newSeguro) throws URISyntaxException {
 
         Seguro result = seguroRepository.save(newSeguro);
@@ -61,19 +60,19 @@ public class SeguroController {
 
     }
 
-    @GetMapping("/seguros/tipo/{tipo}") //ok
+    @GetMapping("/seguros/tipo/{tipo}") // ok
     List<Seguro> readSeguroTipo(@PathVariable String tipo) {
         return (List<Seguro>) seguroRepository.findByTipo(tipo);
     }
 
-    @GetMapping("/seguros/{id}") //ok
+    @GetMapping("/seguros/{id}") // ok
     ResponseEntity<Seguro> readSeguro(@PathVariable Integer id) {
-        return seguroRepository.findById(id).map(tfg ->
-        ResponseEntity.ok().body(tfg)
-        ).orElse(new ResponseEntity<Seguro>(HttpStatus.NOT_FOUND));
+        return seguroRepository.findById(id).map(tfg -> ResponseEntity.ok().body(tfg))
+                .orElse(new ResponseEntity<Seguro>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/seguros/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo aunque no se hayan cambiado todos los campos, sino error 500
+    @PutMapping("/seguros/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo
+                                 // aunque no se hayan cambiado todos los campos, sino error 500
     // esto responde con el json actualizado en el body
     ResponseEntity<Seguro> updateSeguro(@RequestBody Seguro newSeguro, @PathVariable Integer id) {
 
@@ -111,7 +110,6 @@ public class SeguroController {
 
     }
 
-
     // CLIENTES //
 
     @GetMapping("/clientes")
@@ -126,19 +124,17 @@ public class SeguroController {
 
     }
 
-    
-      @GetMapping("/clientes/{id}")
-      ResponseEntity<Cliente>readClientes(@PathVariable Integer id) {
-      return clienteRepository.findById(id).map(cliente->
-      ResponseEntity.ok().body(cliente)
-      ).orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
-     }
-     
+    @GetMapping("/clientes/{id}")
+    ResponseEntity<Cliente> readClientes(@PathVariable Integer id) {
+        return clienteRepository.findById(id).map(cliente -> ResponseEntity.ok().body(cliente))
+                .orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
+    }
 
-    @PutMapping("/clientes/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo aunque no se hayan cambiado todos los campos, sino error 500
+    @PutMapping("/clientes/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo
+                                  // aunque no se hayan cambiado todos los campos, sino error 500
     // esto responde con el json actualizado en el body
-    ResponseEntity<Cliente>updateCliente(@RequestBody Cliente newCliente, @PathVariable Integer id) {
-        return clienteRepository.findById(id).map(cliente->{
+    ResponseEntity<Cliente> updateCliente(@RequestBody Cliente newCliente, @PathVariable Integer id) {
+        return clienteRepository.findById(id).map(cliente -> {
             cliente.setId(newCliente.getId());
             cliente.setNombre(newCliente.getNombre());
             cliente.setApellidos(newCliente.getApellidos());
@@ -161,19 +157,24 @@ public class SeguroController {
         return ResponseEntity.ok().body(null);
     }
 
-
     // POLIZAS //
-    
+
     @GetMapping("/polizas")
     List<Poliza> readAllPoliza() {
         return (List<Poliza>) polizaRepository.findAll();
 
     }
 
-    @PostMapping("/polizas") //ok, esto es para añadirle un seguro a un cliente
+    @GetMapping("polizas/cliente/{id}")
+    List<Poliza> findPolizasByCliente(@PathVariable Integer id) {
+        return (List<Poliza>) polizaRepository.findByClienteId(id);
+    }
+
+    @PostMapping("/polizas") // ok, esto es para añadirle un seguro a un cliente
     ResponseEntity<Poliza> createPoliza(@RequestBody Poliza newPoliza) throws URISyntaxException {
-        
-        // Si el corredor no indica una periodicidad o un precio, se pone por defecto los datos del seguro
+
+        // Si el corredor no indica una periodicidad o un precio, se pone por defecto
+        // los datos del seguro
         if (newPoliza.getPeriodicidad() == null || newPoliza.getPrecio() == 0) {
             newPoliza.setPeriodicidad(newPoliza.getSeguro().getPeriodicidad());
             newPoliza.setPrecio(newPoliza.getSeguro().getPrecio());
@@ -185,17 +186,18 @@ public class SeguroController {
 
     }
 
-    @DeleteMapping("polizas/{id}") //ok, esto es para quitarle una seguro a un cliente
+    @DeleteMapping("polizas/{id}") // ok, esto es para quitarle una seguro a un cliente
     ResponseEntity<Cliente> deletePoliza(@PathVariable Integer id) {
         polizaRepository.deleteById(id);
         return ResponseEntity.ok().body(null);
     }
 
     // Para que el corredor pueda cambiar los datos de la poliza de un cliente
-    @PutMapping("/polizas/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo aunque no se hayan cambiado todos los campos, sino error 500
+    @PutMapping("/polizas/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo
+                                 // aunque no se hayan cambiado todos los campos, sino error 500
     // esto responde con el json actualizado en el body
-    ResponseEntity<Poliza>updatePoliza(@RequestBody Poliza newPoliza, @PathVariable Integer id) {
-        return polizaRepository.findById(id).map(poliza->{
+    ResponseEntity<Poliza> updatePoliza(@RequestBody Poliza newPoliza, @PathVariable Integer id) {
+        return polizaRepository.findById(id).map(poliza -> {
             poliza.setId(newPoliza.getId());
             poliza.setCliente(newPoliza.getCliente());
             poliza.setSeguro(newPoliza.getSeguro());
@@ -204,7 +206,7 @@ public class SeguroController {
             poliza.setPrecio(newPoliza.getPrecio());
             poliza.setPeriodicidad(newPoliza.getPeriodicidad());
             poliza.setPdf_poliza(newPoliza.getPdf_poliza());
-            
+
             polizaRepository.save(poliza);
             return ResponseEntity.ok().body(poliza);
         }).orElse(new ResponseEntity<Poliza>(HttpStatus.NOT_FOUND));

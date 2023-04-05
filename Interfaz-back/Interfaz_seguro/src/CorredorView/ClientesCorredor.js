@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react"
 import Form from 'react-bootstrap/Form';
 import { MDBCardText } from 'mdb-react-ui-kit';
-import { useParams} from 'react-router-dom';
+import { Link, useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
 
 import { Menubar } from 'primereact/menubar';  
@@ -10,12 +10,8 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
         
         
-             
-//theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
-//core
 import "primereact/resources/primereact.min.css";
-//icons
 import "primeicons/primeicons.css";                                         
         
 
@@ -89,7 +85,7 @@ export default function ClientesCorredor(props){
                         <h5 class="card-title">{item.username}</h5>
                         <p class="card-text"> {item.mail}</p>
                         <p class="card-text"> {item.telefono} / {item.periodicidad}</p>
-                        <a href="#" class="btn btn-primary">Mas información</a>
+                        <Link to={"/clientesCorredor/" + (item.id)}><a href="#" class="btn btn-primary">Mas información</a></Link>
                     </div>
                 </div>
              ))}
