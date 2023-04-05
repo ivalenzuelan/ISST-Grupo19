@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import { MDBCardText } from 'mdb-react-ui-kit';
 import { useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
+import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
 
 export default function SegurosTipo(props){ 
 
@@ -51,18 +53,23 @@ export default function SegurosTipo(props){
                 <button id="buscador" onClick={()=>filtrar()}> Buscar </button> 
             </div>
         </div>
-        <div className="lista_seguro">
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <CardGroup>
             {seguro.map((item,index)=>(
-                <div key={item.id} class="card" className="lista_seguro" style={{height:MDBCardText, width: '800px', textAlign:'justify' }}>
+                <div key={item.id} className="lista_seguro" >
+                    <Card style={{ width: '18rem', border: '1px solid rgb(72, 87, 117)', borderRadius: '8px'}}>
                     <h5 class="card-header">{ item.aseguradora}</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">{item.nombre}</h5>
+                     <div class="card-body">
+                        <Card.Title class="card-title">{item.nombre}</Card.Title>
                         <p class="card-text"> {item.descripción}</p>
-                        <p class="card-text"> {item.precio} / {item.periodicidad}</p>
+                        <p class="card-text"> Precio: {item.precio}</p>
+                        <p class="card-text"> Periodo: {item.periodicidad}</p>
                         <a href="#" class="btn btn-primary">Mas información</a>
-                    </div>
+                     </div>
+                    </Card>
                 </div>
              ))}
+        </CardGroup>
             
         </div>
     </div>

@@ -4,12 +4,12 @@ VALUES
   (1001, 'Seguro de coche', 'Auto', 'Cubre los daños en el coche', 200.75, 'Mensual', 'Allianz'),
   (1002, 'Seguro de vida', 'Vida', 'Cubre el fallecimiento del asegurado', 300.00, 'Anual', 'Mapfre'),
   (1003, 'Seguro de salud', 'Salud', 'Cubre los gastos médicos', 150.25, 'Trimestral', 'Sanitas'),
-  (1004, 'Seguro de viaje', 'Viaje', 'Cubre los imprevistos en viajes', 50.00, 'Anual', 'Axa'),
-  (1005, 'Seguro de responsabilidad civil', 'RC', 'Cubre los daños a terceros', 80.50, 'Anual', 'Allianz'),
-  (1006, 'Seguro de moto', 'Moto', 'Cubre los daños en la moto', 120.00, 'Mensual', 'Mapfre'),
-  (1007, 'Seguro de mascotas', 'Mascotas', 'Cubre los gastos veterinarios', 75.75, 'Anual', 'Sanitas'),
-  (1008, 'Seguro de decesos', 'Decesos', 'Cubre los gastos funerarios', 200.00, 'Anual', 'AXA'),
-  (1009, 'Seguro de comercio', 'Comercio', 'Cubre los daños en el negocio', 350.50, 'Anual', 'Allianz');
+  (1004, 'Seguro de viaje', 'Viajes', 'Cubre los imprevistos en viajes', 50.00, 'Anual', 'Axa'),
+  (1005, 'Seguro de responsabilidad civil', 'Vida', 'Cubre los daños a terceros', 80.50, 'Anual', 'Allianz'),
+  (1006, 'Seguro de moto', 'Auto', 'Cubre los daños en la moto', 120.00, 'Mensual', 'Mapfre'),
+  (1007, 'Seguro de mascotas', 'Vida', 'Cubre los gastos veterinarios', 75.75, 'Anual', 'Sanitas'),
+  (1008, 'Seguro de decesos', 'Vida', 'Cubre los gastos funerarios', 200.00, 'Anual', 'AXA'),
+  (1009, 'Seguro de comercio', 'Ahorro', 'Cubre los daños en el negocio', 350.50, 'Anual', 'Allianz');
 
 
 INSERT INTO CLIENTE (id, mail, id_Fiscal, username, nombre, apellidos, password, nacimiento, direccion, telefono)
