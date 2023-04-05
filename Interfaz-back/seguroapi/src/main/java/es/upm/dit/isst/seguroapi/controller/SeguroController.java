@@ -126,14 +126,14 @@ public class SeguroController {
 
     }
 
-    /*
-     * @GetMapping("/clientes/{id}")
-     * ResponseEntity<Cliente>readClientes(@PathVariable Integer id) {
-     * return clienteRepository.findById(id).map(cliente->
-     * ResponseEntity.ok().body(cliente)
-     * ).orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
-     * }
-     */
+    
+      @GetMapping("/clientes/{id}")
+      ResponseEntity<Cliente>readClientes(@PathVariable Integer id) {
+      return clienteRepository.findById(id).map(cliente->
+      ResponseEntity.ok().body(cliente)
+      ).orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
+     }
+     
 
     @PutMapping("/clientes/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo aunque no se hayan cambiado todos los campos, sino error 500
     // esto responde con el json actualizado en el body
