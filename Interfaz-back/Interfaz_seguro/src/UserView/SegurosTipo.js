@@ -48,7 +48,7 @@ export default function SegurosTipo(props){
     return <div id='seguro_por_tipo'>  
         <div id="seccion">
             <div id="SeccionFiltrar">
-                <h5> Filtro por seguro </h5>
+                <h5> Buscador por nombre de seguro </h5>
                 <input id="filtro" type="string" placeholder="All" onChange={e=>setFiltro(e.target.value)}></input>
                 <button id="buscador" onClick={()=>filtrar()}> Buscar </button> 
             </div>
@@ -62,14 +62,16 @@ export default function SegurosTipo(props){
                      <div class="card-body">
                         <Card.Title class="card-title">{item.nombre}</Card.Title>
                         <p class="card-text"> {item.descripción}</p>
-                        <p class="card-text"> Precio: {item.precio}</p>
-                        <p class="card-text"> Periodo: {item.periodicidad}</p>
+                        <p class="card-text"> Precio: {item.precio} €</p>
+                        <p class="card-text"> Periodicidad: {item.periodicidad}</p>
                         <a href="#" class="btn btn-primary">Mas información</a>
                      </div>
                     </Card>
                 </div>
              ))}
         </CardGroup>
+
+        
             
         </div>
     </div>

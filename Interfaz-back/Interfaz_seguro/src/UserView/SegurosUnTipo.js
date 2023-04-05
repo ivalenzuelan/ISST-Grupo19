@@ -1,6 +1,8 @@
 import { MDBTextArea } from 'mdb-react-ui-kit';
-import Card from 'react-bootstrap/Card';
+
+import { Card } from 'primereact/card';
 import {Link} from 'react-router-dom';
+import { Button } from 'primereact/button';
 
 const tipos_seguro = [
   {
@@ -35,25 +37,21 @@ const tipos_seguro = [
   },
 ];
 
+
+
 export default function SegurosUnTipo(){
     return (
-<div className="seguros">
-  {tipos_seguro.map((item,index)=>(
-    <Card style={{ width: '18rem', height: '500px', border: '4px solid black', borderRadius: '8px'}}>
-  <Card.Img style={{ height:'200px', width:MDBTextArea }} variant="top" src={process.env.PUBLIC_URL + item.imagen} />
-  <Card.Body style={{ background: "white", height: "250px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-    <Card.Title style={{ color: 'rgb(72, 87, 117)'}}>{item.tipo}</Card.Title>
-    <Card.Text style={{ color: "black"}}>{item.descripción}</Card.Text>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Link to={"/seguros/tipo/" + (item.tipo)}>
-         <button className='register_button'>Ver seguros</button>
-        </Link>
-        </div>
-    </Card.Body>
-    </Card>
-
-  ))}
-</div>
+      <div className="seguros-container">
+        {tipos_seguro.map((item,index)=>(
+              <div className="seguros-item">
+                  <Card title={item.tipo} footer={<Link to={"/seguros/tipo/" + (item.tipo)}><Button className='register_button' label="Ver seguros"/></Link>} header={<img alt="Card" src={item.imagen}/>}>
+                      <p>
+                        {item.descripción}
+                      </p>
+                  </Card>
+              </div>
+        ))}
+      </div>
 
     
     )

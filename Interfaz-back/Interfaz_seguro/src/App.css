@@ -20,6 +20,7 @@ body {
   background-color: white ;
   padding: 10px;
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
   flex-direction: row;
 }
@@ -32,13 +33,20 @@ body {
 }
 .buttons {
   display: flex;
+  justify-content: space-between;
   position: absolute;
   right: 0;
   padding: 20px;
+  color: rgb(72, 87, 117);
 }
 .general_buttons {
   padding: 10px;
 }
+
+.custom_button {
+  background-color: rgb(240, 56, 11);
+}
+
 .general_button {
   margin-right: 5px;
   height: 50px;
@@ -118,14 +126,18 @@ body {
 /* -----------------------------------------------------------------------------------------*/
 /* SEGUROS STYLE*/
 /* -----------------------------------------------------------------------------------------*/
-.seguros {
+.seguros-container {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  padding: 40px;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.seguros-item {
+  width: calc(33.33% - 10px);
+  margin-bottom: 20px;
 }
 
 /* -----------------------------------------------------------------------------------------*/
@@ -137,6 +149,7 @@ body {
   justify-content: center;
   padding: 40px;
 }
+
 .lista_seguro {
   display: flex;
   flex-direction: row;
@@ -162,4 +175,16 @@ body {
   flex-direction: row;
   justify-content: center;
   gap: 40px;
+}
+
+.menubar-wrapper {
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.custom-menubar {
+  margin-bottom: 20px;
 }

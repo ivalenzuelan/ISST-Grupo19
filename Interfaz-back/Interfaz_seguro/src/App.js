@@ -20,6 +20,14 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+
+import 'primereact/resources/themes/saga-blue/theme.css'
+import 'primereact/resources/primereact.min.css'
+import 'primeicons/primeicons.css'
+
+
 function App() {
 
   const [loading, setLoading] = useState(true);

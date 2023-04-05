@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { Button } from "primereact/button"
 
 export default function Header (){
     return(
@@ -8,13 +9,13 @@ export default function Header (){
             </div>
             <div className="buttons">
                 <div className="general_buttons">
-                    <Link to="/"><button className="general_button"> Inicio </button></Link>
-                    <button className="general_button"> Solicitar Cita </button>
-                    <Link to ="/seguros"><button className="general_button"> Seguros </button></Link>
+                    <Link to="/"><Button className="general_button" label= "Inicio" text raised/></Link>
+                    <Button className="general_button" label="Solicitar Cita" text raised disabled/>
+                    <Link to ="/seguros"><Button className="general_button" label= "Seguros" text raised/></Link>
                 </div>
                 <div className="register_buttons">
-                    <button className="register_button"> Sing In </button>
-                    <button className="register_button"> Log In </button>
+                    <Button className="register_button" text raised disabled> Sing In </Button>
+                    <Button className="register_button" text raised disabled> Log In </Button>
                 </div>
             </div>
         </div>
