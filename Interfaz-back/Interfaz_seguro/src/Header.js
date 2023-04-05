@@ -5,11 +5,11 @@ export default function Header (){
     return(
         <div className="header_integral">
             <div className="logo_image">
-                <img className="logo" src={process.env.PUBLIC_URL + "/logo.png"} alt="logo" />
+                <Link to="/"><img className="logo" src={process.env.PUBLIC_URL + "/logo.png"} alt="logo" /></Link>
             </div>
             <div className="buttons">
                 <div className="general_buttons">
-                    <Link to="/"><Button className="general_button" label= "Inicio" text raised/></Link>
+                    
                     <Button className="general_button" label="Solicitar Cita" text raised disabled/>
                     <Link to ="/seguros"><Button className="general_button" label= "Seguros" text raised/></Link>
                 </div>

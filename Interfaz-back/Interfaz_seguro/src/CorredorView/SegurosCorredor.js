@@ -2,12 +2,15 @@ import {useState, useEffect} from "react"
 import Form from 'react-bootstrap/Form';
 import { MDBCardText } from 'mdb-react-ui-kit';
 import { useParams} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {SeguroService} from '../service/segurosservice'
 
 import { Menubar } from 'primereact/menubar';  
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { Card } from "primereact/card";
+
         
         
              
@@ -82,15 +85,31 @@ export default function SegurosCorredor(props){
 
     return <div id='seguro_por_tipo'>  
         <div id="seccion">
-            <div id="SeccionFiltrar">
-                <h5> Filtro por seguro </h5>
-                <input id="filtro" type="string" placeholder="All" onChange={e=>setFiltro(e.target.value)}></input>
-                <button id="buscador" onClick={()=>filtrar()}> Buscar </button> 
+            <div >
+                <span className="p-input-icon-left">
+                    <i className="pi pi-search" />
+                    <InputText id="filtro" placeholder="Buscar por nombre" onChange={e=>setFiltro(e.target.value)}
+                        onKeyPress={e => {
+                            if (e.key === 'Enter') {
+                            filtrar();
+                            }
+                        }}/>
+                </span>
             </div>
-            <div id="SeccionSelector">
-                <h5> Selector por categorias </h5>
-                <Form.Select id="selector" aria-label="Default select example" onChange={()=>filtrarCategoria()}>  
-                    <option value="All" >All</option> 
+            <div >
+                <span className="p-input-icon-left">
+                    <i className="pi pi-search" />
+                    <InputText id="filtro" placeholder="Buscar por aseguradora" onChange={e=>setFiltro(e.target.value)}
+                        onKeyPress={e => {
+                            if (e.key === 'Enter') {
+                            filtrar();
+                            }
+                        }}/>
+                </span>
+            </div>
+            <div>
+                <Form.Select id="selector" aria-label="Default select example" title="Filtrar por tipo" onChange={()=>filtrarCategoria()}>  
+                    <option value="All" >Filtrar por tipo</option> 
                     {categoria.map((item) =>(
                         <option key={item} value={item}>{item}</option>
                     ))}
@@ -98,17 +117,18 @@ export default function SegurosCorredor(props){
             </div>
         </div>
         <div className="lista_seguro">
-            <Menubar model={items} /> 
+            <div className="menubar-wrapper">
+                <Menubar model={items} className="custom-menubar" />
+            </div>
             {seguros.map((item,index)=>(
-                <div key={item.id} class="card" className="lista_seguro" style={{height:MDBCardText, width: '800px', textAlign:'justify' }}>
-                    <h5 class="card-header">{ item.aseguradora}</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">{item.nombre}</h5>
-                        <p class="card-text"> {item.descripción}</p>
-                        <p class="card-text"> {item.precio} / {item.periodicidad}</p>
-                        <a href="#" class="btn btn-primary">Mas información</a>
-                    </div>
-                </div>
+                <Card title={item.nombre}>
+                    <p>
+                        <p><b>Aseguradora:</b> {item.aseguradora}</p>
+                        <p><b>Precio:</b> {item.precio} €</p>
+                        <p><b>Periodicidad:</b> {item.periodicidad}</p>
+                        <p><Link to={""}><Button label="Modificar seguro" disabled/></Link></p>
+                    </p>
+                </Card>
              ))}
             
         </div>

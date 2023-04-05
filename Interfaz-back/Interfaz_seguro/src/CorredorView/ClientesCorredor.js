@@ -69,12 +69,19 @@ export default function ClientesCorredor(props){
         })
     }
 
+    // TODO: no funciona el filtro
     return <div id='seguro_por_tipo'>  
         <div id="seccion">
-            <div id="SeccionFiltrar">
-                <h5> Filtro por seguro </h5>
-                <input id="filtro" type="string" placeholder="All" onChange={e=>setFiltro(e.target.value)}></input>
-                <button id="buscador" onClick={()=>filtrar()}> Buscar </button> 
+            <div >
+                <span className="p-input-icon-left">
+                    <i className="pi pi-search" />
+                    <InputText id="filtro" placeholder="Buscar clientes" onChange={e=>setFiltro(e.target.value)}
+                        onKeyPress={e => {
+                            if (e.key === 'Enter') {
+                            filtrar();
+                            }
+                        }}/>
+                </span>
             </div>
         </div>
         <div className="lista_seguro">

@@ -108,15 +108,14 @@ body {
 .image_marca{ 
   width: 150px;
   height: 100px;
-  border: 2px solid rgb(72, 87, 117);
   border-radius: 5px;
   margin: 10px;
+  box-shadow: 5px;
 
 }
 .image_inicio {
   width: 700px;
   height: 350px;
-  border: 2px solid rgb(72, 87, 117);
   border-radius: 5px;
 }
 .marcas_text {
@@ -175,6 +174,7 @@ body {
   flex-direction: row;
   justify-content: center;
   gap: 40px;
+  align-items:end;
 }
 
 .menubar-wrapper {
@@ -187,4 +187,9 @@ body {
 
 .custom-menubar {
   margin-bottom: 20px;
+}
+
+.card-footer-modified {
+  text-align: right;
+  background: 'transparent';
 }
