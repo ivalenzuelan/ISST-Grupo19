@@ -2,14 +2,18 @@ package es.upm.dit.isst.seguroapi.repository;
 
 import java.util.List;
 
-// import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.springframework.data.repository.CrudRepository;
+// import java.util.List;
 
 import es.upm.dit.isst.seguroapi.model.Poliza;
 
-public interface PolizaRepository extends CrudRepository<Poliza, Integer> {
+public interface PolizaRepository extends JpaRepository<Poliza, Integer> {
 
     List<Poliza> findByClienteId(Integer id);
+
+    List<Poliza> findByAnular(Boolean bool);
+
+    List<Poliza> findByRenovar(Boolean bool);
 
 }
