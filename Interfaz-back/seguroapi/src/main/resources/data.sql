@@ -25,15 +25,15 @@ VALUES
   (1018, 'alberto@ejemplo.com', '43218765I', 'albertosanchez', 'Alberto', 'Sánchez', 'miclave', '1993-03-15', 'Calle Serrano 9', '+34 912 345 686'),
   (1019, 'irene@ejemplo.com', '13572468J', 'irenegomez', 'Irene', 'Gómez', 'miclave', '1988-09-05', 'Calle Velázquez 10', '+34 912 345 687');
 
-INSERT INTO POLIZA (id, fecha_inicio, pdf_poliza, periodicidad, precio, fecha_termino, cliente, seguro)
-VALUES 
-(1, '2023-04-04', null, 'Anual', 100.5, '2024-04-04', 1010, 1000),
-(2, '2023-04-04', null, 'Mensual', 200.75, '2023-05-04', 1011, 1001),
-(3, '2023-04-04', null, 'Mensual', 200.75, '2023-05-04', 1012, 1002),
-(4, '2023-04-04', null, 'Anual', 300.00, '2023-04-04', 1013, 1003),
-(5, '2023-04-04', null, 'Trimestral', 150.25, '2023-07-04', 1014, 1004),
-(6, '2023-04-04', null, 'Anual', 50.00, '2024-04-04', 1015, 1005),
-(7, '2023-04-04', null, 'Anual', 80.50, '2024-04-04', 1016, 1006),
-(8, '2023-04-04', null, 'Mensual', 120.00, '2023-05-04', 1017, 1007),
-(9, '2023-04-04', null, 'Anual', 75.75, '2024-04-04', 1018, 1008),
-(10, '2023-04-04', null, 'Anual', 200.00, '2024-04-04', 1019, 1009);
+INSERT INTO POLIZA (id, fecha_inicio, pdf_poliza, periodicidad, precio, fecha_termino, cliente, seguro, anular, renovar)
+VALUES
+(1, '2023-04-04', null, 'Anual', 100.5, '2024-04-04', 1010, 1000, true, false),
+(2, '2023-04-04', null, 'Mensual', 200.75, '2023-05-04', 1011, 1001, true, false),
+(3, '2023-04-04', null, 'Mensual', 200.75, '2023-05-04', 1012, 1002, false, true),
+(4, '2023-04-04', null, 'Anual', 300.00, '2023-04-04', 1013, 1003, true, false),
+(5, '2023-04-04', null, 'Trimestral', 150.25, '2023-07-04', 1014, 1004, false, true),
+(6, '2023-04-04', null, 'Anual', 50.00, '2024-04-04', 1015, 1005, false, true),
+(7, '2023-04-04', null, 'Anual', 80.50, '2024-04-04', 1016, 1006, true, false),
+(8, '2023-04-04', null, 'Mensual', 120.00, '2023-05-04', 1017, 1007, false, true),
+(9, '2023-04-04', null, 'Anual', 75.75, '2024-04-04', 1018, 1008, false, true),
+(10, '2023-04-04', null, 'Anual', 200.00, '2024-04-04', 1019, 1009, false, true);

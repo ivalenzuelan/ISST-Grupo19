@@ -165,6 +165,18 @@ public class SeguroController {
 
     }
 
+    @GetMapping("/polizas/renovar")
+    List<Poliza> readPolizasRenovar() {
+        return (List<Poliza>) polizaRepository.findByRenovar(true);
+
+    }
+
+    @GetMapping("/polizas/anular")
+    List<Poliza> readPolizasAnular() {
+        return (List<Poliza>) polizaRepository.findByAnular(true);
+
+    }
+
     @GetMapping("polizas/cliente/{id}")
     List<Poliza> findPolizasByCliente(@PathVariable Integer id) {
         return (List<Poliza>) polizaRepository.findByClienteId(id);
@@ -205,11 +217,16 @@ public class SeguroController {
             poliza.setTermino(newPoliza.getTermino());
             poliza.setPrecio(newPoliza.getPrecio());
             poliza.setPeriodicidad(newPoliza.getPeriodicidad());
+            poliza.setAnular(newPoliza.getAnular());
+            poliza.setRenovar(newPoliza.getRenovar());
             poliza.setPdf_poliza(newPoliza.getPdf_poliza());
 
             polizaRepository.save(poliza);
             return ResponseEntity.ok().body(poliza);
         }).orElse(new ResponseEntity<Poliza>(HttpStatus.NOT_FOUND));
     }
+
+
+
 
 }

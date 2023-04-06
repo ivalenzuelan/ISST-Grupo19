@@ -9,6 +9,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Card } from "primereact/card";
+import { Card } from "primereact/card";
         
         
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -22,6 +23,16 @@ export default function ClientesCorredor(props){
     const [filtro,setFiltro]=useState(null)
     const [clientes, setClientes] = useState(props.losclientes);
     const [cliente,setCliente] = useState({
+        "id": null,
+        "mail": null,
+        "idFiscal": null,
+        "username": null,
+        "nombre": null,
+        "apellidos": null,
+        "password": null,
+        "nacimiento": Date,
+        "direccion": null,
+        "telefono": null,
         "id": null,
         "mail": null,
         "idFiscal": null,
@@ -70,6 +81,7 @@ export default function ClientesCorredor(props){
     }
 
     // TODO: no funciona el filtro
+    // TODO: no funciona el filtro
     return <div id='seguro_por_tipo'>  
         <div id="seccion">
             <span className="p-input-icon-left">
@@ -89,6 +101,16 @@ export default function ClientesCorredor(props){
             </div>
 
             {clientes.map((item,index)=>(
+                <Card title={item.nombre+" "+item.apellidos}>
+                    <p>
+                        <p><b>Email:</b> {item.mail}</p>
+                        <p><b>Telefóno:</b> {item.telefono}</p>
+                        <p><b>Nombre de usuario:</b> {item.username}</p>
+                        <p><Link to={"/clientesCorredor/" + (item.id)}><Button label="Más información"/></Link></p>
+                        
+                    </p>
+                </Card>
+            
                 <Card title={item.nombre+" "+item.apellidos}>
                     <p>
                         <p><b>Email:</b> {item.mail}</p>

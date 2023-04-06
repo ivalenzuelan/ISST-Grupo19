@@ -40,8 +40,13 @@ public class Cliente {
     @Column(name="TELEFONO")
     private String telefono;
 
+    // @Column(name="CITA")
+    // private LocalDate cita;
+
     @OneToMany(mappedBy = "cliente")
     Set<Poliza> poliza;
+
+
     
     public Cliente() {
     }

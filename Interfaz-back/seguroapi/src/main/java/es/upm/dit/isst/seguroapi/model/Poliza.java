@@ -29,17 +29,21 @@ public class Poliza {
     @Column(name="PRECIO")
     private double precio;
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     @Column(name="PERIODICIDAD")
     private String periodicidad;
+
+    @Column(name="ANULAR")
+    private Boolean anular;
+
+    @Column(name="RENOVAR")
+    private Boolean renovar;
 
     @Lob
     @Column(name="PDF_POLIZA")
     private byte[] pdf_poliza;
 
+
+    
     public Poliza() {
     }
 
@@ -51,6 +55,24 @@ public class Poliza {
         this.termino = termino;
         this.precio = precio;
         this.periodicidad = periodicidad;
+    }
+    
+    
+
+    public Boolean getAnular() {
+        return anular;
+    }
+
+    public void setAnular(Boolean anular) {
+        this.anular = anular;
+    }
+
+    public Boolean getRenovar() {
+        return renovar;
+    }
+
+    public void setRenovar(Boolean renovar) {
+        this.renovar = renovar;
     }
 
     public Long getId() {
