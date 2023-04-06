@@ -18,6 +18,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import PolizasContratadas from './ClienteView/PolizasContratadas';
 
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
           <Route path="/segurosCorredor" element={<SegurosCorredor losseguros={seguro.seguros}/>} />
           <Route path="/clientesCorredor" element={<ClientesCorredor losclientes={cliente.clientes}/>} />
           <Route path="/clientesCorredor/:id" element={<EditarCliente losseguros={seguro.seguros}/>}/>
+          <Route path="/clientes/:id" element={<PolizasContratadas losclientes={cliente.clientes}/>} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
     }

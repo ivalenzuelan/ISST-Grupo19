@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, useRef} from "react"
 import Form from 'react-bootstrap/Form';
 import { MDBCardText } from 'mdb-react-ui-kit';
 import { useParams} from 'react-router-dom';
@@ -8,6 +8,7 @@ import { Menubar } from 'primereact/menubar';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
         
         
              
@@ -24,6 +25,7 @@ export default function SegurosCorredor(props){
 
     const [filtro,setFiltro]=useState(null)
     const [seguros, setSeguros] = useState(props.losseguros);
+    const [seguroSeleccionado, setSeguroSeleccionado] = useState({});
     const [seguro,setSeguro] = useState({
         id:0,
         nombre: null,
@@ -36,23 +38,24 @@ export default function SegurosCorredor(props){
     const [visible, setVisible] = useState(false);
     const items =[
         {
-            label: 'Nuevo',
+            label: 'Añadir Seguro',
             icon: 'pi pi-fw pi-plus',
             command: () => {showSaveDialog()}
         },
         {
-            label: 'Editar',
+            label: 'Editar Seguro',
             icon: 'pi pi-fw pi-pencil',
             command: () => {alert('Edited')}
         },
         {
-            label: 'Eliminar',
+            label: 'Eliminar Seguro',
             icon: 'pi pi-fw pi-trash',
             command: () => {alert('Deleted')}
         },
 
     ]
     const url = new SeguroService()
+    const toast = useRef(null)
   
     const filtrar=()=>{
        setSeguros(seguros.filter(seguro => seguro.nombre.toLowerCase().includes(filtro)))
@@ -72,12 +75,36 @@ export default function SegurosCorredor(props){
     const showSaveDialog = ()=> {
         setVisible(true)
     }
+    const showEditDialog=()=>{
+        console.log(seguroSeleccionado)
+        setSeguro({
+            id: seguroSeleccionado.seguro.id,
+            nombre: seguroSeleccionado.seguro.nombre,
+            tipo: seguroSeleccionado.seguro.tipo,
+            descripcion: seguroSeleccionado.seguro.descripcion,
+            precio: seguroSeleccionado.seguro.precio,
+            periodicidad: seguroSeleccionado.seguro.periodicidad,
+            aseguradora: seguroSeleccionado.seguro.aseguradora,
+        })
+        setVisible(true)
+    }
+
 
     const save = () =>{
         console.log(seguro.seguro)
         url.save(seguro.seguro).then( data =>{
             console.log(data)
         })
+    }
+
+    const showError = (error) => {
+        toast.current.show({ severity: 'error', summary: 'Error', detail: {error} });
+    };
+    const deleteSeguro = (id) =>{
+        url.delete(id)
+            .then(data => data) 
+            .catch(showError(error)) 
+
     }
 
     return <div id='seguro_por_tipo'>  
@@ -106,7 +133,9 @@ export default function SegurosCorredor(props){
                         <h5 class="card-title">{item.nombre}</h5>
                         <p class="card-text"> {item.descripción}</p>
                         <p class="card-text"> {item.precio} / {item.periodicidad}</p>
-                        <a href="#" class="btn btn-primary">Mas información</a>
+                        <button onClick={()=>{setSeguroSeleccionado({seguro: item}); showEditDialog()}}>Editar Seguro</button>
+                        <button onClick={()=>{deleteSeguro(item.id)}}>Eliminar Seguro</button>
+                
                     </div>
                 </div>
              ))}
@@ -115,7 +144,7 @@ export default function SegurosCorredor(props){
         
             <Dialog header="Crear Seguro" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={save}/>} onHide={() => setVisible(false)}>
             <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="id" value={seguro.value} onChange={(e) => setSeguro(prevState=>{
+                    <InputText style={{width: '60%', margin: '5px'}} id="id" value={seguro.id} onChange={(e) => setSeguro(prevState=>{
                         let seguro = Object.assign({}, prevState.seguro);
                         seguro.id = e.target.value
                         return {seguro}
@@ -123,7 +152,7 @@ export default function SegurosCorredor(props){
                     <label htmlFor="id">Id</label>
                 </span>
                 <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="nombre" value={seguro.value} onChange={(e) => setSeguro(prevState=>{
+                    <InputText style={{width: '60%', margin: '5px'}} id="nombre" value={seguro.nombre} onChange={(e) => setSeguro(prevState=>{
                         let seguro = Object.assign({}, prevState.seguro);
                         seguro.nombre = e.target.value
                         return {seguro}
@@ -131,7 +160,7 @@ export default function SegurosCorredor(props){
                     <label htmlFor="nombre">Nombre</label>
                 </span>
                 <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="tipo" value={seguro.value} onChange={(e) => setSeguro(prevState=>{
+                    <InputText style={{width: '60%', margin: '5px'}} id="tipo" value={seguro.tipo} onChange={(e) => setSeguro(prevState=>{
                         let seguro = Object.assign({}, prevState.seguro);
                         seguro.tipo = e.target.value
                         return {seguro}
@@ -139,7 +168,7 @@ export default function SegurosCorredor(props){
                     <label htmlFor="tipo">Tipo</label>
                 </span>
                 <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="descripcion" value={seguro.value} onChange={(e) => setSeguro(prevState=>{
+                    <InputText style={{width: '60%', margin: '5px'}} id="descripcion" value={seguro.descripcion} onChange={(e) => setSeguro(prevState=>{
                         let seguro = Object.assign({}, prevState.seguro);
                         seguro.descripcion = e.target.value
                         return {seguro}
@@ -147,7 +176,7 @@ export default function SegurosCorredor(props){
                     <label htmlFor="descripcion">Descripcion</label>
                 </span>
                 <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="precio" value={seguro.value} onChange={(e) => setSeguro(prevState=>{
+                    <InputText style={{width: '60%', margin: '5px'}} id="precio" value={seguro.precio} onChange={(e) => setSeguro(prevState=>{
                         let seguro = Object.assign({}, prevState.seguro);
                         seguro.precio = e.target.value
                         return {seguro}
@@ -155,7 +184,7 @@ export default function SegurosCorredor(props){
                     <label htmlFor="precio">Precio</label>
                 </span>
                 <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="periodicidad" value={seguro.value} onChange={(e) => setSeguro(prevState=>{
+                    <InputText style={{width: '60%', margin: '5px'}} id="periodicidad" value={seguro.periodicidad} onChange={(e) => setSeguro(prevState=>{
                         let seguro = Object.assign({}, prevState.seguro);
                         seguro.periodicidad = e.target.value
                         return {seguro}
@@ -163,11 +192,12 @@ export default function SegurosCorredor(props){
                     <label htmlFor="periodicidad">Periodicidad</label>
                 </span>
                 <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="aseguradora" value={seguro.value} onChange={(e) => setSeguro(prevState=>{
+                    <InputText style={{width: '60%', margin: '5px'}} id="aseguradora" value={seguro.aseguradora} onChange={(e) =>{ 
+                        setSeguro(prevState=>{
                         let seguro = Object.assign({}, prevState.seguro);
                         seguro.aseguradora = e.target.value
                         return {seguro}
-                    })} />
+                    })}} />
                     <label htmlFor="aseguradora">Aseguradora</label>
                 </span>
            

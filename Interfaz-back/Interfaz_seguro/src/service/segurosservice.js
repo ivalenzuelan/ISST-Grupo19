@@ -28,6 +28,10 @@ export class SeguroService {
     })
     }
 
+    delete(id) {
+        return axios.delete(this.baseUrl+"seguros/"+id).then(res => res.data)
+    }
+
     getAllClientes() {
         return axios.get(this.baseUrl+"clientes").then(res => {
             return res.data

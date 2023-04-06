@@ -9,11 +9,16 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
+import { OrderList } from 'primereact/orderlist';
+import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
+        
            
         
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";  
+import 'primeflex/primeflex.css';
+        
 
                                                
         
@@ -26,6 +31,7 @@ export default function EditarCliente(props){
     const [SeguroSeleccionado, setSeguroSeleccionado] = useState(null);
     const [polizas, setPolizas] = useState({})
     const [visible, setVisible] = useState(false);
+    const [loading, setLoading] = useState(true);
     const items =[
         {
             label: 'Nueva Poliza',
@@ -62,19 +68,24 @@ export default function EditarCliente(props){
     }
     const callServerPoliza = async (param) =>{
         await url.getPolizasCliente(id).then(data => {
-          setPolizas(data)   
+          setPolizas({polizas: data})   
         })
     }
   
     useEffect(() => {
         function fetchData() {	
-          callServer();
-            setTimeout(50);	
-          callServerPoliza();
-            setTimeout(50);
+        callServerPoliza();
+        setTimeout(()=>{
+            setLoading(false);
+          },100);	
+        callServer();
+        setTimeout(()=>{
+            setLoading(false);
+          },100);	          
         }
         fetchData();
-      }, []);
+        console.log(polizas)
+    }, []);
     
     const showSaveDialog = ()=> {
         setVisible(true)
@@ -112,18 +123,38 @@ export default function EditarCliente(props){
         );
     };
 
+    
     return  <div className="lista_seguro">
-                <Menubar model={items} /> 
+            <Menubar model={items} /> 
                 <div key={cliente.id} class="card" className="lista_seguro" style={{height:MDBCardText, width: '800px', textAlign:'justify' }}>
                     <h5 class="card-header">{ cliente.nombre} {cliente.apellidos}</h5>
                     <div class="card-body">
                         <h5 class="card-title">{cliente.username}</h5>
                         <p class="card-text"> {cliente.mail}</p>
-                        <p class="card-text"> {cliente.telefono} / {cliente.periodicidad}</p>
+                        <p class="card-text"> {cliente.telefono} </p>
                     </div>
+                    
                 </div>
+            {loading ? <div>
+                </div> :
+                <div>
+                <h4>Polizas contratadas</h4>
+                {polizas.polizas.map((item,index)=>(
+                    <div key={item.id} class="card" className="lista_seguro" style={{height:MDBCardText, width: '800px', textAlign:'justify' }}>
+                        <h5 class="card-header">{ item.seguro.nombre}- {item.seguro.aseguradora}</h5>
+                        <div class="card-body">
+                            <p class="card-title">Fecha inicio: {item.inicio}</p>
+                            <p class="card-text">Fecha de expiración: {item.termino}</p>
+                            <p class="card-text"> {item.precio} / {item.periodicidad}</p>
+                            <button> Solicitar renovación </button>
+                            <button> Solicitar anulación </button>
+                        </div>
+                    </div>
+                 ))}
+                 </div>
+                }
+            
                 <Dialog header="Añadir Poliza" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={save}/>} onHide={() => setVisible(false)}>
-                
                 <span className="p-float-label">
                     <InputText style={{width: '60%', margin: '5px'}} id="inicio" value={poliza.value} onChange={(e) => setPoliza(prevState=>{
                         let poliza = Object.assign({}, prevState.poliza);
@@ -167,7 +198,6 @@ export default function EditarCliente(props){
                 </span>
                
             </Dialog>  
-            {console.log(polizas)} 
         </div>
 }
 
