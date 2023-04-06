@@ -217,6 +217,8 @@ public class SeguroController {
             poliza.setTermino(newPoliza.getTermino());
             poliza.setPrecio(newPoliza.getPrecio());
             poliza.setPeriodicidad(newPoliza.getPeriodicidad());
+            poliza.setAnular(newPoliza.getAnular());
+            poliza.setRenovar(newPoliza.getRenovar());
             poliza.setPdf_poliza(newPoliza.getPdf_poliza());
 
             polizaRepository.save(poliza);
