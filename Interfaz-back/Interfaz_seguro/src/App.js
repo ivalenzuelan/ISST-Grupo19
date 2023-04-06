@@ -21,20 +21,11 @@ import '@fontsource/roboto/700.css';
 import PolizasContratadas from './ClienteView/PolizasContratadas';
 
 
-import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-
 import 'primereact/resources/themes/saga-blue/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 
-
-import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-
-import 'primereact/resources/themes/saga-blue/theme.css'
-import 'primereact/resources/primereact.min.css'
-import 'primeicons/primeicons.css'
+import TareasPendientes from './CorredorView/TareasPendientes';
 
 
 function App() {
@@ -83,6 +74,7 @@ function App() {
           <Route path="/seguros/tipo/:tipo" element={<SegurosTipo losseguros={seguro.seguros}/>} />
           <Route path="/segurosCorredor" element={<SegurosCorredor losseguros={seguro.seguros}/>} />
           <Route path="/clientesCorredor" element={<ClientesCorredor losclientes={cliente.clientes}/>} />
+          <Route path="/tareasCorredor" element={<TareasPendientes/>} />
           <Route path="/clientesCorredor/:id" element={<EditarCliente losseguros={seguro.seguros}/>}/>
           <Route path="/clientes/:id" element={<PolizasContratadas losclientes={cliente.clientes}/>} />
           <Route path="*" element={<NoMatch />} />

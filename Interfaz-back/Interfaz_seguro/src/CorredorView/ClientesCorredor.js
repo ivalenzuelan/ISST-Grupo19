@@ -9,7 +9,6 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Card } from "primereact/card";
-import { Card } from "primereact/card";
         
         
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -81,7 +80,6 @@ export default function ClientesCorredor(props){
     }
 
     // TODO: no funciona el filtro
-    // TODO: no funciona el filtro
     return <div id='seguro_por_tipo'>  
         <div id="seccion">
             <span className="p-input-icon-left">
@@ -101,6 +99,7 @@ export default function ClientesCorredor(props){
             </div>
 
             {clientes.map((item,index)=>(
+                <div>
                 <Card title={item.nombre+" "+item.apellidos}>
                     <p>
                         <p><b>Email:</b> {item.mail}</p>
@@ -120,7 +119,7 @@ export default function ClientesCorredor(props){
                         
                     </p>
                 </Card>
-            
+                </div>
              ))}
             
         </div>

@@ -65,8 +65,14 @@ export class SeguroService {
         })
     }
 
-    
+    getPolizasRenovar(){
+        return axios.get(this.baseUrl+ "polizas/renovar").then( res => res.data)
+    }
 
+    getPolizasAnular(){
+        return axios.get(this.baseUrl+ "polizas/anular").then( res => res.data)
+    }
+  
 
 // De esta manera ya podemos consumir el nuestra API REST (Estamos llamando al servicio de obtener todos los seguros)
 
