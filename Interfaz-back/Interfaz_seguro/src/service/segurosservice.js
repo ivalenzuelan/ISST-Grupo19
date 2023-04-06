@@ -27,6 +27,10 @@ export class SeguroService {
         return axios.post(this.baseUrl+"seguros", seguro, {headers:{"Content-Type" : "application/json"}}).then(res => {console.log(res.data)
     })
     }
+    editSeguro(seguro) {
+        return axios.put(this.baseUrl+"seguros/"+seguro.id, seguro, {headers:{"Content-Type" : "application/json"}}).then(res => {console.log(res.data)
+    })
+    }
 
     delete(id) {
         return axios.delete(this.baseUrl+"seguros/"+id).then(res => res.data)

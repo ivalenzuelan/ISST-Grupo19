@@ -5,13 +5,15 @@ import { useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
-
+import { InputText } from "primereact/inputtext";
+ 
 export default function SegurosTipo(props){ 
-
-    let {tipo} = useParams()
-    const [filtro,setFiltro]=useState(null)
+ 
+    let {tipo} = useParams();
+    const [filtro, setFiltro]=useState(null);
     const [seguro, setSeguro] = useState(props.losseguros);
-    const url = new SeguroService()
+    const url = new SeguroService();
+
   
     const callServer = async (param) =>{
           await url.getTipo(tipo).then(data => {
@@ -20,37 +22,34 @@ export default function SegurosTipo(props){
           })
           console.log(seguro)
       }
+ 
   
     useEffect(() => {
-        async function fetchData() {	
+        async function fetchData() {    
           await callServer();
             setTimeout(()=>{
-            },30);		
+            },30);      
         }
         fetchData();
       }, []);
-    
+ 
     const filtrar=()=>{
-       setSeguro(seguro.filter(seguro => seguro.nombre.toLowerCase().includes(filtro)))
-    }
+        setSeguros(seguros.filter(seguro => seguro.nombre.toLowerCase().includes(filtro.toLowerCase())))
+     }
+ 
     
-    /*const categoria = props.losseguros.reduce((anterior,actual)=>{
-        if(anterior.includes(actual.tipo)){
-            return anterior;
-        }else{
-             return [...anterior,actual.tipo];
-        }},[]);
-    const filtrarCategoria=()=>{
-        console.log(document.getElementById("selector").value)
-        setSeguro(props.losseguros.filter(producto => producto.tipo.toLowerCase().includes(document.getElementById("selector").value)))
-    }*/
-
     return <div id='seguro_por_tipo'>  
-        <div id="seccion">
-            <div id="SeccionFiltrar">
-                <h5> Filtro por seguro </h5>
-                <input id="filtro" type="string" placeholder="All" onChange={e=>setFiltro(e.target.value)}></input>
-                <button id="buscador" onClick={()=>filtrar()}> Buscar </button> 
+                <div id="seccion">
+            <div >
+                <span className="p-input-icon-left">
+                    <i className="pi pi-search" />
+                    <InputText id="filtro" placeholder="Buscar seguros" onChange={e=>setFiltro(e.target.value)}
+                        onKeyPress={e => {
+                            if (e.key === 'Enter') {
+                            filtrar();
+                            }
+                        }}/>
+                </span>
             </div>
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -73,5 +72,5 @@ export default function SegurosTipo(props){
             
         </div>
     </div>
-
+ 
 }

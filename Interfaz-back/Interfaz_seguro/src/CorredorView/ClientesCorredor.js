@@ -8,6 +8,7 @@ import { Menubar } from 'primereact/menubar';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { Card } from "primereact/card";
         
         
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -21,16 +22,16 @@ export default function ClientesCorredor(props){
     const [filtro,setFiltro]=useState(null)
     const [clientes, setClientes] = useState(props.losclientes);
     const [cliente,setCliente] = useState({
-        id: null,
-        mail: null,
-        idFiscal: null,
-        username: null,
-        nombre: null,
-        apellidos: null,
-        password: null,
-        nacimiento: Date,
-        direccion: null,
-        telefono: null,
+        "id": null,
+        "mail": null,
+        "idFiscal": null,
+        "username": null,
+        "nombre": null,
+        "apellidos": null,
+        "password": null,
+        "nacimiento": Date,
+        "direccion": null,
+        "telefono": null,
     })
     const [visible, setVisible] = useState(false);
     const items =[
@@ -54,7 +55,7 @@ export default function ClientesCorredor(props){
     const url = new SeguroService()
   
     const filtrar=()=>{
-       setClientes(clientes.filter(cliente => cliente.nombre.toLowerCase().includes(filtro)))
+        setClientes(clientes.filter(cliente => cliente.nombre.toLowerCase().includes(filtro.toLowerCase())))
     }
     
 
@@ -68,26 +69,36 @@ export default function ClientesCorredor(props){
         })
     }
 
+    // TODO: no funciona el filtro
     return <div id='seguro_por_tipo'>  
         <div id="seccion">
-            <div id="SeccionFiltrar">
-                <h5> Filtro por seguro </h5>
-                <input id="filtro" type="string" placeholder="All" onChange={e=>setFiltro(e.target.value)}></input>
-                <button id="buscador" onClick={()=>filtrar()}> Buscar </button> 
-            </div>
+            <span className="p-input-icon-left">
+                <i className="pi pi-search" />
+                    <InputText id="filtro" placeholder="Buscar seguros" onChange={e=>setFiltro(e.target.value)}
+                        onKeyPress={e => {
+                            if (e.key === 'Enter') {
+                            filtrar();
+                            }
+                        }}/>
+            </span>
         </div>
         <div className="lista_seguro">
-            <Menubar model={items} /> 
+
+            <div className="menubar-wrapper">
+                <Menubar model={items} className="custom-menubar" />
+            </div>
+
             {clientes.map((item,index)=>(
-                <div key={item.id} class="card" className="lista_seguro" style={{height:MDBCardText, width: '800px', textAlign:'justify' }}>
-                    <h5 class="card-header">{ item.nombre} {item.apellidos}</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">{item.username}</h5>
-                        <p class="card-text"> {item.mail}</p>
-                        <p class="card-text"> {item.telefono} / {item.periodicidad}</p>
-                        <Link to={"/clientesCorredor/" + (item.id)}><a href="#" class="btn btn-primary">Mas información</a></Link>
-                    </div>
-                </div>
+                <Card title={item.nombre+" "+item.apellidos}>
+                    <p>
+                        <p><b>Email:</b> {item.mail}</p>
+                        <p><b>Telefóno:</b> {item.telefono}</p>
+                        <p><b>Nombre de usuario:</b> {item.username}</p>
+                        <p><Link to={"/clientesCorredor/" + (item.id)}><Button label="Más información"/></Link></p>
+                        
+                    </p>
+                </Card>
+            
              ))}
             
         </div>
