@@ -40,8 +40,8 @@ public class Cliente {
     @Column(name="TELEFONO")
     private String telefono;
 
-    // @Column(name="CITA")
-    // private LocalDate cita;
+    @Column(name="CITA")
+    private LocalDate cita;
 
     @OneToMany(mappedBy = "cliente")
     Set<Poliza> poliza;
@@ -160,6 +160,14 @@ public class Cliente {
         return telefono;
     }
 
+
+    public LocalDate getCita() {
+        return cita;
+    }
+
+    public void setCita(LocalDate cita) {
+        this.cita = cita;
+    }
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;

@@ -117,6 +117,11 @@ public class SeguroController {
         return (List<Cliente>) clienteRepository.findAll();
     }
 
+    @GetMapping("/clientesConCita")
+    List<Cliente> readClientesCita() {
+        return (List<Cliente>) clienteRepository.findByCitaNotNullOrderByCita();
+    }
+
     @PostMapping("/clientes")
     ResponseEntity<Cliente> createCliente(@RequestBody Cliente newCliente) throws URISyntaxException {
         Cliente result = clienteRepository.save(newCliente);

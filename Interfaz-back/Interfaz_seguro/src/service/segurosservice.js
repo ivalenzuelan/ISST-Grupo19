@@ -34,6 +34,12 @@ export class SeguroService {
         })
     }
 
+    getClientesConCita() {
+        return axios.get(this.baseUrl+"clientesConCita").then(res => {
+            return res.data
+        })
+    }
+
 
     saveCliente(cliente) {
         return axios.post(this.baseUrl+"clientes", cliente, {headers:{"Content-Type" : "application/json"}}).then(res => {console.log(res.data)

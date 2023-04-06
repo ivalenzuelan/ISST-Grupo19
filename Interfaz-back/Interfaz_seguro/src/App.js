@@ -14,6 +14,7 @@ import {SeguroService} from './service/segurosservice'
 import SegurosCorredor from './CorredorView/SegurosCorredor';
 import ClientesCorredor from './CorredorView/ClientesCorredor';
 import EditarCliente from './CorredorView/EditarCliente';
+import TareasPendientes from './CorredorView/TareasPendientes';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -75,6 +76,7 @@ function App() {
           <Route path="/segurosCorredor" element={<SegurosCorredor losseguros={seguro.seguros}/>} />
           <Route path="/clientesCorredor" element={<ClientesCorredor losclientes={cliente.clientes}/>} />
           <Route path="/clientesCorredor/:id" element={<EditarCliente losseguros={seguro.seguros}/>}/>
+          <Route path="/listaTareas" element={<TareasPendientes losclientes={cliente.clientes}/>}/>
           <Route path="*" element={<NoMatch />} />
         </Routes>
     }
