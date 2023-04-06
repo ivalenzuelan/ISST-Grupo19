@@ -19,7 +19,8 @@ export default function TareasPendientes(props){
 
     const callServerClientesConCita = async (param) =>{
       await url.getClientesConCita().then(data => {
-        setClientesConCita({clientesConCita: data})   
+        setClientesConCita({clientesConCita: data})
+        console.log(clientesConCita)   
       })
   }
   
@@ -41,7 +42,7 @@ export default function TareasPendientes(props){
                     <CitasClientes clientesCita={clientesConCita.clientesConCita}/>   
                 </div> 
                     :
-                    <p> Algo ha falaldo en el servidor intentelo de nuevo</p>    
+                    <p> Algo ha fallado en el servidor intentelo de nuevo</p>    
                 }    
             </div>
 }

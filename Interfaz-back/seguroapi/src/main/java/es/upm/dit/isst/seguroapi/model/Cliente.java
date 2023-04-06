@@ -52,7 +52,7 @@ public class Cliente {
     }
     
     public Cliente(String mail, String idFiscal, String username, String nombre, String apellidos,
-            String password, LocalDate nacimiento, String direccion, String telefono) {
+            String password, LocalDate nacimiento, String direccion, String telefono, LocalDate cita) {
         this.mail = mail;
         this.idFiscal = idFiscal;
         this.username = username;
@@ -62,17 +62,13 @@ public class Cliente {
         this.nacimiento = nacimiento;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.cita = cita;
     }
-
-
-
 
 
     public String getNombre() {
         return nombre;
     }
-
-
 
 
     public void setNombre(String nombre) {

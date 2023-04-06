@@ -14,16 +14,16 @@ VALUES
 
 INSERT INTO CLIENTE (id, mail, id_Fiscal, username, nombre, apellidos, password, nacimiento, direccion, telefono, cita)
 VALUES 
-  (1010, 'pepe@ejemplo.com', '12345678A', 'pepelopez', 'Pepe', 'López', 'miclave', '1990-01-01', 'Calle Mayor 1', '+34 912 345 678', '2022-05-04'),
-  (1011, 'laura@ejemplo.com', '87654321B', 'lauragarcia', 'Laura', 'García', 'miclave', '1995-05-05', 'Calle Cervantes 2', '+34 912 345 679', '2022-05-04'),
-  (1012, 'juan@ejemplo.com', '43215678C', 'juanmartinez', 'Juan', 'Martínez', 'miclave', '1985-12-25', 'Calle Goya 3', '+34 912 345 680', '2022-05-04'),
-  (1013, 'ana@ejemplo.com', '87654321D', 'anaperez', 'Ana', 'Pérez', 'miclave', '2000-08-15', 'Calle Alcalá 4', '+34 912 345 681', '2022-08-04'),
-  (1014, 'carlos@ejemplo.com', '13579246E', 'carlosrodriguez', 'Carlos', 'Rodríguez', 'miclave', '1992-04-30', 'Calle Gran Vía 5', '+34 912 345 682', '2022-07-04'),
-  (1015, 'maria@ejemplo.com', '98765432F', 'mariagonzalez', 'María', 'González', 'miclave', '1998-10-10', 'Calle Princesa 6', '+34 912 345 683', '2022-05-04'),
-  (1016, 'david@ejemplo.com', '12348765G', 'davidfernandez', 'David', 'Fernández', 'miclave', '1980-11-20', 'Calle Bravo Murillo 7', '+34 912 345 684', '2022-05-06'),
-  (1017, 'clara@ejemplo.com', '87651234H', 'clararodriguez', 'Clara', 'Rodríguez', 'miclave', '1996-07-12', 'Calle Paseo de la Castellana 8', '+34 912 345 685', null),
-  (1018, 'alberto@ejemplo.com', '43218765I', 'albertosanchez', 'Alberto', 'Sánchez', 'miclave', '1993-03-15', 'Calle Serrano 9', '+34 912 345 686', '2022-08-04'),
-  (1019, 'irene@ejemplo.com', '13572468J', 'irenegomez', 'Irene', 'Gómez', 'miclave', '1988-09-05', 'Calle Velázquez 10', '+34 912 345 687', '2023-05-04');
+  (1010, 'pepe@ejemplo.com', '12345678A', 'pepelopez', 'Pepe', 'Lopez', 'miclave', '1990-01-01', 'Calle Mayor 1', '+34 912 345 678', '2022-05-04'),
+  (1011, 'laura@ejemplo.com', '87654321B', 'lauragarcia', 'Laura', 'Garcia', 'miclave', '1995-05-05', 'Calle Cervantes 2', '+34 912 345 679', '2022-05-04'),
+  (1012, 'juan@ejemplo.com', '43215678C', 'juanmartinez', 'Juan', 'Martinez', 'miclave', '1985-12-25', 'Calle Goya 3', '+34 912 345 680', '2022-05-04'),
+  (1013, 'ana@ejemplo.com', '87654321D', 'anaperez', 'Ana', 'Perez', 'miclave', '2000-08-15', 'Calle Alcala 4', '+34 912 345 681', '2022-08-04'),
+  (1014, 'carlos@ejemplo.com', '13579246E', 'carlosrodriguez', 'Carlos', 'Rodriguez', 'miclave', '1992-04-30', 'Calle Gran Via 5', '+34 912 345 682', '2022-07-04'),
+  (1015, 'maria@ejemplo.com', '98765432F', 'mariagonzalez', 'Maria', 'Gonzalez', 'miclave', '1998-10-10', 'Calle Princesa 6', '+34 912 345 683', '2022-05-04'),
+  (1016, 'david@ejemplo.com', '12348765G', 'davidfernandez', 'David', 'Fernandez', 'miclave', '1980-11-20', 'Calle Bravo Murillo 7', '+34 912 345 684', '2022-05-06'),
+  (1017, 'clara@ejemplo.com', '87651234H', 'clararodriguez', 'Clara', 'Rodriguez', 'miclave', '1996-07-12', 'Calle Paseo de la Castellana 8', '+34 912 345 685', null),
+  (1018, 'alberto@ejemplo.com', '43218765I', 'albertosanchez', 'Alberto', 'Sanchez', 'miclave', '1993-03-15', 'Calle Serrano 9', '+34 912 345 686', '2022-08-04'),
+  (1019, 'irene@ejemplo.com', '13572468J', 'irenegomez', 'Irene', 'Gomez', 'miclave', '1988-09-05', 'Calle Velazquez 10', '+34 912 345 687', '2023-05-04');
 
 INSERT INTO POLIZA (id, fecha_inicio, pdf_poliza, periodicidad, precio, fecha_termino, cliente, seguro, anular, renovar)
 VALUES
