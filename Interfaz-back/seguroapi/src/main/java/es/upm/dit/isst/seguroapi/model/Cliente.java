@@ -40,8 +40,8 @@ public class Cliente {
     @Column(name="TELEFONO")
     private String telefono;
 
-    // @Column(name="CITA")
-    // private LocalDate cita;
+    @Column(name="CITA")
+    private LocalDate cita;
 
     @OneToMany(mappedBy = "cliente")
     Set<Poliza> poliza;
@@ -52,7 +52,7 @@ public class Cliente {
     }
     
     public Cliente(String mail, String idFiscal, String username, String nombre, String apellidos,
-            String password, LocalDate nacimiento, String direccion, String telefono) {
+            String password, LocalDate nacimiento, String direccion, String telefono, LocalDate cita) {
         this.mail = mail;
         this.idFiscal = idFiscal;
         this.username = username;
@@ -62,6 +62,7 @@ public class Cliente {
         this.nacimiento = nacimiento;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.cita = cita;
     }
 
 
@@ -163,6 +164,14 @@ public class Cliente {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public LocalDate getCita() {
+        return cita;
+    }
+
+    public void setCita(LocalDate cita) {
+        this.cita = cita;
     }
 
 

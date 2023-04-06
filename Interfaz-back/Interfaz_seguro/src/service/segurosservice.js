@@ -47,9 +47,22 @@ export class SeguroService {
         return axios.post(this.baseUrl+"clientes", cliente, {headers:{"Content-Type" : "application/json"}}).then(res => {console.log(res.data)
     })
     }
-    
+    editCliente(cliente) {
+        return axios.put(this.baseUrl +"clientes/"+cliente.id, cliente, {headers:{"Content-Type" : "application/json"}}).then(res => res.data)
+    }
+
+    editPoliza(poliza) {
+        return axios.put(this.baseUrl +"polizas/"+ poliza.id, poliza, {headers:{"Content-Type" : "application/json"}}).then(res => res.data)
+    }
+
     getCliente(id){
         return axios.get(this.baseUrl+"clientes/"+id).then( res => {
+            return res.data
+        })
+    }
+
+    getClientesConCita() {
+        return axios.get(this.baseUrl+"clientesConCita").then(res => {
             return res.data
         })
     }
@@ -72,6 +85,8 @@ export class SeguroService {
     getPolizasAnular(){
         return axios.get(this.baseUrl+ "polizas/anular").then( res => res.data)
     }
+
+    
   
 
 // De esta manera ya podemos consumir el nuestra API REST (Estamos llamando al servicio de obtener todos los seguros)

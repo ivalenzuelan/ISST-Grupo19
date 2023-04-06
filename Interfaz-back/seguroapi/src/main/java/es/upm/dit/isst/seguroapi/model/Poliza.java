@@ -5,12 +5,12 @@ import java.time.LocalDate;
 import javax.persistence.*;
 
 @Entity
-@Table(name="POLIZA")
+@Table(name = "POLIZA")
 public class Poliza {
     @Id
-    @Column(name="ID")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "CLIENTE", nullable = false)
@@ -20,30 +20,28 @@ public class Poliza {
     @JoinColumn(name = "SEGURO", nullable = false)
     Seguro seguro;
 
-    @Column(name="FECHA_INICIO", nullable = false)
+    @Column(name = "FECHA_INICIO", nullable = false)
     private LocalDate inicio;
 
-    @Column(name="FECHA_TERMINO", nullable = false)
+    @Column(name = "FECHA_TERMINO", nullable = false)
     private LocalDate termino;
 
-    @Column(name="PRECIO")
+    @Column(name = "PRECIO")
     private double precio;
 
-    @Column(name="PERIODICIDAD")
+    @Column(name = "PERIODICIDAD")
     private String periodicidad;
 
-    @Column(name="ANULAR")
+    @Column(name = "ANULAR")
     private Boolean anular;
 
-    @Column(name="RENOVAR")
+    @Column(name = "RENOVAR")
     private Boolean renovar;
 
     @Lob
-    @Column(name="PDF_POLIZA")
+    @Column(name = "PDF_POLIZA")
     private byte[] pdf_poliza;
 
-
-    
     public Poliza() {
     }
 
@@ -56,8 +54,6 @@ public class Poliza {
         this.precio = precio;
         this.periodicidad = periodicidad;
     }
-    
-    
 
     public Boolean getAnular() {
         return anular;
@@ -75,11 +71,11 @@ public class Poliza {
         this.renovar = renovar;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -138,15 +134,5 @@ public class Poliza {
     public void setPeriodicidad(String periodiciad) {
         this.periodicidad = periodiciad;
     }
-
-    
-
-
-
-    
-
-    
-
-    
 
 }

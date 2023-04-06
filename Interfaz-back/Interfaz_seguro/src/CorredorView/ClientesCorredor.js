@@ -32,16 +32,6 @@ export default function ClientesCorredor(props){
         "nacimiento": Date,
         "direccion": null,
         "telefono": null,
-        "id": null,
-        "mail": null,
-        "idFiscal": null,
-        "username": null,
-        "nombre": null,
-        "apellidos": null,
-        "password": null,
-        "nacimiento": Date,
-        "direccion": null,
-        "telefono": null,
     })
     const [visible, setVisible] = useState(false);
     const items =[

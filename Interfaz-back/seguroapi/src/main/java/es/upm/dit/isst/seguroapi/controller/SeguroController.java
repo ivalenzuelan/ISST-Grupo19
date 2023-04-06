@@ -117,6 +117,11 @@ public class SeguroController {
         return (List<Cliente>) clienteRepository.findAll();
     }
 
+    @GetMapping("/clientesConCita")
+    List<Cliente> readClientesCita() {
+        return (List<Cliente>) clienteRepository.findByCitaNotNullOrderByCita();
+    }
+
     @PostMapping("/clientes")
     ResponseEntity<Cliente> createCliente(@RequestBody Cliente newCliente) throws URISyntaxException {
         Cliente result = clienteRepository.save(newCliente);
@@ -145,6 +150,7 @@ public class SeguroController {
             cliente.setTelefono(newCliente.getTelefono());
             cliente.setUsername(newCliente.getUsername());
             cliente.setPassword(newCliente.getPassword());
+            cliente.setCita(newCliente.getCita());
 
             clienteRepository.save(cliente);
             return ResponseEntity.ok().body(cliente);
@@ -225,8 +231,5 @@ public class SeguroController {
             return ResponseEntity.ok().body(poliza);
         }).orElse(new ResponseEntity<Poliza>(HttpStatus.NOT_FOUND));
     }
-
-
-
 
 }

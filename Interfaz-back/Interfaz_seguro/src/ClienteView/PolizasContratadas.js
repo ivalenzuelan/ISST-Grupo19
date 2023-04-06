@@ -1,17 +1,19 @@
 import {useState, useEffect} from "react"
 import Form from 'react-bootstrap/Form';
-import { MDBCardText } from 'mdb-react-ui-kit';
 import { useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
 
 import { Menubar } from 'primereact/menubar';  
-        
+import { Dialog } from 'primereact/dialog'; 
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';      
            
         
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";  
 import 'primeflex/primeflex.css';
+import { Card } from "primereact/card";
         
 
                                                
@@ -21,14 +23,21 @@ export default function PolizasContratadas(props){
 
     let {id} = useParams()
     const [cliente, setCliente] = useState({});
-    const [polizas, setPolizas] = useState({})
+    const [polizas, setPolizas] = useState({});
+    const [poliza, setPoliza] = useState({});
     const [visible, setVisible] = useState(false);
+    const [citaVisible, setCitaVisible] = useState(false);
     const [loading, setLoading] = useState(true);
     const items =[
         {
             label: 'Modificar datos',
             icon: 'pi pi-fw pi-pencil',
-            command: () => {alert('Edited')}
+            command: () => {showEditDialog()}
+        },
+        {
+            label: 'Solicitar cita',
+            icon:'pi pi-calendar mr-2',
+            command: () => {showCitaDialog()}
         },
     ]
 
@@ -59,38 +68,152 @@ export default function PolizasContratadas(props){
         fetchData();
     }, []);
     
+    const showEditDialog=()=>{
+        setCliente({"cliente": cliente})
+        setVisible(true)
+    }
+    const showCitaDialog=()=>{
+        setCliente({"cliente": cliente})
+        setCitaVisible(true)
+    }
+    const editCliente=()=>{
+        url.editCliente(cliente.cliente).then(res => res.data)
+    }
 
+    const editPoliza=()=>{
+        console.log(poliza)
+        url.editPoliza(poliza.poliza).then(res => res.data)
+    }
+
+    const solicitarRenovar =(item)=>{
+        setPoliza({"poliza":item})
+        console.log(poliza)
+        setPoliza(prevState=>{
+            let poliza = Object.assign({}, prevState.poliza);
+            poliza.renovar = true
+            return {poliza}
+        })
+        console.log(poliza)
+        editPoliza()
+    }
+    const solicitarAnular =(item)=>{
+        setPoliza({"poliza":item})
+        setPoliza(prevState=>{
+            let poliza = Object.assign({}, prevState.poliza);
+            poliza.anular = true
+            return {poliza}
+        })
+        editPoliza()
+    }
     
-    return  <div className="lista_seguro">
-            <Menubar model={items} /> 
-                <div key={cliente.id} class="card" className="lista_seguro" style={{height:MDBCardText, width: '800px', textAlign:'justify' }}>
-                    <h5 class="card-header">{ cliente.nombre} {cliente.apellidos}</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">{cliente.username}</h5>
-                        <p class="card-text"> {cliente.mail}</p>
-                        <p class="card-text"> {cliente.telefono} </p>
-                    </div>     
-                </div>
+    return <div>
+        <div>
+        {cliente ? <div>
+            <div>
+                <Menubar model={items} /> 
+            </div>
+                <Card title ={ cliente.nombre+" "+cliente.apellidos}>
+                        <p>{cliente.username}</p>
+                        <p> {cliente.mail}</p>
+                        <p> {cliente.telefono} </p>
+                </Card>
+            </div>
+            :
+                <p> Algo ha fallado en el servidor. Intente de nuevo</p>
+        }
+        </div>
             {polizas.polizas ? <div>
                 <h4>Polizas contratadas</h4>
                 {polizas.polizas.map((item,index)=>(
-                    <div key={item.id} class="card" className="lista_seguro" style={{height:MDBCardText, width: '800px', textAlign:'justify' }}>
-                        <h5 class="card-header">{ item.seguro.nombre}- {item.seguro.aseguradora}</h5>
-                        <div class="card-body">
-                            <p class="card-title">Fecha inicio: {item.inicio}</p>
-                            <p class="card-text">Fecha de expiración: {item.termino}</p>
-                            <p class="card-text"> {item.precio} / {item.periodicidad}</p>
-                            <button> Solicitar renovación </button>
-                            <button> Solicitar anulación </button>
-                        </div>
-                    </div>
+                    <Card title = {item.seguro.nombre+"-"+item.seguro.aseguradora}>
+                            <p >Fecha inicio: {item.inicio}</p>
+                            <p>Fecha de expiración: {item.termino}</p>
+                            <p> {item.precio} / {item.periodicidad}</p>
+                            <p><Button onClick={() => {solicitarRenovar(item)}}> Solicitar renovación </Button></p>
+                            <p><Button onClick={() => {solicitarAnular(item)}}> Solicitar anulacion </Button></p>
+                    </Card>
                  ))}
                 </div>
                 :
                 <p> Algo ha fallado en el servidor. Intente de nuevo</p>
             }
-                
-            
+        <Dialog header="Modificar mis datos" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={editCliente}/>} onHide={() => setVisible(false)}>
+            <span className="p-float-label">
+                    <InputText style={{width: '60%', margin: '5px'}} id="username" value={cliente.username} onChange={(e) =>{         
+                        let val = e.target.value;
+                        setCliente(prevState=>{
+                            console.log(prevState)
+                            let clienteEdit = Object.assign({}, prevState);
+                            clienteEdit.cliente.username = val
+                            let cliente = clienteEdit.cliente
+                            return {cliente}
+                    })}} />
+                    <label htmlFor="username">Username</label>
+                </span>
+                <span className="p-float-label">
+                    <InputText style={{width: '60%', margin: '5px'}} id="mail" value={cliente.mail} onChange={(e) =>{         
+                        let val = e.target.value;
+                        setCliente(prevState=>{
+                            console.log(prevState)
+                            let clienteEdit = Object.assign({}, prevState);
+                            clienteEdit.cliente.mail = val
+                            let cliente = clienteEdit.cliente
+                            return {cliente}
+                    })}} />
+                    <label htmlFor="mail">Mail</label>
+                </span>
+                <span className="p-float-label">
+                    <InputText style={{width: '60%', margin: '5px'}} id="password" value={cliente.password} onChange={(e) =>{         
+                        let val = e.target.value;
+                        setCliente(prevState=>{
+                            console.log(prevState)
+                            let clienteEdit = Object.assign({}, prevState);
+                            clienteEdit.cliente.password = val
+                            let cliente = clienteEdit.cliente
+                            return {cliente}
+                    })}} />
+                    <label htmlFor="password">Contraseña</label>
+                </span>
+                <span className="p-float-label">
+                    <InputText style={{width: '60%', margin: '5px'}} id="direccion" value={cliente.password} onChange={(e) =>{         
+                        let val = e.target.value;
+                        setCliente(prevState=>{
+                            console.log(prevState)
+                            let clienteEdit = Object.assign({}, prevState);
+                            clienteEdit.cliente.direccion = val
+                            let cliente = clienteEdit.cliente
+                            return {cliente}
+                    })}} />
+                    <label htmlFor="direccion">Direccion</label>
+                </span>
+                <span className="p-float-label">
+                    <InputText style={{width: '60%', margin: '5px'}} id="telefono" value={cliente.telefono} onChange={(e) =>{         
+                        let val = e.target.value;
+                        setCliente(prevState=>{
+                            console.log(prevState)
+                            let clienteEdit = Object.assign({}, prevState);
+                            clienteEdit.cliente.telefono = val
+                            let cliente = clienteEdit.cliente
+                            return {cliente}
+                    })}} />
+                    <label htmlFor="telefono">Telefono</label>
+                </span>
+        </Dialog> 
+
+        <Dialog header="Solicitar cita" visible={citaVisible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={editCliente}/>} onHide={() => setCitaVisible(false)}>
+            <span className="p-float-label">
+                    <InputText style={{width: '60%', margin: '5px'}} id="cita" value={cliente.cita} onChange={(e) =>{         
+                        let val = e.target.value;
+                        setCliente(prevState=>{
+                            console.log(prevState)
+                            let clienteEdit = Object.assign({}, prevState);
+                            clienteEdit.cliente.cita = val
+                            let cliente = clienteEdit.cliente
+                            return {cliente}
+                    })}} />
+                    <label htmlFor="username">Username</label>
+                </span>      
+        </Dialog>   
         </div>
 }
     

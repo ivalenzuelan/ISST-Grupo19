@@ -146,8 +146,6 @@ export default function EditarCliente(props){
                             <p class="card-title">Fecha inicio: {item.inicio}</p>
                             <p class="card-text">Fecha de expiración: {item.termino}</p>
                             <p class="card-text"> {item.precio} / {item.periodicidad}</p>
-                            <button> Solicitar renovación </button>
-                            <button> Solicitar anulación </button>
                         </div>
                     </div>
                  ))}

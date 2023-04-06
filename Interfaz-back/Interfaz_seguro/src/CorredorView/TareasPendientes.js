@@ -10,6 +10,7 @@ import "primeicons/primeicons.css";
 import 'primeflex/primeflex.css';
 import SolicitarRenovacion from "./Tareas/SolicitarRenovacion";
 import SolicitarAnulacion from "./Tareas/SolicitarAnulacion";
+import CitasClientes from "./Tareas/CitasClientes";
 import { TabView, TabPanel } from 'primereact/tabview';
 import { Tab } from "bootstrap";
         
@@ -19,6 +20,7 @@ export default function TareasPendientes(props){
 
     const [polizasRenovar, setPolizasRenovar] = useState({})
     const [polizasAnular, setPolizasAnular] = useState({})
+    const [clientesConCita, setClientesConCita] = useState({})
 
     const url = new SeguroService()
 
@@ -34,6 +36,12 @@ export default function TareasPendientes(props){
           setPolizasAnular({polizasAnular: data})   
         })
     }
+
+    const callServerClientesConCita = async (param) =>{
+        await url.getClientesConCita().then(data => {
+          setClientesConCita({clientesConCita: data})   
+        })
+    }
   
     useEffect(() => {
         function fetchData() {	
@@ -44,7 +52,11 @@ export default function TareasPendientes(props){
         callServerPolizaAnular();
         setTimeout(()=>{
             
-          },100);	          
+          },100);	  
+        callServerClientesConCita();
+        setTimeout(()=>{
+            
+          },100);        
         }
         fetchData();
     }, []);
@@ -52,14 +64,19 @@ export default function TareasPendientes(props){
 
     
     return  <div className="lista_seguro"> 
-    {(polizasRenovar.polizasRenovar && polizasAnular.polizasAnular) ? 
-    <div className="card">        
+    {(polizasRenovar.polizasRenovar && polizasAnular.polizasAnular && clientesConCita.clientesConCita) ? 
+    
+    <div className="card">
+        {console.log(clientesConCita)}        
         <TabView>
                 <TabPanel header="Renovar polizas" leftIcon="pi pi-calendar mr-2">
                     <SolicitarRenovacion renovacion={polizasRenovar.polizasRenovar}/>  
                 </TabPanel>
                 <TabPanel header="Anular Polizas" leftIcon="pi pi-calendar mr-2">
                     <SolicitarAnulacion anulacion={polizasAnular.polizasAnular}/> 
+                </TabPanel>
+                <TabPanel header="Citas Solicitadas" leftIcon="pi pi-calendar mr-2">
+                    <CitasClientes clientesCita={clientesConCita.clientesConCita}/>
                 </TabPanel>
             </TabView>
     </div> 
