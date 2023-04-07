@@ -1,26 +1,44 @@
 package es.upm.dit.isst.seguroapi.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.util.Set;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name="SEGURO")
 public class Seguro {
     @Id
+    @Column(name="ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name="NOMBRE", nullable = false)
     private String nombre;
+
+    @Column(name="TIPO_SEGURO", nullable = false)
     private String tipo;
+
+    @Column(name="DESCRIPCION")
     private String descripcion;
+
+    @Column(name="PRECIO", nullable = false)
     private double precio;
+
+    @Column(name="PERIODICIDAD", nullable = false)
     private String periodicidad;
+
+    @Column(name="ASEGURADORA", nullable = false)
     private String aseguradora;
+
+    @OneToMany(mappedBy = "seguro")
+    Set<Poliza> poliza;
 
     /* Constructors */
     public Seguro() {
     }
 
-    public Seguro(int id, String nombre, String tipo, String descripcion, double precio, String periodicidad,
+    public Seguro(String nombre, String tipo, String descripcion, double precio, String periodicidad,
             String aseguradora) {
-        this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
         this.descripcion = descripcion;
@@ -31,11 +49,11 @@ public class Seguro {
 
     /* Getters and Setters */
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
+import { Button } from 'primereact/button';
+
 
 export default function Inicio() {
   return (
     <div>
       <div className="inicio"> 
         <div className='texto_inicio'>
-          <h1 id="titulo_inicio"> Integral Insurance</h1>
+          <h1 id="titulo_inicio"> Integral jglyghkjh Insurance</h1>
           <text className="descripcion_inicio"> En nuestro sitio web, podrás encontrar una amplia variedad de seguros para proteger tus bienes mas preciados, ya sea tu hogar, tu vehiculo o la empresa. Trabajamos con las mejores compañias del mercado para ofrecerte las mejores opciones y garantizar la tranquilidad que necesitas</text>
-          <Link to="/seguros"><button className='register_button' > VER SEGUROS</button></Link>
+          <Link to="/seguros"><Button className='register_button' > VER SEGUROS</Button></Link>
         </div>
         <div>
           <img className='image_inicio' src={process.env.PUBLIC_URL + "/fondo4.png"} />
