@@ -179,6 +179,7 @@ export default function SegurosCorredor(props){
                         <p><b>Aseguradora:</b> {item.aseguradora}</p>
                         <p><b>Precio:</b> {item.precio} €</p>
                         <p><b>Periodicidad:</b> {item.periodicidad}</p>
+                        <p><b>Tipo:</b> {item.tipo}</p>
                         <p><Button onClick={()=>{setSeguroSeleccionado({seguro: item}); showEditDialog()}}>Editar Seguro</Button></p>
                         <p><Button onClick={()=>{deleteSeguro(item.id)}}>Eliminar Seguro</Button></p>
                     </p>

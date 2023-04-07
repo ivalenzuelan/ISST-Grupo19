@@ -8,24 +8,39 @@ import {SeguroService} from '../../service/segurosservice'
 import { Button } from 'primereact/button';
 import {Card} from 'primereact/card'
 import { TabView, TabPanel } from 'primereact/tabview';
-                                                     
+import { Checkbox } from 'primereact/checkbox';
+
+
+        
+        
+                                                      
 
 export default function CitasClientes(props){ 
 
     const [clientesConCita, setClientesConCita] = useState(props.clientesCita)
 
-    console.log(clientesConCita)
+    //console.log(clientesConCita)
 
     const url = new SeguroService()
     
     const quitarCita = (cliente) =>{
-        console.log(cliente);
-        cliente.cita=null;
-        console.log(cliente);
-        url.saveCliente(cliente).then( data =>{
-            console.log(data)
+        setTimeout(() => {
+        console.log(cliente.value);
+        cliente.value.cita=null;
+        //console.log(cliente);
+        url.saveCliente(cliente.value).then( data =>{
+            deleteCliente(clientesConCita, cliente.value.id)
+            //console.log(data)
         })
+    }, 300);
     }
+
+    const deleteCliente = (clientes, id) => {
+        const updatedClientes = clientes.filter(cliente => cliente.id !== id);
+        setClientesConCita(updatedClientes);
+      };
+      
+      
 
     return <div>
   
@@ -33,16 +48,16 @@ export default function CitasClientes(props){
              <div className="card flex " style={{width:"400px"}}>
              <div className="flex flex-column gap-3">
                 <div></div>
-                 {clientesConCita.map((cliente) => {
-                     return (
+                 {clientesConCita.map((item,index)=>(
                          <Card>
-                            <Button icon="pi pi-check"/>
-                             <label htmlFor={cliente.id} className="card-content">
-                                 {"Visita de "+cliente.nombre+" "+cliente.apellidos+" el "+cliente.cita}
-                             </label>
+                            <div className="p-field-checkbox">
+                            <Checkbox id={item.id} value={item} onChange={quitarCita} />
+                            <label htmlFor={item.id} className="p-checkbox-label">
+                                Visita de {item.nombre} {item.apellidos} <br /> Fecha: {item.cita}
+                            </label>
+                            </div>
                         </Card>
-                     );
-                 })}
+                    ))}
              </div>
          </div>
          </div> 
