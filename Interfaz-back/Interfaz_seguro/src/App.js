@@ -26,7 +26,6 @@ import 'primereact/resources/themes/saga-blue/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 
-import TareasPendientes from './CorredorView/TareasPendientes';
 
 
 function App() {
