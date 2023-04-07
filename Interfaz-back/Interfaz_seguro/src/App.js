@@ -14,6 +14,7 @@ import {SeguroService} from './service/segurosservice'
 import SegurosCorredor from './CorredorView/SegurosCorredor';
 import ClientesCorredor from './CorredorView/ClientesCorredor';
 import EditarCliente from './CorredorView/EditarCliente';
+import TareasPendientes from './CorredorView/TareasPendientes';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';

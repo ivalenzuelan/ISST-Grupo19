@@ -4,16 +4,12 @@ import { MDBCardText } from 'mdb-react-ui-kit';
 import { useParams} from 'react-router-dom';
 import { Link } from "react-router-dom";
 import {SeguroService} from '../service/segurosservice'
-
 import { Menubar } from 'primereact/menubar';  
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { Card } from "primereact/card";
-
-        
-        
              
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -26,8 +22,9 @@ import "primeicons/primeicons.css";
 export default function SegurosCorredor(props){ 
 
 
-    const [filtro,setFiltro]=useState(null)
+    const [filtro,setFiltro] = useState(null)
     const [seguros, setSeguros] = useState(props.losseguros);
+    const [seguros2, setSeguros2] = useState(props.losseguros);
     const [seguroSeleccionado, setSeguroSeleccionado] = useState({});
     const [seguro,setSeguro] = useState({"seguro": {
         id:0,
@@ -51,30 +48,53 @@ export default function SegurosCorredor(props){
     const toast = useRef(null)
   
     const filtrar=()=>{
-       setSeguros(seguros.filter(seguro => seguro.nombre.toLowerCase().includes(filtro.toLowerCase())))
+        if(filtro===""){
+            filtrarCategoria();
+        }
+        else{
+            setSeguros(seguros.filter(seguro => seguro.nombre.toLowerCase().includes(filtro.toLowerCase())));
+    }
     }
     
     const categoria = props.losseguros.reduce((unique, item) => (unique.includes(item.tipo) ? unique : [...unique, item.tipo]),[],);
     const aseguradora = props.losseguros.reduce((unique, item) => (unique.includes(item.aseguradora) ? unique : [...unique, item.aseguradora]),[],);
-  
 
     const filtrarCategoria = () => {
         const categoriaSeleccionada = document.getElementById("selector").value.toLowerCase();
-        if (categoriaSeleccionada === "all") {
-            setSeguros(props.losseguros);
-        } else {
-            setSeguros(props.losseguros.filter(seguro => seguro.tipo.toLowerCase().includes(categoriaSeleccionada)));
-        }
-    };
+        const aseguradoraSeleccionada = document.getElementById("selector2").value.toLowerCase();
+        console.log(aseguradoraSeleccionada)
+        console.log(categoriaSeleccionada)
+        switch(true) {
+            case (categoriaSeleccionada === "all" && aseguradoraSeleccionada === "all"):
+              setSeguros(props.losseguros);
+              break;
+            case (aseguradoraSeleccionada === "all"):
+              setSeguros(props.losseguros.filter(seguros2 => seguros2.tipo.toLowerCase().includes(categoriaSeleccionada)));
+              break;
+            case (categoriaSeleccionada === "all"):
+              setSeguros(props.losseguros.filter(seguros2 => seguros2.aseguradora.toLowerCase().includes(aseguradoraSeleccionada)));
+              break;
+            default:
+              setSeguros(props.losseguros.filter(seguros2 => seguros2.aseguradora.toLowerCase().includes(aseguradoraSeleccionada) && seguros2.tipo.toLowerCase().includes(categoriaSeleccionada)));
+              break;
+          }
+        };
+          
 
     const filtrarAseguradora = () => {
         const aseguradoraSeleccionada = document.getElementById("selector2").value.toLowerCase();
-        if (aseguradoraSeleccionada === "all") {
-            setSeguros(props.losseguros);
+        const categoriaSeleccionada = document.getElementById("selector").value.toLowerCase();
+        if (aseguradoraSeleccionada === "all" && categoriaSeleccionada === "all") {
+          setSeguros(props.losseguros);
         } else {
-            setSeguros(props.losseguros.filter(seguro => seguro.aseguradora.toLowerCase().includes(aseguradoraSeleccionada)));
-        }
-    };
+            if(categoriaSeleccionada === "all"){
+                setSeguros(props.losseguros.filter(seguro => seguro.aseguradora.toLowerCase().includes(aseguradoraSeleccionada)))
+            }
+            else{
+                setSeguros(props.losseguros.filter(seguro => seguro.aseguradora.toLowerCase().includes(aseguradoraSeleccionada) && seguro.tipo.toLowerCase().includes(categoriaSeleccionada)));
+            }
+      }};
+      
 
     const showSaveDialog = ()=> {
         setAction("save")
@@ -121,6 +141,22 @@ export default function SegurosCorredor(props){
 
     return <div id='seguro_por_tipo'>  
         <div id="seccion">
+            <div>
+                <Form.Select id="selector" aria-label="Default select example" title="Filtrar por tipo" onChange={()=>filtrarCategoria()}>  
+                    <option value="All" >Filtrar por tipo</option> 
+                    {categoria.sort().map((item) =>(
+                        <option key={item} value={item}>{item}</option>
+                    ))}
+                </Form.Select>
+            </div>
+            <div>
+                <Form.Select id="selector2" aria-label="Default select example" title="Filtrar por aseguradora" onChange={()=>filtrarCategoria()}>  
+                    <option value="All" >Filtrar por aseguradora</option> 
+                    {aseguradora.sort().map((item) =>(
+                        <option key={item} value={item}>{item}</option>
+                    ))}
+                </Form.Select>
+            </div>
             <div >
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
@@ -131,22 +167,6 @@ export default function SegurosCorredor(props){
                             }
                         }}/>
                 </span>
-            </div>
-            <div>
-                <Form.Select id="selector" aria-label="Default select example" title="Filtrar por tipo" onChange={()=>filtrarCategoria()}>  
-                    <option value="All" >Filtrar por tipo</option> 
-                    {categoria.sort().map((item) =>(
-                        <option key={item} value={item}>{item}</option>
-                    ))}
-                </Form.Select>
-            </div>
-            <div>
-                <Form.Select id="selector2" aria-label="Default select example" title="Filtrar por aseguradora" onChange={()=>filtrarAseguradora()}>  
-                    <option value="All" >Filtrar por aseguradora</option> 
-                    {aseguradora.sort().map((item) =>(
-                        <option key={item} value={item}>{item}</option>
-                    ))}
-                </Form.Select>
             </div>
         </div>
         <div className="lista_seguro">

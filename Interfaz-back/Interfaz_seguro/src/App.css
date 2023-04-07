@@ -193,3 +193,9 @@ body {
   text-align: right;
   background: 'transparent';
 }
+
+.p-field-checkbox {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}

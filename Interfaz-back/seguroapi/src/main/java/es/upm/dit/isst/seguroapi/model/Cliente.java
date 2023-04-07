@@ -66,14 +66,9 @@ public class Cliente {
     }
 
 
-
-
-
     public String getNombre() {
         return nombre;
     }
-
-
 
 
     public void setNombre(String nombre) {
@@ -161,6 +156,14 @@ public class Cliente {
         return telefono;
     }
 
+
+    public LocalDate getCita() {
+        return cita;
+    }
+
+    public void setCita(LocalDate cita) {
+        this.cita = cita;
+    }
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;

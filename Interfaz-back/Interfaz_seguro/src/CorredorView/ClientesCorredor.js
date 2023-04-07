@@ -45,8 +45,12 @@ export default function ClientesCorredor(props){
     const url = new SeguroService()
   
     const filtrar=()=>{
-        setClientes(clientes.filter(cliente => cliente.nombre.toLowerCase().includes(filtro.toLowerCase())))
-    }
+        if(filtro===""){
+            setClientes(props.losclientes);
+        }
+        else{
+       setClientes(clientes.filter(cliente => cliente.nombre.toLowerCase().includes(filtro)))
+    }}
     
 
     const showSaveDialog = ()=> {
