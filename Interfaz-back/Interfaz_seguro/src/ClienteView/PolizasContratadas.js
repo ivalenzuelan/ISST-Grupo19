@@ -211,7 +211,7 @@ export default function PolizasContratadas(props){
                             let cliente = clienteEdit.cliente
                             return {cliente}
                     })}} />
-                    <label htmlFor="username">Username</label>
+                    <label htmlFor="Cita">Introduzca la fecha yyyy-mm-dd</label>
                 </span>      
         </Dialog>   
         </div>

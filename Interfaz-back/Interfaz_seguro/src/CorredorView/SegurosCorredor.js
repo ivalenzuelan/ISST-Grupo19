@@ -39,23 +39,13 @@ export default function SegurosCorredor(props){
         aseguradora: null
     }})
     const [visible, setVisible] = useState(false);
+    const [action, setAction] = useState(null)
     const items =[
         {
             label: 'Añadir Seguro',
             icon: 'pi pi-fw pi-plus',
             command: () => {showSaveDialog()}
         },
-        {
-            label: 'Editar Seguro',
-            icon: 'pi pi-fw pi-pencil',
-            command: () => {alert('Edited')}
-        },
-        {
-            label: 'Eliminar Seguro',
-            icon: 'pi pi-fw pi-trash',
-            command: () => {alert('Deleted')}
-        },
-
     ]
     const url = new SeguroService()
     const toast = useRef(null)
@@ -87,9 +77,11 @@ export default function SegurosCorredor(props){
     };
 
     const showSaveDialog = ()=> {
+        setAction("save")
         setVisible(true)
     }
     const showEditDialog=()=>{
+        setAction("edit")
         setSeguro({"seguro": {
             id: seguroSeleccionado.seguro.id,
             nombre: seguroSeleccionado.seguro.nombre,
@@ -114,14 +106,17 @@ export default function SegurosCorredor(props){
         })
     }
 
-    const showError = (error) => {
-        toast.current.show({ severity: 'error', summary: 'Error', detail: {error} });
-    };
     const deleteSeguro = (id) =>{
         url.delete(id)
-            .then(data => data) 
-            .catch(showError(error)) 
-
+            .then(data => data)
+    }
+    
+    const realizarAccion = ()=>{
+        if (action === "edit"){
+            edit()
+        }else{
+            save()
+        }
     }
 
     return <div id='seguro_por_tipo'>  
@@ -172,7 +167,7 @@ export default function SegurosCorredor(props){
             
         </div>
         
-            <Dialog header="Crear Seguro" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={edit}/>} onHide={() => setVisible(false)}>
+            <Dialog header="Crear Seguro" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={()=>{realizarAccion(); setVisible(false)}}/>} onHide={() => setVisible(false)}>
                 {console.log(seguro)}
                 <span className="p-float-label">
                     <InputText style={{width: '60%', margin: '5px'}} id="nombre" value={seguro.seguro.nombre} onChange={(e) =>{         

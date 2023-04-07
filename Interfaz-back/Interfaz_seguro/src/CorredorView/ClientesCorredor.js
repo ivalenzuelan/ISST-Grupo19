@@ -40,16 +40,6 @@ export default function ClientesCorredor(props){
             icon: 'pi pi-fw pi-plus',
             command: () => {showSaveDialog()}
         },
-        {
-            label: 'Editar',
-            icon: 'pi pi-fw pi-pencil',
-            command: () => {alert('Edited')}
-        },
-        {
-            label: 'Eliminar',
-            icon: 'pi pi-fw pi-trash',
-            command: () => {alert('Deleted')}
-        },
 
     ]
     const url = new SeguroService()
@@ -90,16 +80,6 @@ export default function ClientesCorredor(props){
 
             {clientes.map((item,index)=>(
                 <div>
-                <Card title={item.nombre+" "+item.apellidos}>
-                    <p>
-                        <p><b>Email:</b> {item.mail}</p>
-                        <p><b>Telefóno:</b> {item.telefono}</p>
-                        <p><b>Nombre de usuario:</b> {item.username}</p>
-                        <p><Link to={"/clientesCorredor/" + (item.id)}><Button label="Más información"/></Link></p>
-                        
-                    </p>
-                </Card>
-            
                 <Card title={item.nombre+" "+item.apellidos}>
                     <p>
                         <p><b>Email:</b> {item.mail}</p>
