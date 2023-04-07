@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, useRef} from "react"
 import Form from 'react-bootstrap/Form';
 import { useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
@@ -6,7 +6,8 @@ import {SeguroService} from '../service/segurosservice'
 import { Menubar } from 'primereact/menubar';  
 import { Dialog } from 'primereact/dialog'; 
 import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';      
+import { InputText } from 'primereact/inputtext';   
+import { Toast } from 'primereact/toast';    
            
         
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -24,10 +25,10 @@ export default function PolizasContratadas(props){
     let {id} = useParams()
     const [cliente, setCliente] = useState({});
     const [polizas, setPolizas] = useState({});
-    const [poliza, setPoliza] = useState({});
     const [visible, setVisible] = useState(false);
     const [citaVisible, setCitaVisible] = useState(false);
     const [loading, setLoading] = useState(true);
+    const toast = useRef(null);
     const items =[
         {
             label: 'Modificar datos',
@@ -85,25 +86,25 @@ export default function PolizasContratadas(props){
         url.editPoliza(poliza.poliza).then(res => res.data)
     }
 
-    const solicitarRenovar =(item)=>{
-        setPoliza({"poliza":item})
-        console.log(poliza)
-        setPoliza(prevState=>{
-            let poliza = Object.assign({}, prevState.poliza);
-            poliza.renovar = true
-            return {poliza}
-        })
-        console.log(poliza)
-        editPoliza()
+    const solicitarRenovar =(poliza)=>{
+        setTimeout(() => {
+            console.log(poliza);
+            poliza.renovar=true;
+            console.log(poliza);
+            url.editPoliza(poliza).then( data =>{      
+                toast.current.show({severity:'success', summary: 'Success', detail:'Se ha solicitado la renovacion de la póliza', life: 3000});
+            })
+        }, 300);
     }
-    const solicitarAnular =(item)=>{
-        setPoliza({"poliza":item})
-        setPoliza(prevState=>{
-            let poliza = Object.assign({}, prevState.poliza);
-            poliza.anular = true
-            return {poliza}
-        })
-        editPoliza()
+    const solicitarAnular =(poliza)=>{
+        setTimeout(() => {
+            console.log(poliza);
+            poliza.anular=true;
+            console.log(poliza);
+            url.editPoliza(poliza).then( data =>{    
+                toast.current.show({severity:'success', summary: 'Success', detail:'Se ha solicitado la anulacion de la póliza', life: 3000});  
+            })
+        }, 300);
     }
     
     return <div>
@@ -112,11 +113,15 @@ export default function PolizasContratadas(props){
             <div>
                 <Menubar model={items} /> 
             </div>
+            <div>
                 <Card title ={ cliente.nombre+" "+cliente.apellidos}>
-                        <p>{cliente.username}</p>
-                        <p> {cliente.mail}</p>
-                        <p> {cliente.telefono} </p>
+                    <p>
+                        <p><b>Username: </b>{cliente.username}</p>
+                        <p><b>Mail: </b> {cliente.mail}</p>
+                        <p><b>Telefono: </b> {cliente.telefono} </p>
+                    </p>
                 </Card>
+            </div>
             </div>
             :
                 <p> Algo ha fallado en el servidor. Intente de nuevo</p>
@@ -124,14 +129,19 @@ export default function PolizasContratadas(props){
         </div>
             {polizas.polizas ? <div>
                 <h4>Polizas contratadas</h4>
+                <Toast ref={toast} />
                 {polizas.polizas.map((item,index)=>(
+                    <div>
                     <Card title = {item.seguro.nombre+"-"+item.seguro.aseguradora}>
+                        <p>
                             <p >Fecha inicio: {item.inicio}</p>
                             <p>Fecha de expiración: {item.termino}</p>
                             <p> {item.precio} / {item.periodicidad}</p>
-                            <p><Button onClick={() => {solicitarRenovar(item)}}> Solicitar renovación </Button></p>
+                            <p><Button onClick={()=>{solicitarRenovar(item)}}> Solicitar renovación </Button></p>
                             <p><Button onClick={() => {solicitarAnular(item)}}> Solicitar anulacion </Button></p>
+                        </p>
                     </Card>
+                    </div>
                  ))}
                 </div>
                 :
