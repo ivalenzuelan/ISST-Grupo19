@@ -176,7 +176,12 @@ body {
   gap: 40px;
   align-items:end;
 }
-
+#seccion2{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
 .menubar-wrapper {
   width: 100%;
   padding-left: 20px;
@@ -197,5 +202,11 @@ body {
 .p-field-checkbox {
   display: flex;
   flex-direction: column;
+  justify-items: center;
+}
+
+.textbox{
+  display: flex;
+  flex-direction: row;
   justify-items: center;
 }
