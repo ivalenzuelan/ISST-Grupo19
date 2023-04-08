@@ -1,6 +1,5 @@
 import {useState, useEffect} from "react"
-import Form from 'react-bootstrap/Form';
-import { MDBCardText } from 'mdb-react-ui-kit';
+
 import { useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
 
@@ -9,8 +8,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
-import { OrderList } from 'primereact/orderlist';
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
+import { Card } from "primereact/card";
         
            
         
@@ -124,35 +122,34 @@ export default function EditarCliente(props){
     };
 
     
-    return  <div className="lista_seguro">
-            <Menubar model={items} /> 
-                <div key={cliente.id} class="card" className="lista_seguro" style={{height:MDBCardText, width: '800px', textAlign:'justify' }}>
-                    <h5 class="card-header">{ cliente.nombre} {cliente.apellidos}</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">{cliente.username}</h5>
-                        <p class="card-text"> {cliente.mail}</p>
-                        <p class="card-text"> {cliente.telefono} </p>
-                    </div>
-                    
-                </div>
+    return  <div>
+                <div className="menubar-wrapper"> <Menubar model={items} className="custom-menubar" /> </div>   
+                <Card title={cliente.nombre+" "+cliente.apellidos}>
+                    <p>
+                        <p><b>Email:</b> {cliente.mail}</p>
+                        <p><b>Telefóno:</b> {cliente.telefono}</p>
+                        <p><b>Nombre de usuario:</b> {cliente.username}</p>       
+                    </p>
+                </Card>
             {loading ? <div>
                 </div> :
                 <div>
                 <h4>Polizas contratadas</h4>
                 {polizas.polizas.map((item,index)=>(
-                    <div key={item.id} class="card" className="lista_seguro" style={{height:MDBCardText, width: '800px', textAlign:'justify' }}>
-                        <h5 class="card-header">{ item.seguro.nombre}- {item.seguro.aseguradora}</h5>
-                        <div class="card-body">
-                            <p class="card-title">Fecha inicio: {item.inicio}</p>
-                            <p class="card-text">Fecha de expiración: {item.termino}</p>
-                            <p class="card-text"> {item.precio} / {item.periodicidad}</p>
-                        </div>
-                    </div>
+                    <div>
+                    <Card title = {item.seguro.nombre+"-"+item.seguro.aseguradora}>
+                    <p>
+                        <p >Fecha inicio: {item.inicio}</p>
+                        <p>Fecha de expiración: {item.termino}</p>
+                        <p> {item.precio} / {item.periodicidad}</p>
+                    </p>
+                </Card>
+                </div>
                  ))}
                  </div>
                 }
             
-                <Dialog header="Añadir Poliza" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={save}/>} onHide={() => setVisible(false)}>
+                <Dialog header="Añadir Poliza" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={()=>{save(); setVisible(false)}}/>} onHide={() => setVisible(false)}>
                 <span className="p-float-label">
                     <InputText style={{width: '60%', margin: '5px'}} id="inicio" value={poliza.value} onChange={(e) => setPoliza(prevState=>{
                         let poliza = Object.assign({}, prevState.poliza);
@@ -192,7 +189,7 @@ export default function EditarCliente(props){
                         let poliza = Object.assign({}, prevState.poliza);
                         poliza.seguro = e.target.value
                         return {poliza}})}} options={seguros} optionLabel="name" placeholder="Selecciona un seguro" 
-                filter valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
+                 valueTemplate={selectedCountryTemplate} itemTemplate={countryOptionTemplate} className="w-full md:w-14rem" />
                 </span>
                
             </Dialog>  

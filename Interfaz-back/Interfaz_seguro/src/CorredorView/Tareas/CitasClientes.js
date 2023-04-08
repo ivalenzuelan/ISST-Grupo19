@@ -28,7 +28,7 @@ export default function CitasClientes(props){
         console.log(cliente.value);
         cliente.value.cita=null;
         //console.log(cliente);
-        url.saveCliente(cliente.value).then( data =>{
+        url.editCliente(cliente.value).then( data =>{
             deleteCliente(clientesConCita, cliente.value.id)
             //console.log(data)
         })
