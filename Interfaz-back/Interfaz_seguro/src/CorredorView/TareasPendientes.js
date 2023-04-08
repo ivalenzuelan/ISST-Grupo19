@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react"
-import { useParams} from 'react-router-dom';
+
 import {SeguroService} from '../service/segurosservice'
-import { MDBCardText } from 'mdb-react-ui-kit';
+
            
         
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -12,8 +12,7 @@ import SolicitarRenovacion from "./Tareas/SolicitarRenovacion";
 import SolicitarAnulacion from "./Tareas/SolicitarAnulacion";
 import CitasClientes from "./Tareas/CitasClientes";
 import { TabView, TabPanel } from 'primereact/tabview';
-import { Tab } from "bootstrap";
-        
+
                                                       
 
 export default function TareasPendientes(props){ 
@@ -67,7 +66,7 @@ export default function TareasPendientes(props){
     {(polizasRenovar.polizasRenovar && polizasAnular.polizasAnular && clientesConCita.clientesConCita) ? 
     
     <div className="card">
-        {console.log(clientesConCita)}        
+   
         <TabView>
                 <TabPanel header="Renovar polizas" leftIcon="pi pi-calendar mr-2">
                     <SolicitarRenovacion renovacion={polizasRenovar.polizasRenovar}/>  

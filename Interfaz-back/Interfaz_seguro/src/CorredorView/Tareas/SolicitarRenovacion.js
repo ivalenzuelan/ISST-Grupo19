@@ -6,7 +6,6 @@ import 'primeflex/primeflex.css';
 
 import { Checkbox } from 'primereact/checkbox';
 import {Card} from 'primereact/card'
-import { Button } from 'primereact/button';
 import {SeguroService} from '../../service/segurosservice'
         
                                                       
@@ -38,7 +37,6 @@ export default function SolicitarRenovacion(props){
                 {polizasRenovar.map((item,index)=>(
                     <Card title={item.cliente.nombre}>
                     <div className="p-field-checkbox">
-                    {console.log(item)}
                         <Checkbox id={item.id} value={item} onChange={quitarRenovacion} />
                             <label htmlFor={item.id} className="p-checkbox-label">
                                 <p><b>Fecha de termino:</b> {item.termino}</p>

@@ -1,36 +1,24 @@
-import {useState, useEffect} from "react"     
+import {useState } from "react"     
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";  
 
 import {SeguroService} from '../../service/segurosservice'
 
-import { Button } from 'primereact/button';
 import {Card} from 'primereact/card'
-import { TabView, TabPanel } from 'primereact/tabview';
 import { Checkbox } from 'primereact/checkbox';
 
-
-        
-        
-                                                      
 
 export default function CitasClientes(props){ 
 
     const [clientesConCita, setClientesConCita] = useState(props.clientesCita)
-
-    //console.log(clientesConCita)
-
     const url = new SeguroService()
     
     const quitarCita = (cliente) =>{
         setTimeout(() => {
-        console.log(cliente.value);
         cliente.value.cita=null;
-        //console.log(cliente);
         url.editCliente(cliente.value).then( data =>{
             deleteCliente(clientesConCita, cliente.value.id)
-            //console.log(data)
         })
     }, 300);
     }
@@ -38,9 +26,7 @@ export default function CitasClientes(props){
     const deleteCliente = (clientes, id) => {
         const updatedClientes = clientes.filter(cliente => cliente.id !== id);
         setClientesConCita(updatedClientes);
-      };
-      
-      
+      };  
 
     return <div>
   

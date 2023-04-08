@@ -1,8 +1,5 @@
 import {useState, useEffect, useRef} from "react"
 import Form from 'react-bootstrap/Form';
-import { MDBCardText } from 'mdb-react-ui-kit';
-import { useParams} from 'react-router-dom';
-import { Link } from "react-router-dom";
 import {SeguroService} from '../service/segurosservice'
 import { Menubar } from 'primereact/menubar';  
 import { Dialog } from 'primereact/dialog';
@@ -63,8 +60,6 @@ export default function SegurosCorredor(props){
     const filtrarCategoria = () => {
         const categoriaSeleccionada = document.getElementById("selector").value.toLowerCase();
         const aseguradoraSeleccionada = document.getElementById("selector2").value.toLowerCase();
-        //console.log(aseguradoraSeleccionada)
-        //console.log(categoriaSeleccionada)
         switch(true) {
             case (categoriaSeleccionada === "all" && aseguradoraSeleccionada === "all"):
               setSeguros(props.losseguros);
@@ -80,10 +75,6 @@ export default function SegurosCorredor(props){
               break;
           }
         };
-
-    console.log(SeguroSeleccionado)
-    console.log(seguro)
-    console.log(action)
 
     const showSaveDialog = ()=> {
         setAction("save")
@@ -109,7 +100,6 @@ export default function SegurosCorredor(props){
             toast.current.show({severity:'success', summary: 'Success', detail:'Seguro guardado', life: 3300, closable: false});
             setTimeout(2000)
             window.location.reload();
-
         })
         .catch(error => {
             toast.current.show({severity:'error', summary: 'Error', detail:'Error en las propiedades del seguro', life: 3300, closable: false});
@@ -142,22 +132,9 @@ export default function SegurosCorredor(props){
                 console.error('Error deleting seguro');
             });
     };
-    
-    
-    const addSeguro = (seguros, newSeguro) => { //No esta en uso
-        const updatedSeguros = [...seguros, newSeguro];
-        setSeguros(updatedSeguros);
-      };
       
-    
     const deleteSeguro2 = (seguros, id) => {
         const updatedSeguros = seguros.filter(seguros => seguros.id !== id);
-        setSeguros(updatedSeguros);
-    };
-
-    const editSeguro = (seguros, newSeguro) => { //No esta en uso
-        let updatedSeguros = seguros.filter(seguros => seguros.id !== newSeguro.id);
-        updatedSeguros = [...updatedSeguros, newSeguro];
         setSeguros(updatedSeguros);
     };
     
@@ -212,7 +189,6 @@ export default function SegurosCorredor(props){
                         <p><b>Periodicidad:</b> {item.periodicidad}</p>
                         <p><b>Tipo:</b> {item.tipo}</p>
                         <p><Button onClick={()=>{SeguroSeleccionado = ({seguro: item}); showEditDialog()}}>Editar Seguro</Button></p>
-                        {console.log(SeguroSeleccionado)}
                         <p><Button onClick={()=>{deleteSeguro(item.id)}}>Eliminar Seguro</Button></p>
                     </p>
                 </Card>
@@ -221,8 +197,7 @@ export default function SegurosCorredor(props){
         </div>
         
             <Dialog header="[Editar] Seguro" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={()=>{realizarAccion(); setVisible(false)}}/>} onHide={() => setVisible(false)}>
-                {//console.log(seguro)
-                }
+     
                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                 <div style={{marginRight: '5px'}}>Nombre:</div>
                 <span className="p-float-label">
@@ -330,8 +305,7 @@ export default function SegurosCorredor(props){
 
 
             <Dialog header="[Crear] Seguro" visible={visible2} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={()=>{realizarAccion(); setVisible2(false)}}/>} onHide={() => setVisible2(false)}>
-                {//console.log(seguro)
-                }
+                
                 <span className="p-float-label">
                     
                     <InputText style={{width: '60%', margin: '5px'}} id="nombre" onChange={(e) =>{     

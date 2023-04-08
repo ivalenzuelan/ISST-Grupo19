@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, useRef} from "react"
 
 import { useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
@@ -9,6 +9,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { Card } from "primereact/card";
+import { Toast } from "primereact/toast";
         
            
         
@@ -36,16 +37,7 @@ export default function EditarCliente(props){
             icon: 'pi pi-fw pi-plus',
             command: () => {showSaveDialog()}
         },
-        {
-            label: 'Editar',
-            icon: 'pi pi-fw pi-pencil',
-            command: () => {alert('Edited')}
-        },
-        {
-            label: 'Eliminar',
-            icon: 'pi pi-fw pi-trash',
-            command: () => {alert('Deleted')}
-        },
+
     ]
     const [poliza,setPoliza] = useState({
         cliente: null,
@@ -57,6 +49,7 @@ export default function EditarCliente(props){
         periodicidad: null,
         pdf_poliza: null,
     })
+    const toast = useRef(null);
     const url = new SeguroService()
 
     const callServer = async (param) =>{
@@ -98,9 +91,24 @@ export default function EditarCliente(props){
     const save = () =>{
         console.log(poliza.poliza)
         url.savePoliza(poliza.poliza).then( data =>{
-            console.log(data)
+            toast.current.show({severity:'success', summary: 'Success', detail:'Se ha solicitado la anulacion de la póliza', life: 3000});  
+            setTimeout(2000)
+            window.location.reload();
         })
     }
+
+    const deletePoliza = (id) =>{
+        url.deletePoliza(id).then( data =>{
+            toast.current.show({severity:'success', summary: 'Success', detail:'Poliza eliminada', life: 3300, closable: false});
+            setTimeout(2000)
+            window.location.reload();
+        })
+        .catch(error => {
+            toast.current.show({severity:'error', summary: 'Error', detail:'Error al eliminar. Intentelo de nuevo', life: 3300, closable: false});
+           
+        });
+    }
+
     const selectedCountryTemplate = (option, props) => {
         if (option) {
             return (
@@ -123,6 +131,7 @@ export default function EditarCliente(props){
 
     
     return  <div>
+            <Toast ref={toast} />
                 <div className="menubar-wrapper"> <Menubar model={items} className="custom-menubar" /> </div>   
                 <Card title={cliente.nombre+" "+cliente.apellidos}>
                     <p>
@@ -131,8 +140,7 @@ export default function EditarCliente(props){
                         <p><b>Nombre de usuario:</b> {cliente.username}</p>       
                     </p>
                 </Card>
-            {loading ? <div>
-                </div> :
+            {polizas.polizas ? 
                 <div>
                 <h4>Polizas contratadas</h4>
                 {polizas.polizas.map((item,index)=>(
@@ -142,11 +150,14 @@ export default function EditarCliente(props){
                         <p >Fecha inicio: {item.inicio}</p>
                         <p>Fecha de expiración: {item.termino}</p>
                         <p> {item.precio} / {item.periodicidad}</p>
+                        <p> <Button onClick={()=>{deletePoliza(item.id)}}>Eliminar poliza</Button></p>
                     </p>
                 </Card>
                 </div>
                  ))}
                  </div>
+                 :
+                 <div> Algo ha fallado en el servidor </div>
                 }
             
                 <Dialog header="Añadir Poliza" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={()=>{save(); setVisible(false)}}/>} onHide={() => setVisible(false)}>

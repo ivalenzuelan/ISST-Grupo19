@@ -42,7 +42,6 @@ function App() {
     }
     const callServerClientes = async (param) =>{
       await url.getAllClientes().then(data => {
-        console.log(data)
         setCliente({clientes: data})   
       })
   }

@@ -9,7 +9,7 @@ export default function Footer() {
       <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
         <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
           <div className='me-5 d-none d-lg-block'>
-            <text>Get connected with us on social networks:</text>
+            <h5>Get connected with us on social networks:</h5>
           </div>  
           <div>
             <a href='' className='me-4 text-reset'>
@@ -42,8 +42,7 @@ export default function Footer() {
                   Integral Insurance
                 </h6>
                 <p>
-                  Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-                  consectetur adipisicing elit.
+                Integral Insurance es una correduría de seguros que se enfoca en brindar soluciones personalizadas y de calidad a sus clientes, basados en valores como la transparencia, la ética, la responsabilidad y la innovación, con el objetivo de ofrecer protección y tranquilidad en todo momento.
                 </p>
               </MDBCol>
    
@@ -82,11 +81,9 @@ export default function Footer() {
                   integral_insurance@example.com
                 </p>
                 <p>
-                  <MDBIcon icon="phone" className="me-3" /> + 01 234 567 88
+                  <MDBIcon icon="phone" className="me-3" /> + 34 666 666 666
                 </p>
-                <p>
-                  <MDBIcon icon="print" className="me-3" /> + 01 234 567 89
-                </p>
+            
               </MDBCol>
             </MDBRow>
           </MDBContainer>

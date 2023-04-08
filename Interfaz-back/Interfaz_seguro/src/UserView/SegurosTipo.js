@@ -1,6 +1,4 @@
 import {useState, useEffect} from "react"
-import Form from 'react-bootstrap/Form';
-import { MDBCardText } from 'mdb-react-ui-kit';
 import { useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
 import Card from 'react-bootstrap/Card';
@@ -14,15 +12,8 @@ export default function SegurosTipo(props){
     const [seguro, setSeguro] = useState(props.losseguros);
     const [seguro2, setSeguro2] = useState(null);
     const url = new SeguroService();
-    /*console.log(seguro);
-    console.log(seguro2);
-    console.log(filtro);
-    console.log(props.losseguros.length);
-    console.log(seguro.length);
-    */
  
-    if(props.losseguros.length>seguro.length && seguro2===null){
-        console.log(seguro);
+    if((props.losseguros.length > seguro.length) && seguro2===null){
         setSeguro2(seguro);
     }
   
@@ -52,18 +43,6 @@ export default function SegurosTipo(props){
             setSeguro(seguro.filter(seguro => seguro.nombre.toLowerCase().includes(filtro)))
         }
     }
- 
-    
-    /*const categoria = props.losseguros.reduce((anterior,actual)=>{
-        if(anterior.includes(actual.tipo)){
-            return anterior;
-        }else{
-             return [...anterior,actual.tipo];
-        }},[]);
-    const filtrarCategoria=()=>{
-        console.log(document.getElementById("selector").value)
-        setSeguro(props.losseguros.filter(producto => producto.tipo.toLowerCase().includes(document.getElementById("selector").value)))
-    }*/
  
     return <div id='seguro_por_tipo'>  
                 <div id="seccion">

@@ -7,19 +7,15 @@ import { Menubar } from 'primereact/menubar';
 import { Dialog } from 'primereact/dialog'; 
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';   
-import { Toast } from 'primereact/toast';    
-           
-        
+import { Toast } from 'primereact/toast'; 
+import {Calendar} from 'primereact/calendar'
+                  
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";  
 import 'primeflex/primeflex.css';
 import { Card } from "primereact/card";
         
-
-                                               
-        
-
 export default function PolizasContratadas(props){ 
 
     let {id} = useParams()
@@ -78,32 +74,38 @@ export default function PolizasContratadas(props){
         setCitaVisible(true)
     }
     const editCliente=()=>{
-        url.editCliente(cliente.cliente).then(res => res.data)
-    }
-
-    const editPoliza=()=>{
-        console.log(poliza)
-        url.editPoliza(poliza.poliza).then(res => res.data)
+        url.editCliente(cliente.cliente).then(res => {
+            toast.current.show({severity:'info', summary: 'Info', detail:'Se ha realizado la petición correctamente', life: 3300, closable: false});
+            setTimeout(2000)
+            window.location.reload();
+        })
+        .catch(error => {
+            toast.current.show({severity:'error', summary: 'Error', detail:'Ha habido algun error. Intentelo de nuevos', life: 3300, closable: false});
+        });
     }
 
     const solicitarRenovar =(poliza)=>{
         setTimeout(() => {
-            console.log(poliza);
             poliza.renovar=true;
-            console.log(poliza);
             url.editPoliza(poliza).then( data =>{      
-                toast.current.show({severity:'success', summary: 'Success', detail:'Se ha solicitado la renovacion de la póliza', life: 3000});
+                toast.current.show({severity:'info', summary: 'Info', detail:'Se ha solicitado la renovación de la poliza', life: 3300, closable: false});
+    
             })
+            .catch(error => {
+                toast.current.show({severity:'error', summary: 'Error', detail:'Ha habido algun error. Intentelo de nuevos', life: 3300, closable: false});
+
+            });
         }, 300);
     }
     const solicitarAnular =(poliza)=>{
         setTimeout(() => {
-            console.log(poliza);
             poliza.anular=true;
-            console.log(poliza);
             url.editPoliza(poliza).then( data =>{    
-                toast.current.show({severity:'success', summary: 'Success', detail:'Se ha solicitado la anulacion de la póliza', life: 3000});  
+                toast.current.show({severity:'info', summary: 'Info', detail:'Se ha solicitado la anulación de la poliza', life: 3300, closable: false});
             })
+            .catch(error => {
+                toast.current.show({severity:'error', summary: 'Error', detail:'Ha habido algun error. Intentelo de nuevo', life: 3300, closable: false});
+            });
         }, 300);
     }
     
@@ -147,7 +149,7 @@ export default function PolizasContratadas(props){
                 :
                 <p> Algo ha fallado en el servidor. Intente de nuevo</p>
             }
-        <Dialog header="Modificar mis datos" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={editCliente}/>} onHide={() => setVisible(false)}>
+        <Dialog header="Modificar mis datos" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={()=>{editCliente(); setVisible(false)}}/>} onHide={() => setVisible(false)}>
             <span className="p-float-label">
                     <InputText style={{width: '60%', margin: '5px'}} id="username" value={cliente.username} onChange={(e) =>{         
                         let val = e.target.value;
@@ -212,18 +214,18 @@ export default function PolizasContratadas(props){
 
         <Dialog header="Solicitar cita" visible={citaVisible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={editCliente}/>} onHide={() => setCitaVisible(false)}>
             <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="cita" value={cliente.cita} onChange={(e) =>{         
-                        let val = e.target.value;
-                        setCliente(prevState=>{
-                            console.log(prevState)
-                            let clienteEdit = Object.assign({}, prevState);
-                            clienteEdit.cliente.cita = val
-                            let cliente = clienteEdit.cliente
-                            return {cliente}
-                    })}} />
-                    <label htmlFor="Cita">Introduzca la fecha yyyy-mm-dd</label>
-                </span>      
-        </Dialog>   
+                <Calendar style={{width: '60%', margin: '5px'}} id="cita" value={cliente.cita} onChange={(e) =>{
+                    let val = e.value;
+                    setCliente(prevState=>{
+                        let clienteEdit = Object.assign({}, prevState);
+                        clienteEdit.cliente.cita = val
+                        let cliente = clienteEdit.cliente
+                        return {cliente}
+                        })}} dateFormat="yy-mm-dd" />
+                    <label htmlFor="Cita">Seleccione la fecha</label>
+                </span> 
+
+        </Dialog>  
         </div>
 }
     

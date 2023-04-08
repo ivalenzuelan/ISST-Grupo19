@@ -1,6 +1,4 @@
-import {useState, useEffect} from "react"
-import Form from 'react-bootstrap/Form';
-import { MDBCardText } from 'mdb-react-ui-kit';
+import {useState, useRef} from "react"
 import { Link, useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
 
@@ -9,6 +7,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Card } from "primereact/card";
+import { Toast } from "primereact/toast";
         
         
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -34,6 +33,7 @@ export default function ClientesCorredor(props){
         "telefono": null,
     })
     const [visible, setVisible] = useState(false);
+    const toast = useRef(null)
     const items =[
         {
             label: 'Nuevo',
@@ -59,16 +59,35 @@ export default function ClientesCorredor(props){
 
     const save = () =>{
         url.saveCliente(cliente.cliente).then( data =>{
-            console.log(data)
+            toast.current.show({severity:'success', summary: 'Success', detail:'Cliente guardado', life: 3300, closable: false});
+            setTimeout(2000)
+            window.location.reload();
         })
+        .catch(error => {
+            toast.current.show({severity:'error', summary: 'Error', detail:'Error en las propiedades del cliente', life: 3300, closable: false});
+            console.error('Error cliente');
+        });
+
+    }
+    const deleteCliente = (id) =>{
+        url.deleteCliente(id).then( data =>{
+            toast.current.show({severity:'success', summary: 'Success', detail:'Cliente eliminado', life: 3300, closable: false});
+            setTimeout(2000)
+            window.location.reload();
+        })
+        .catch(error => {
+            toast.current.show({severity:'error', summary: 'Error', detail:'El cliente tiene polizas asociadas. No se puede eliminar', life: 3300, closable: false});
+           
+        });
     }
 
-    // TODO: no funciona el filtro
-    return <div id='seguro_por_tipo'>  
+
+    return <div id='seguro_por_tipo'>
+        <Toast ref={toast} />  
         <div id="seccion">
             <span className="p-input-icon-left">
                 <i className="pi pi-search" />
-                    <InputText id="filtro" placeholder="Buscar seguros" onChange={e=>setFiltro(e.target.value)}
+                    <InputText id="filtro" placeholder="Buscar clientes" onChange={e=>setFiltro(e.target.value)}
                         onKeyPress={e => {
                             if (e.key === 'Enter') {
                             filtrar();
@@ -90,6 +109,7 @@ export default function ClientesCorredor(props){
                         <p><b>Telefóno:</b> {item.telefono}</p>
                         <p><b>Nombre de usuario:</b> {item.username}</p>
                         <p><Link to={"/clientesCorredor/" + (item.id)}><Button label="Más información"/></Link></p>
+                        <p><Button onClick={()=>{deleteCliente(item.id)}}>Eliminar Cliente</Button></p>
                         
                     </p>
                 </Card>
@@ -98,15 +118,8 @@ export default function ClientesCorredor(props){
             
         </div>
         
-            <Dialog header="Añadir Cliente" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={save}/>} onHide={() => setVisible(false)}>
-            <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="id" value={cliente.value} onChange={(e) => setCliente(prevState=>{
-                        let cliente = Object.assign({}, prevState.cliente);
-                        cliente.id = e.target.value
-                        return {cliente}
-                    })} />
-                    <label htmlFor="id">Id</label>
-                </span>
+            <Dialog header="Añadir Cliente" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={()=>{save(); setVisible(false)}}/>} onHide={() => setVisible(false)}>
+        
                 <span className="p-float-label">
                     <InputText style={{width: '60%', margin: '5px'}} id="mail" value={cliente.value} onChange={(e) => setCliente(prevState=>{
                         let cliente = Object.assign({}, prevState.cliente);
