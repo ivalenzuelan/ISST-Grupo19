@@ -23,17 +23,22 @@ VALUES
   (1016, 'david@ejemplo.com', '12348765G', 'davidfernandez', 'David', 'Fernández', 'miclave', '1980-11-20', 'Calle Bravo Murillo 7', '+34 912 345 684', '2022-05-06'),
   (1017, 'clara@ejemplo.com', '87651234H', 'clararodriguez', 'Clara', 'Rodríguez', 'miclave', '1996-07-12', 'Calle Paseo de la Castellana 8', '+34 912 345 685', null),
   (1018, 'alberto@ejemplo.com', '43218765I', 'albertosanchez', 'Alberto', 'Sánchez', 'miclave', '1993-03-15', 'Calle Serrano 9', '+34 912 345 686', '2022-08-04'),
-  (1019, 'irene@ejemplo.com', '13572468J', 'irenegomez', 'Irene', 'Gómez', 'miclave', '1988-09-05', 'Calle Velázquez 10', '+34 912 345 687', '2023-05-04');
+  (1019, 'ireneg@ejemplo.com', '13572468J', 'irenegomez', 'Irene', 'Gómez', 'miclave', '1988-09-05', 'Calle Velázquez 10', '+34 912 345 687', '2023-05-04'),
+  (1020, 'irenea@ejemplo.com', '13572168J', 'irenealonso', 'Irene', 'Alonso', 'miclave', '1988-09-02', 'Calle Velázquez 31', '+34 912 321 687', null);
 
 INSERT INTO POLIZA (id, fecha_inicio, pdf_poliza, periodicidad, precio, fecha_termino, cliente, seguro, anular, renovar)
 VALUES
 (1000, '2023-04-04', null, 'Anual', 100.5, '2024-04-04', 1010, 1000, true, false),
 (1001, '2023-04-04', null, 'Mensual', 200.75, '2023-05-04', 1011, 1001, true, false),
-(1002, '2023-04-04', null, 'Mensual', 200.75, '2023-05-04', 1012, 1002, false, true),
+(1002, '2023-04-04', null, 'Mensual', 200.75, '2023-06-04', 1012, 1002, false, true),
 (1003, '2023-04-04', null, 'Anual', 300.00, '2023-04-04', 1013, 1003, true, false),
 (1004, '2023-04-04', null, 'Trimestral', 150.25, '2023-07-04', 1014, 1004, false, true),
-(1005, '2023-04-04', null, 'Anual', 50.00, '2024-04-04', 1015, 1005, false, true),
+(1005, '2023-04-04', null, 'Anual', 50.00, '2024-04-03', 1015, 1005, false, true),
 (1006, '2023-04-04', null, 'Anual', 80.50, '2024-04-04', 1016, 1006, true, false),
 (1007, '2023-04-04', null, 'Mensual', 120.00, '2023-05-04', 1017, 1007, false, true),
 (1008, '2023-04-04', null, 'Anual', 75.75, '2024-04-04', 1018, 1008, false, true),
-(1009, '2023-04-04', null, 'Anual', 200.00, '2024-04-04', 1019, 1009, false, true);
+(1009, '2023-04-04', null, 'Anual', 200.00, '2024-04-09', 1019, 1009, false, true),
+(1010, '2023-04-04', null, 'Anual', 200.00, '2023-08-04', 1017, 1003, false, false),
+(1011, '2023-04-04', null, 'Anual', 200.00, '2024-04-08', 1012, 1002, false, false),
+(1012, '2023-04-04', null, 'Anual', 200.00, '2024-04-08', 1013, 1006, false, false),
+(1013, '2023-04-04', null, 'Anual', 200.00, '2024-04-08', 1019, 1004, false, false);

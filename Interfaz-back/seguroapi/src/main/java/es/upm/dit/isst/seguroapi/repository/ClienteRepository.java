@@ -9,6 +9,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
     // List<Cliente> findByNombre(String nombre);
 
+    List<Cliente> findAllByOrderByNombreAscApellidosAsc();
+
     List<Cliente> findByCitaNotNullOrderByCita();
 
 }

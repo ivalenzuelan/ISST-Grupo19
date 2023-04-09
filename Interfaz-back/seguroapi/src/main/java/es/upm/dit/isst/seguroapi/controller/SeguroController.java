@@ -114,7 +114,7 @@ public class SeguroController {
 
     @GetMapping("/clientes")
     List<Cliente> readAllCliente() {
-        return (List<Cliente>) clienteRepository.findAll();
+        return (List<Cliente>) clienteRepository.findAllByOrderByNombreAscApellidosAsc();
     }
 
     @GetMapping("/clientesConCita")
@@ -173,15 +173,22 @@ public class SeguroController {
 
     @GetMapping("/polizas/renovar")
     List<Poliza> readPolizasRenovar() {
-        return (List<Poliza>) polizaRepository.findByRenovar(true);
+        return (List<Poliza>) polizaRepository.findByRenovarOrderByTermino(true);
 
     }
 
     @GetMapping("/polizas/anular")
     List<Poliza> readPolizasAnular() {
-        return (List<Poliza>) polizaRepository.findByAnular(true);
+        return (List<Poliza>) polizaRepository.findByAnularOrderByTermino(true);
 
     }
+
+    @GetMapping("/polizas/anularNoSolicitadas")
+    List<Poliza> readPolizasAnularNo() {
+        return (List<Poliza>) polizaRepository.findByAnularFalseAndRenovarFalseOrderByTermino();
+
+    }
+
 
     @GetMapping("polizas/cliente/{id}")
     List<Poliza> findPolizasByCliente(@PathVariable Integer id) {

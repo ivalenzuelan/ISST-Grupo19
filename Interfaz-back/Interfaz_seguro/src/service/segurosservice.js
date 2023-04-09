@@ -99,6 +99,12 @@ export class SeguroService {
         return axios.get(this.baseUrl+ "polizas/anular").then( res => res.data)
     }
 
+    getPolizasSinSolicitud(){
+        
+        return axios.get(this.baseUrl+ "polizas/anularNoSolicitadas").then( res => res.data)
+        
+    }
+
     
   
 

@@ -29,9 +29,7 @@ export default function CitasClientes(props){
       };  
 
     return <div>
-  
-            <h5> Visitas pendientes </h5>
-             <div className="card flex " style={{width:"400px"}}>
+               <div className="card flex " style={{width:"750px"}}>
              <div className="flex flex-column gap-3">
                 <div></div>
                  {clientesConCita.map((item,index)=>(

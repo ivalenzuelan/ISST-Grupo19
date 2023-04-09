@@ -12,8 +12,10 @@ public interface PolizaRepository extends JpaRepository<Poliza, Integer> {
 
     List<Poliza> findByClienteId(Integer id);
 
-    List<Poliza> findByAnular(Boolean bool);
+    List<Poliza> findByAnularOrderByTermino(Boolean bool);
 
-    List<Poliza> findByRenovar(Boolean bool);
+    List<Poliza> findByRenovarOrderByTermino(Boolean bool);
+
+    List<Poliza> findByAnularFalseAndRenovarFalseOrderByTermino();
 
 }

@@ -11,6 +11,7 @@ import 'primeflex/primeflex.css';
 import SolicitarRenovacion from "./Tareas/SolicitarRenovacion";
 import SolicitarAnulacion from "./Tareas/SolicitarAnulacion";
 import CitasClientes from "./Tareas/CitasClientes";
+import PolizasSinSolicitud from "./Tareas/PolizasSinSolicitud";
 import { TabView, TabPanel } from 'primereact/tabview';
 
                                                       
@@ -20,6 +21,8 @@ export default function TareasPendientes(props){
     const [polizasRenovar, setPolizasRenovar] = useState({})
     const [polizasAnular, setPolizasAnular] = useState({})
     const [clientesConCita, setClientesConCita] = useState({})
+    const [polizasSinSolicitud, setPolizasSinSolicitud] = useState({})
+
 
     const url = new SeguroService()
 
@@ -41,21 +44,31 @@ export default function TareasPendientes(props){
           setClientesConCita({clientesConCita: data})   
         })
     }
+
+    const callServerPolizasSinSolicitud = async (param) =>{
+      await url.getPolizasSinSolicitud().then(data => {
+        setPolizasSinSolicitud({polizasSinSolicitud: data})   
+      })
+    }
   
     useEffect(() => {
         function fetchData() {	
-        callServerPolizaRenovar();
-        setTimeout(()=>{
-            
-          },100);	
-        callServerPolizaAnular();
-        setTimeout(()=>{
-            
-          },100);	  
-        callServerClientesConCita();
-        setTimeout(()=>{
-            
-          },100);        
+          callServerPolizaRenovar();
+          setTimeout(()=>{
+              
+            },100);	
+          callServerPolizaAnular();
+          setTimeout(()=>{
+              
+            },100);	  
+          callServerClientesConCita();
+          setTimeout(()=>{
+              
+            },100);    
+          callServerPolizasSinSolicitud();
+          setTimeout(()=>{
+              
+            },100);    
         }
         fetchData();
     }, []);
@@ -63,24 +76,27 @@ export default function TareasPendientes(props){
 
     
     return  <div className="lista_seguro"> 
-    {(polizasRenovar.polizasRenovar && polizasAnular.polizasAnular && clientesConCita.clientesConCita) ? 
+    {(polizasRenovar.polizasRenovar && polizasAnular.polizasAnular && clientesConCita.clientesConCita && polizasSinSolicitud.polizasSinSolicitud) ? 
     
     <div className="card">
    
-        <TabView>
-                <TabPanel header="Renovar polizas" leftIcon="pi pi-calendar mr-2">
+        <TabView title="¡Bienvenido a su lista de tareas!">
+                <TabPanel header="Renovar pólizas" leftIcon="pi pi-refresh mr-2">
                     <SolicitarRenovacion renovacion={polizasRenovar.polizasRenovar}/>  
                 </TabPanel>
-                <TabPanel header="Anular Polizas" leftIcon="pi pi-calendar mr-2">
+                <TabPanel header="Anular pólizas" leftIcon="pi pi-times mr-2">
                     <SolicitarAnulacion anulacion={polizasAnular.polizasAnular}/> 
                 </TabPanel>
-                <TabPanel header="Citas Solicitadas" leftIcon="pi pi-calendar mr-2">
+                <TabPanel header="Pólizas que caducan pronto" leftIcon="pi pi-clock mr-2">
+                    <PolizasSinSolicitud polizasNoSolicitud={polizasSinSolicitud.polizasSinSolicitud}/>
+                </TabPanel>
+                <TabPanel header="Visitas pendientes" leftIcon="pi pi-calendar mr-2">
                     <CitasClientes clientesCita={clientesConCita.clientesConCita}/>
                 </TabPanel>
             </TabView>
     </div> 
         :
-        <p> Algo ha falaldo en el servidor intentelo de nuevo</p>    
+        <p> Algo ha fallado en el servidor intentelo de nuevo</p>    
     }    
         </div>
 }

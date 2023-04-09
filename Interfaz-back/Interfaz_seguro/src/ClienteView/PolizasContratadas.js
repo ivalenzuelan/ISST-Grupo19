@@ -130,7 +130,8 @@ export default function PolizasContratadas(props){
         }
         </div>
             {polizas.polizas ? <div>
-                <h4>Polizas contratadas</h4>
+                <br/>
+                <h3><b>Pólizas contratadas</b></h3>
                 <Toast ref={toast} />
                 {polizas.polizas.map((item,index)=>(
                     <div>
@@ -138,7 +139,7 @@ export default function PolizasContratadas(props){
                         <p>
                             <p >Fecha inicio: {item.inicio}</p>
                             <p>Fecha de expiración: {item.termino}</p>
-                            <p> {item.precio} / {item.periodicidad}</p>
+                            <p> {item.precio}€ / {item.periodicidad}</p>
                             <p><Button onClick={()=>{solicitarRenovar(item)}}> Solicitar renovación </Button></p>
                             <p><Button onClick={() => {solicitarAnular(item)}}> Solicitar anulacion </Button></p>
                         </p>

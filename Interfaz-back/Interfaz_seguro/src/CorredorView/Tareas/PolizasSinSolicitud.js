@@ -10,9 +10,9 @@ import {SeguroService} from '../../service/segurosservice'
         
                                                       
 
-export default function SolicitarAnulacion(props){ 
+export default function PolizasSinSolicitud(props){ 
 
-    const [polizasAnular, setPolizasAnular] = useState(props.anulacion)
+    const [polizasSinSolicitud, setPolizasSinSolicitud] = useState(props.polizasNoSolicitud)
     const url = new SeguroService()
 
     const quitarAnulacion = (poliza) =>{
@@ -21,7 +21,7 @@ export default function SolicitarAnulacion(props){
         poliza.value.anular=false;
         console.log(poliza.value);
         url.editPoliza(poliza.value).then( data =>{
-            deletePoliza(polizasAnular, poliza.value.id)
+            deletePoliza(polizasSinSolicitud, poliza.value.id)
             //console.log(data)
         })
     }, 300);
@@ -29,17 +29,17 @@ export default function SolicitarAnulacion(props){
 
     const deletePoliza = (polizas, id) => {
         const updatedPolizas = polizas.filter(poliza => poliza.id !== id);
-        setPolizasAnular(updatedPolizas);
+        setPolizasSinSolicitud(updatedPolizas);
     };
 
     return  <div>
             <div className="card flex " style={{width:"750px"}}>
              <div className="flex flex-column gap-3"></div>
-                {polizasAnular.map((item,index)=>(
-                    <Card title={item.cliente.nombre + " " +item.cliente.apellidos}>
+             {console.log(polizasSinSolicitud)}
+                {polizasSinSolicitud.map((item,index)=>(
+                    <Card title={item.cliente.nombre +" " +item.cliente.apellidos}>
                     <div className="p-field-checkbox">
                     {console.log(item)}
-                        <Checkbox id={item.id} value={item} onChange={quitarAnulacion} />
                             <label htmlFor={item.id} className="p-checkbox-label">
                                 <p><b>Fecha de termino:</b> {item.termino}</p>
                                 <p><b>Seguro:</b> {item.seguro.nombre} - {item.seguro.aseguradora}</p>
