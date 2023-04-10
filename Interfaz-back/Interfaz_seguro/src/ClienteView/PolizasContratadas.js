@@ -15,8 +15,9 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";  
 import 'primeflex/primeflex.css';
 import { Card } from "primereact/card";
+
         
-export default function PolizasContratadas(props){ 
+export default function PolizasContratadas(props){
 
     let {id} = useParams()
     const [cliente, setCliente] = useState({});
