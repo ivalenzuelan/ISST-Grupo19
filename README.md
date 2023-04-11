@@ -1,5 +1,5 @@
 # ISST-Grupo19-CasoIntegral
-
+## Como lanzarlo
 Esto es una aplicación web con dos proyectos diferenciados (front-end y back-end) en carpetas distintas.
 
 Para probarlo, lance el servidor con:
