@@ -13,6 +13,7 @@ La aplicación cliente debe lanzarse con:
 ```bash
     npm install
 ```
+y posteriormente
 ```bash
     npm start
 ```
