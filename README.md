@@ -1,5 +1,5 @@
 # ISST-Grupo19-CasoIntegral
-## Como lanzarlo
+## Cómo lanzarlo
 Esto es una aplicación web con dos proyectos diferenciados (front-end y back-end) en carpetas distintas.
 
 Para probarlo, lance el servidor con:
@@ -11,5 +11,8 @@ Para probarlo, lance el servidor con:
 La aplicación cliente debe lanzarse con:
 
 ```bash
-    npm install && npm start
+    npm install
+```
+```bash
+    npm start
 ```
