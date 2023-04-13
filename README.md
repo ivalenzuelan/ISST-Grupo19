@@ -6,7 +6,7 @@ Esto es una aplicación web con dos proyectos diferenciados (front-end y back-en
 Para probarlo, lance el servidor con:
 
 ```bash
-    ./mvn clean install spring-boot:run -DskipTests=true
+    ./mvnw clean install spring-boot:run -DskipTests=true
 ```
 
 La aplicación cliente debe lanzarse con:
