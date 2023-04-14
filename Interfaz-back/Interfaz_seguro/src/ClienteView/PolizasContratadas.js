@@ -15,6 +15,7 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";  
 import 'primeflex/primeflex.css';
 import { Card } from "primereact/card";
+import ClientesCorredor from "../CorredorView/ClientesCorredor";
 
         
 export default function PolizasContratadas(props){
@@ -39,7 +40,20 @@ export default function PolizasContratadas(props){
         },
     ]
 
+    let clienteMuestra = cliente
+
+    while(1){
+        if(clienteMuestra.cliente!==undefined){
+            clienteMuestra = clienteMuestra.cliente
+        }
+        else{
+            break;
+        }
+    }
+
     const url = new SeguroService()
+
+    console.log(cliente)
 
     const callServer = async (param) =>{
         await url.getCliente(id).then(data => {
@@ -67,15 +81,16 @@ export default function PolizasContratadas(props){
     }, []);
     
     const showEditDialog=()=>{
-        setCliente({"cliente": cliente})
+        console.log("showEditDialog")
         setVisible(true)
     }
     const showCitaDialog=()=>{
-        setCliente({"cliente": cliente})
+        console.log("showCitaDialog")
         setCitaVisible(true)
     }
     const editCliente=()=>{
-        url.editCliente(cliente.cliente).then(res => {
+        console.log("EditandoCliente")
+        url.editCliente(cliente).then(res => {
             toast.current.show({severity:'info', summary: 'Info', detail:'Se ha realizado la petición correctamente', life: 3300, closable: false});
             setTimeout(2000)
             window.location.reload();
@@ -117,11 +132,11 @@ export default function PolizasContratadas(props){
                 <Menubar model={items} /> 
             </div>
             <div>
-                <Card title ={ cliente.nombre+" "+cliente.apellidos}>
+                <Card title ={ clienteMuestra.nombre+" "+clienteMuestra.apellidos}>
                     <p>
-                        <p><b>Username: </b>{cliente.username}</p>
-                        <p><b>Mail: </b> {cliente.mail}</p>
-                        <p><b>Telefono: </b> {cliente.telefono} </p>
+                        <p><b>Username: </b>{clienteMuestra.username}</p>
+                        <p><b>Mail: </b> {clienteMuestra.mail}</p>
+                        <p><b>Telefono: </b> {clienteMuestra.telefono} </p>
                     </p>
                 </Card>
             </div>
@@ -153,81 +168,71 @@ export default function PolizasContratadas(props){
             }
         <Dialog header="Modificar mis datos" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={()=>{editCliente(); setVisible(false)}}/>} onHide={() => setVisible(false)}>
             <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="username" value={cliente.username} onChange={(e) =>{         
-                        let val = e.target.value;
-                        setCliente(prevState=>{
-                            console.log(prevState)
-                            let clienteEdit = Object.assign({}, prevState);
-                            clienteEdit.cliente.username = val
-                            let cliente = clienteEdit.cliente
-                            return {cliente}
+                <InputText style={{width: '60%', margin: '5px'}} id="username" value={cliente.username} onChange={(e) =>{         
+                    let val = e.target.value;
+                    setCliente(prevState=>{
+                        let clienteEdit = {...prevState};
+                        clienteEdit.username = val;
+                        return clienteEdit;
                     })}} />
-                    <label htmlFor="username">Username</label>
-                </span>
-                <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="mail" value={cliente.mail} onChange={(e) =>{         
-                        let val = e.target.value;
-                        setCliente(prevState=>{
-                            console.log(prevState)
-                            let clienteEdit = Object.assign({}, prevState);
-                            clienteEdit.cliente.mail = val
-                            let cliente = clienteEdit.cliente
-                            return {cliente}
+                <label htmlFor="username">Username</label>
+            </span>
+            <span className="p-float-label">
+                <InputText style={{width: '60%', margin: '5px'}} id="mail" value={cliente.mail} onChange={(e) =>{         
+                    let val = e.target.value;
+                    setCliente(prevState=>{
+                        let clienteEdit = {...prevState};
+                        clienteEdit.mail = val;
+                        return clienteEdit;
                     })}} />
-                    <label htmlFor="mail">Mail</label>
-                </span>
-                <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="password" value={cliente.password} onChange={(e) =>{         
-                        let val = e.target.value;
-                        setCliente(prevState=>{
-                            console.log(prevState)
-                            let clienteEdit = Object.assign({}, prevState);
-                            clienteEdit.cliente.password = val
-                            let cliente = clienteEdit.cliente
-                            return {cliente}
+                <label htmlFor="mail">Mail</label>
+            </span>
+            <span className="p-float-label">
+                <InputText style={{width: '60%', margin: '5px'}} id="password" value={cliente.password} onChange={(e) =>{         
+                    let val = e.target.value;
+                    setCliente(prevState=>{
+                        let clienteEdit = {...prevState};
+                        clienteEdit.password = val;
+                        return clienteEdit;
                     })}} />
-                    <label htmlFor="password">Contraseña</label>
-                </span>
-                <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="direccion" value={cliente.password} onChange={(e) =>{         
-                        let val = e.target.value;
-                        setCliente(prevState=>{
-                            console.log(prevState)
-                            let clienteEdit = Object.assign({}, prevState);
-                            clienteEdit.cliente.direccion = val
-                            let cliente = clienteEdit.cliente
-                            return {cliente}
+                <label htmlFor="password">Contraseña</label>
+            </span>
+            <span className="p-float-label">
+                <InputText style={{width: '60%', margin: '5px'}} id="direccion" value={cliente.direccion} onChange={(e) =>{         
+                    let val = e.target.value;
+                    setCliente(prevState=>{
+                        let clienteEdit = {...prevState};
+                        clienteEdit.direccion = val;
+                        return clienteEdit;
                     })}} />
-                    <label htmlFor="direccion">Direccion</label>
-                </span>
-                <span className="p-float-label">
-                    <InputText style={{width: '60%', margin: '5px'}} id="telefono" value={cliente.telefono} onChange={(e) =>{         
-                        let val = e.target.value;
-                        setCliente(prevState=>{
-                            console.log(prevState)
-                            let clienteEdit = Object.assign({}, prevState);
-                            clienteEdit.cliente.telefono = val
-                            let cliente = clienteEdit.cliente
-                            return {cliente}
+                <label htmlFor="direccion">Direccion</label>
+            </span>
+            <span className="p-float-label">
+                <InputText style={{width: '60%', margin: '5px'}} id="telefono" value={cliente.telefono} onChange={(e) =>{         
+                    let val = e.target.value;
+                    setCliente(prevState=>{
+                        let clienteEdit = {...prevState};
+                        clienteEdit.telefono = val;
+                        return clienteEdit;
                     })}} />
-                    <label htmlFor="telefono">Telefono</label>
-                </span>
-        </Dialog> 
+                <label htmlFor="telefono">Telefono</label>
+            </span>
+        </Dialog>
+
 
         <Dialog header="Solicitar cita" visible={citaVisible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={editCliente}/>} onHide={() => setCitaVisible(false)}>
             <span className="p-float-label">
                 <Calendar style={{width: '60%', margin: '5px'}} id="cita" value={cliente.cita} onChange={(e) =>{
                     let val = e.value;
                     setCliente(prevState=>{
-                        let clienteEdit = Object.assign({}, prevState);
-                        clienteEdit.cliente.cita = val
-                        let cliente = clienteEdit.cliente
-                        return {cliente}
-                        })}} dateFormat="yy-mm-dd" />
-                    <label htmlFor="Cita">Seleccione la fecha</label>
-                </span> 
+                        let clienteEdit = {...prevState};
+                        clienteEdit.cita = val;
+                        return clienteEdit;
+                    })}} dateFormat="yy-mm-dd" />
+                <label htmlFor="Cita">Seleccione la fecha</label>
+            </span>
+        </Dialog>
 
-        </Dialog>  
         </div>
 }
     
