@@ -78,10 +78,10 @@ export default function Footer() {
                 </p>
                 <p>
                   <MDBIcon icon="envelope" className="me-3" />
-                  integral_insurance@example.com
+                  integral@insurance.com
                 </p>
                 <p>
-                  <MDBIcon icon="phone" className="me-3" /> + 34 666 666 666
+                  <MDBIcon icon="phone" className="me-3" /> + 34 621 621 621
                 </p>
             
               </MDBCol>
@@ -90,7 +90,7 @@ export default function Footer() {
         </section>
   
         <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-          © 2021 Copyright:
+          © 2023 Copyright:
           <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
             MDBootstrap.com
           </a>

@@ -26,6 +26,7 @@ export default function PolizasContratadas(props){
     const [visible, setVisible] = useState(false);
     const [citaVisible, setCitaVisible] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [minDate, setMinDate] = useState(new Date());
     const toast = useRef(null);
     const items =[
         {
@@ -228,7 +229,8 @@ export default function PolizasContratadas(props){
                         let clienteEdit = {...prevState};
                         clienteEdit.cita = val;
                         return clienteEdit;
-                    })}} dateFormat="yy-mm-dd" />
+                    })}} dateFormat="yy-mm-dd"
+                         minDate={minDate} />
                 <label htmlFor="Cita">Seleccione la fecha</label>
             </span>
         </Dialog>
