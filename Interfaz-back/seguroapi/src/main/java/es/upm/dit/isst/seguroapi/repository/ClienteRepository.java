@@ -2,6 +2,8 @@ package es.upm.dit.isst.seguroapi.repository;
 
 // import java.util.List;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import es.upm.dit.isst.seguroapi.model.Cliente;
 
@@ -12,5 +14,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     List<Cliente> findAllByOrderByNombreAscApellidosAsc();
 
     List<Cliente> findByCitaNotNullOrderByCita();
+
+    Optional <Cliente> findOneByMail(String mail);
 
 }
