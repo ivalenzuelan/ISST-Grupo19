@@ -142,5 +142,6 @@ public class SeguroapiApplicationTests {
 		seguroRepository.delete(seguro);
 		clienteRepository.delete(cliente);
 	}
+	
 
 	}
