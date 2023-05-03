@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.ValidationException;
+
 @RestController
 @CrossOrigin
 public class SeguroController {
@@ -43,13 +46,28 @@ public class SeguroController {
 
     }
 
-    @PostMapping("/seguros") // ok
-    ResponseEntity<Seguro> createSeguro(@RequestBody Seguro newSeguro) throws URISyntaxException {
-
-        Seguro result = seguroRepository.save(newSeguro);
-
+    @PostMapping("/seguros")
+    ResponseEntity<Seguro> createSeguro(@RequestBody Seguro newSeguro) throws URISyntaxException, ValidationException {
+        // Sanitize user input using ESAPI
+        String safeNombre = ESAPI.validator().getValidInput("createSeguro", newSeguro.getNombre(), "SafeString", 255, false);
+        String safeTipo = ESAPI.validator().getValidInput("createSeguro", newSeguro.getTipo(), "SafeString", 255, false);
+        String safeAseguradora = ESAPI.validator().getValidInput("createSeguro", newSeguro.getAseguradora(), "SafeString", 255, false);
+        String safeDescripcion = ESAPI.validator().getValidInput("createSeguro", newSeguro.getDescripcion(), "SafeString", 255, false);
+        String safePeriodicidad = ESAPI.validator().getValidInput("createSeguro", newSeguro.getPeriodicidad(), "SafeString", 255, false);
+    
+        // Create new Seguro object with sanitized input
+        Seguro result = new Seguro();
+        result.setNombre(safeNombre);
+        result.setTipo(safeTipo);
+        result.setPrecio(newSeguro.getPrecio());
+        result.setAseguradora(safeAseguradora);
+        result.setDescripcion(safeDescripcion);
+        result.setPeriodicidad(safePeriodicidad);
+    
+        // Save the new Seguro object to the repository
+        result = seguroRepository.save(result);
+    
         return ResponseEntity.created(new URI("/seguros/" + result.getId())).body(result);
-
     }
 
     @GetMapping("/seguros/tipo/{tipo}") // ok
