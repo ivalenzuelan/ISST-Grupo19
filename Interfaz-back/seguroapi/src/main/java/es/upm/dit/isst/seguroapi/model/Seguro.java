@@ -49,6 +49,10 @@ public class Seguro {
 
     /* Getters and Setters */
 
+    public Seguro(String safeNombre, String safeTipo, double precio2, String safeAseguradora, String safeDescripcion,
+            String safePeriodicidad, String safeAseguradora2) {
+    }
+
     public Integer getId() {
         return id;
     }
