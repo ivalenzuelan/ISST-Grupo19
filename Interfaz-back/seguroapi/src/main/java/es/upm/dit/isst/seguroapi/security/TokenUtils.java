@@ -13,7 +13,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
 public class TokenUtils {
-    private final static String ACCESS_TOKEN_SECRET = "4673hggdhjks5678ghjvcghjw"; // esta la he puesto a boleo igual hay que poner otra cosa (min 10:27)
+    private final static String ACCESS_TOKEN_SECRET = "4qhq8LrEBfYcaRHxhdb9zURb2rf8e7Ud"; // esta la he puesto a boleo igual hay que poner otra cosa (min 10:27)
     private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_000L; // 30 dias de vida para el token
 
     public static String createToken(String nombre, String email) {

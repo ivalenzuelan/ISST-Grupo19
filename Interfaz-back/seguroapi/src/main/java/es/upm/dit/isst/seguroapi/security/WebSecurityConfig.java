@@ -33,6 +33,7 @@ public class WebSecurityConfig  {
         return http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/seguros").permitAll()
                 .anyRequest() // cualquier solicitud
                 .authenticated() // tiene que estar autenticada
                 .and()
