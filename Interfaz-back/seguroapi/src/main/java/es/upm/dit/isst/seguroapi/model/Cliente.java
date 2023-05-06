@@ -31,6 +31,9 @@ public class Cliente {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
+    @Column(name = "AUTHORITY", nullable = false)
+    private String authority;
+
     @Column(name = "NACIMIENTO")
     private LocalDate nacimiento;
 
@@ -45,18 +48,20 @@ public class Cliente {
 
     @OneToMany(mappedBy = "cliente")
     Set<Poliza> poliza;
+    
 
     public Cliente() {
     }
 
     public Cliente(String mail, String idFiscal, String username, String nombre, String apellidos,
-            String password, LocalDate nacimiento, String direccion, String telefono, LocalDate cita) {
+            String password, String authority, LocalDate nacimiento, String direccion, String telefono, LocalDate cita) {
         this.mail = mail;
         this.idFiscal = idFiscal;
         this.username = username;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.password = password;
+        this.authority = authority;
         this.nacimiento = nacimiento;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -89,6 +94,14 @@ public class Cliente {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     public void setUsername(String username) {
