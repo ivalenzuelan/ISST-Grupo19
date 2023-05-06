@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +33,7 @@ public class ClienteController {
     }
 
     // CLIENTES //
+
     @GetMapping("/clientes")
     List<Cliente> readAllCliente() {
         return (List<Cliente>) clienteRepository.findAllByOrderByNombreAscApellidosAsc();
@@ -72,7 +72,6 @@ public class ClienteController {
             cliente.setTelefono(newCliente.getTelefono());
             cliente.setUsername(newCliente.getUsername());
             cliente.setPassword(newCliente.getPassword());
-            cliente.setAuthority(newCliente.getAuthority());
             cliente.setCita(newCliente.getCita());
 
             clienteRepository.save(cliente);
