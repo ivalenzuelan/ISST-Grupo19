@@ -35,37 +35,37 @@ public class PolizaController {
     }
 
     // POLIZAS //
-
+    /*ADMIN */
     @GetMapping("/polizas")
     List<Poliza> readAllPoliza() {
         return (List<Poliza>) polizaRepository.findAll();
 
     }
-
+    /*ADMIN */
     @GetMapping("/polizas/renovar")
     List<Poliza> readPolizasRenovar() {
         return (List<Poliza>) polizaRepository.findByRenovarOrderByTermino(true);
 
     }
-
+    /*ADMIN */
     @GetMapping("/polizas/anular")
     List<Poliza> readPolizasAnular() {
         return (List<Poliza>) polizaRepository.findByAnularOrderByTermino(true);
 
     }
-
+    /*ADMIN */
     @GetMapping("/polizas/anularNoSolicitadas")
     List<Poliza> readPolizasAnularNo() {
         return (List<Poliza>) polizaRepository.findByAnularFalseAndRenovarFalseOrderByTermino();
 
     }
 
-
+    /*Solo user con ese ID */
     @GetMapping("polizas/cliente/{id}")
     List<Poliza> findPolizasByCliente(@PathVariable Integer id) {
         return (List<Poliza>) polizaRepository.findByClienteId(id);
     }
-
+    /*ADMIN */
     @PostMapping("/polizas") // ok, esto es para añadirle un seguro a un cliente
     ResponseEntity<Poliza> createPoliza(@RequestBody Poliza newPoliza) throws URISyntaxException {
 
@@ -81,13 +81,13 @@ public class PolizaController {
         return ResponseEntity.created(new URI("/polizas/" + result.getId())).body(result);
 
     }
-
+    /*ADMIN */
     @DeleteMapping("polizas/{id}") // ok, esto es para quitarle una seguro a un cliente
     ResponseEntity<Cliente> deletePoliza(@PathVariable Integer id) {
         polizaRepository.deleteById(id);
         return ResponseEntity.ok().body(null);
     }
-
+    /* User y admin */
     // Para que el corredor pueda cambiar los datos de la poliza de un cliente
     @PutMapping("/polizas/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo
                                  // aunque no se hayan cambiado todos los campos, sino error 500

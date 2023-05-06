@@ -33,30 +33,31 @@ public class ClienteController {
     }
 
     // CLIENTES //
-
+    /* ADMIN */
     @GetMapping("/clientes")
     List<Cliente> readAllCliente() {
         return (List<Cliente>) clienteRepository.findAllByOrderByNombreAscApellidosAsc();
     }
-
+    /* ADMIN */
     @GetMapping("/clientesConCita")
     List<Cliente> readClientesCita() {
         return (List<Cliente>) clienteRepository.findByCitaNotNullOrderByCita();
     }
-
+    /* ADMIN */
     @PostMapping("/clientes")
     ResponseEntity<Cliente> createCliente(@RequestBody Cliente newCliente) throws URISyntaxException {
         Cliente result = clienteRepository.save(newCliente);
         return ResponseEntity.created(new URI("/clientes/" + result.getNombre() + result.getApellidos())).body(result);
 
     }
-
+    /* logica para que solo ese user */
     @GetMapping("/clientes/{id}")
     ResponseEntity<Cliente> readClientes(@PathVariable Integer id) {
         return clienteRepository.findById(id).map(cliente -> ResponseEntity.ok().body(cliente))
                 .orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
     }
-
+    /* logica para que solo ese user */
+    /* Y admin */
     @PutMapping("/clientes/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo
                                   // aunque no se hayan cambiado todos los campos, sino error 500
     // esto responde con el json actualizado en el body
@@ -78,7 +79,7 @@ public class ClienteController {
             return ResponseEntity.ok().body(cliente);
         }).orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
     }
-
+    /* ADMIN */
     @DeleteMapping("clientes/{id}")
     ResponseEntity<Cliente> deleteCliente(@PathVariable Integer id) {
         clienteRepository.deleteById(id);

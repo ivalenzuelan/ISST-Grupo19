@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
 @CrossOrigin
@@ -37,32 +37,36 @@ public class SeguroController {
     }
 
     // SEGUROS //
-
+    /* TODOS */
     @GetMapping("/seguros") // ok
     List<Seguro> readAllSeguro() {
         return (List<Seguro>) seguroRepository.findAll();
 
     }
 
+    /* ADMIN */
     @PostMapping("/seguros")
     ResponseEntity<Seguro> createSeguro(@RequestBody Seguro newSeguro) throws URISyntaxException {
-        
+
         Seguro result = seguroRepository.save(newSeguro);
-    
+
         return ResponseEntity.created(new URI("/seguros/" + result.getId())).body(result);
     }
+    /* TODOS */
 
     @GetMapping("/seguros/tipo/{tipo}") // ok
     List<Seguro> readSeguroTipo(@PathVariable String tipo) {
         return (List<Seguro>) seguroRepository.findByTipo(tipo);
     }
 
+    /* USER / ADMIN */
     @GetMapping("/seguros/{id}") // ok
     ResponseEntity<Seguro> readSeguro(@PathVariable Integer id) {
         return seguroRepository.findById(id).map(tfg -> ResponseEntity.ok().body(tfg))
                 .orElse(new ResponseEntity<Seguro>(HttpStatus.NOT_FOUND));
     }
 
+    /* ADMIN */
     @PutMapping("/seguros/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo
                                  // aunque no se hayan cambiado todos los campos, sino error 500
     // esto responde con el json actualizado en el body
@@ -92,6 +96,7 @@ public class SeguroController {
 
     }
 
+    /* ADMIN */
     @DeleteMapping("/seguros/{id}") // ok, elimina la fila de la base de datos
 
     ResponseEntity<Seguro> deleteSeguro(@PathVariable Integer id) {

@@ -73,7 +73,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
         // cada vez que hacemos una petición
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/auth/**", "/seguros", "/seguros/tipo/{tipo}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
