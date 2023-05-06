@@ -25,6 +25,7 @@ import PolizasContratadas from './ClienteView/PolizasContratadas';
 import 'primereact/resources/themes/saga-blue/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
+import Login from './Login';
 
 
 
@@ -40,11 +41,11 @@ function App() {
           setSeguro({seguros: data})
         })
     }
-    const callServerClientes = async (param) =>{
-      await url.getAllClientes().then(data => {
-        setCliente({clientes: data})   
-      })
-  }
+    // const callServerClientes = async (param) =>{
+    //   await url.getAllClientes().then(data => {
+    //     setCliente({clientes: data})   
+    //   })
+  // }
 
   useEffect(() => {
       function fetchData() {	
@@ -52,10 +53,10 @@ function App() {
           setTimeout(()=>{
             setLoading(false);
           },50);		
-        callServerClientes();
-        setTimeout(()=>{
-          setLoading(false);
-        },50);
+        // callServerClientes();
+        // setTimeout(()=>{
+        //   setLoading(false);
+        // },50);
       }
   
       fetchData();
@@ -69,6 +70,7 @@ function App() {
       {loading ? <Header/> :
        <Routes>
           <Route path="/" element={<Inicio/>} />
+          <Route path="/login" element={<Login/>} />
           <Route path="/seguros" element={<SegurosUnTipo/>} />
           <Route path="/seguros/tipo/:tipo" element={<SegurosTipo losseguros={seguro.seguros}/>} />
           <Route path="/segurosCorredor" element={<SegurosCorredor losseguros={seguro.seguros}/>} />

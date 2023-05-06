@@ -8,17 +8,18 @@ import axios from 'axios';
 
 export default function Login() {
  
-    const [mail, setMail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
   
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('http://localhost:8080/api/auth/signin', {
-          mail,
+        const response = await axios.post('http://localhost:8080/auth/login', {
+          username,
           password,
         });
-        const token = response.data.accessToken;
+        const token = response.data.token;
+        localStorage.setItem('token', token)
         // Guarda el token JWT en el estado de la aplicación o en las cookies del navegador
       } catch (error) {
         console.error(error);
@@ -27,7 +28,7 @@ export default function Login() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="mail" placeholder="Correo electrónico" onChange={(e) => setMail(e.target.value)} />
+            <input type="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
             <input type="password" placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} />
             <button type="submit">Iniciar sesión</button>
         </form>

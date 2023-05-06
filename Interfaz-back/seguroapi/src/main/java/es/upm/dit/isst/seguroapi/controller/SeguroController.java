@@ -44,7 +44,7 @@ public class SeguroController {
 
     }
 
-    /* ADMIN */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/seguros")
     ResponseEntity<Seguro> createSeguro(@RequestBody Seguro newSeguro) throws URISyntaxException {
 
@@ -66,7 +66,7 @@ public class SeguroController {
                 .orElse(new ResponseEntity<Seguro>(HttpStatus.NOT_FOUND));
     }
 
-    /* ADMIN */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/seguros/{id}") // ok, pero en el front hay que asegurarse de que se manda el objeto completo
                                  // aunque no se hayan cambiado todos los campos, sino error 500
     // esto responde con el json actualizado en el body
@@ -96,7 +96,7 @@ public class SeguroController {
 
     }
 
-    /* ADMIN */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/seguros/{id}") // ok, elimina la fila de la base de datos
 
     ResponseEntity<Seguro> deleteSeguro(@PathVariable Integer id) {

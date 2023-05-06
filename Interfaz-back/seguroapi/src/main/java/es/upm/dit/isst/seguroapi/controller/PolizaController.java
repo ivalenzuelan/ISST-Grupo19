@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import es.upm.dit.isst.seguroapi.model.Cliente;
 import es.upm.dit.isst.seguroapi.model.Poliza;
@@ -35,25 +36,25 @@ public class PolizaController {
     }
 
     // POLIZAS //
-    /*ADMIN */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/polizas")
     List<Poliza> readAllPoliza() {
         return (List<Poliza>) polizaRepository.findAll();
 
     }
-    /*ADMIN */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/polizas/renovar")
     List<Poliza> readPolizasRenovar() {
         return (List<Poliza>) polizaRepository.findByRenovarOrderByTermino(true);
 
     }
-    /*ADMIN */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/polizas/anular")
     List<Poliza> readPolizasAnular() {
         return (List<Poliza>) polizaRepository.findByAnularOrderByTermino(true);
 
     }
-    /*ADMIN */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/polizas/anularNoSolicitadas")
     List<Poliza> readPolizasAnularNo() {
         return (List<Poliza>) polizaRepository.findByAnularFalseAndRenovarFalseOrderByTermino();
@@ -65,7 +66,7 @@ public class PolizaController {
     List<Poliza> findPolizasByCliente(@PathVariable Integer id) {
         return (List<Poliza>) polizaRepository.findByClienteId(id);
     }
-    /*ADMIN */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/polizas") // ok, esto es para añadirle un seguro a un cliente
     ResponseEntity<Poliza> createPoliza(@RequestBody Poliza newPoliza) throws URISyntaxException {
 
@@ -81,7 +82,7 @@ public class PolizaController {
         return ResponseEntity.created(new URI("/polizas/" + result.getId())).body(result);
 
     }
-    /*ADMIN */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("polizas/{id}") // ok, esto es para quitarle una seguro a un cliente
     ResponseEntity<Cliente> deletePoliza(@PathVariable Integer id) {
         polizaRepository.deleteById(id);

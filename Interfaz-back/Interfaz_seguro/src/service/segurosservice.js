@@ -7,7 +7,7 @@ export class SeguroService {
 
     // Aqui tenemos que poner la URL donde esté expuesta nuestra API
 
-    baseUrl = "https://localhost:8443/";
+    baseUrl = "http://localhost:8080/";
 
 
     getAll() {
@@ -69,7 +69,13 @@ export class SeguroService {
     }
 
     getCliente(id){
-        return axios.get(this.baseUrl+"clientes/"+id).then( res => {
+        const jwt = localStorage.getItem('token')
+        console.log(jwt)
+        return axios.get(this.baseUrl+"clientes/"+id, {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then( res => {
             return res.data
         })
     }
