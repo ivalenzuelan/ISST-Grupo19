@@ -14,7 +14,7 @@ VALUES
 
 INSERT INTO CLIENTE (id, mail, id_Fiscal, username, nombre, apellidos, password, nacimiento, direccion, telefono, cita)
 VALUES 
-  (1010, 'pepe@ejemplo.com', '12345678A', 'pepelopez', 'Pepe', 'López', 'miclave', '1990-01-01', 'Calle Mayor 1', '+34 912 345 678', '2022-05-04'),
+  (1010, 'pepe@ejemplo.com', '12345678A', 'pepelopez', 'Pepe', 'López', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1990-01-01', 'Calle Mayor 1', '+34 912 345 678', '2022-05-04'),
   (1011, 'laura@ejemplo.com', '87654321B', 'lauragarcia', 'Laura', 'García', 'miclave', '1995-05-05', 'Calle Cervantes 2', '+34 912 345 679', '2022-05-04'),
   (1012, 'juan@ejemplo.com', '43215678C', 'juanmartinez', 'Juan', 'Martínez', 'miclave', '1985-12-25', 'Calle Goya 3', '+34 912 345 680', '2022-05-04'),
   (1013, 'ana@ejemplo.com', '87654321D', 'anaperez', 'Ana', 'Pérez', 'miclave', '2000-08-15', 'Calle Alcalá 4', '+34 912 345 681', '2022-08-04'),
