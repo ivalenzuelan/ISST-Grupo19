@@ -7,7 +7,7 @@ export class SeguroService {
 
     // Aqui tenemos que poner la URL donde esté expuesta nuestra API
 
-    baseUrl = "http://localhost:8080/";
+    baseUrl = "https://localhost:8443/";
 
 
     getAll() {
@@ -37,7 +37,13 @@ export class SeguroService {
     }
 
     getAllClientes() {
-        return axios.get(this.baseUrl+"clientes").then(res => {
+        const jwt = localStorage.getItem('token')
+        console.log(jwt)
+        return axios.get(this.baseUrl+"clientes", {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then( res => {
             return res.data
         })
     }
@@ -61,11 +67,29 @@ export class SeguroService {
     }
 
     editPoliza(poliza) {
-        return axios.put(this.baseUrl +"polizas/"+ poliza.id, poliza, {headers:{"Content-Type" : "application/json"}}).then(res => res.data)
+        const jwt = localStorage.getItem('token')
+        console.log(jwt)
+                return axios.put(this.baseUrl+"polizas/"+ poliza.id, poliza, {
+            headers: [{
+              'Authorization': `Bearer ${jwt}`
+            },{
+                "Content-Type" : "application/json"
+            }]
+        }).then( res => {
+            return res.data
+        })
     }
 
     deletePoliza(id) {
-        return axios.delete(this.baseUrl+"polizas/"+id).then(res => res.data)
+        const jwt = localStorage.getItem('token')
+        console.log(jwt)
+                return axios.delete(this.baseUrl+"polizas/"+id, {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then( res => {
+            return res.data
+        })
     }
 
     getCliente(id){

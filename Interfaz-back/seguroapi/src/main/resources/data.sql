@@ -24,7 +24,8 @@ VALUES
   (1017, 'clara@ejemplo.com', '87651234H', 'clararodriguez', 'Clara', 'Rodríguez', 'miclave', '1996-07-12', 'Calle Paseo de la Castellana 8', '+34 912 345 685', null),
   (1018, 'alberto@ejemplo.com', '43218765I', 'albertosanchez', 'Alberto', 'Sánchez', 'miclave', '1993-03-15', 'Calle Serrano 9', '+34 912 345 686', '2022-08-04'),
   (1019, 'ireneg@ejemplo.com', '13572468J', 'irenegomez', 'Irene', 'Gómez', 'miclave', '1988-09-05', 'Calle Velázquez 10', '+34 912 345 687', '2023-05-04'),
-  (1020, 'irenea@ejemplo.com', '13572168J', 'irenealonso', 'Irene', 'Alonso', 'miclave', '1988-09-02', 'Calle Velázquez 31', '+34 912 321 687', null);
+  (1020, 'irenea@ejemplo.com', '13572168J', 'irenealonso', 'Irene', 'Alonso', 'miclave', '1988-09-02', 'Calle Velázquez 31', '+34 912 321 687', null),
+  (1021, 'corredor@integral.com', '13572168J', 'corredor', 'Corredor', 'de Integral', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1988-09-02', 'Calle Velázquez 31', '+34 912 321 687', null);
 
 INSERT INTO POLIZA (id, fecha_inicio, pdf_poliza, periodicidad, precio, fecha_termino, cliente, seguro, anular, renovar)
 VALUES

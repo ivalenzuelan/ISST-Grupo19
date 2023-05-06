@@ -1,4 +1,4 @@
-import {useState, useRef} from "react"
+import {useState, useRef, useEffect} from "react"
 import { Link, useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
 
@@ -15,11 +15,11 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";                                         
         
 
-export default function ClientesCorredor(props){ 
+export default function ClientesCorredor(){ 
 
 
     const [filtro,setFiltro]=useState(null)
-    const [clientes, setClientes] = useState(props.losclientes);
+    const [clientes, setClientes] = useState([]);
     const [cliente,setCliente] = useState({
         "id": null,
         "mail": null,
@@ -32,6 +32,20 @@ export default function ClientesCorredor(props){
         "direccion": null,
         "telefono": null,
     })
+
+    const callServerClientes = async (param) =>{
+        await url.getAllClientes().then(data => {
+        setClientes({clientes: data})   
+      })
+    }
+
+  useEffect(() => {
+    function fetchData() {		
+      callServerClientes();
+    }
+    fetchData();
+  }, []);
+
     const [visible, setVisible] = useState(false);
     const toast = useRef(null)
     const items =[
@@ -43,10 +57,9 @@ export default function ClientesCorredor(props){
 
     ]
     const url = new SeguroService()
-  
     const filtrar=()=>{
         if(filtro===""){
-            setClientes(props.losclientes);
+            setClientes(clientes.clientes);
         }
         else{
        setClientes(clientes.filter(cliente => cliente.nombre.toLowerCase().includes(filtro)))
@@ -82,7 +95,10 @@ export default function ClientesCorredor(props){
     }
 
 
-    return <div id='seguro_por_tipo'>
+    return <div>
+    {
+        clientes.clientes ?
+    <div id='seguro_por_tipo'>
         <Toast ref={toast} />  
         <div id="seccion">
             <span className="p-input-icon-left">
@@ -101,7 +117,7 @@ export default function ClientesCorredor(props){
                 <Menubar model={items} className="custom-menubar" />
             </div>
 
-            {clientes.map((item,index)=>(
+            {clientes.clientes.map((item,index)=>(
                 <div>
                 <Card title={item.nombre+" "+item.apellidos}>
                     <p>
@@ -195,6 +211,9 @@ export default function ClientesCorredor(props){
                 
             </Dialog>
     </div>
+    : 
+
+    <p>Algo ha fallado en el servidor</p> } </div>
         
 
 }

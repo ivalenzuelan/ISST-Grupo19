@@ -71,9 +71,10 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // Desactivamos cookies ya que enviamos un token
         // cada vez que hacemos una petición
+        http.headers().frameOptions().disable();
         http.cors().and().csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/auth/**", "/seguros", "/seguros/tipo/{tipo}").permitAll()
+                .authorizeHttpRequests()
+                .antMatchers("/auth/**", "/seguros", "/seguros/tipo/{tipo}","/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)

@@ -14,12 +14,14 @@ export default function Login() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('http://localhost:8080/auth/login', {
+        const response = await axios.post('https://localhost:8443/auth/login', {
           username,
           password,
         });
         const token = response.data.token;
         localStorage.setItem('token', token)
+        console.log(localStorage.getItem('token'));
+        console.log(response.data)
         // Guarda el token JWT en el estado de la aplicación o en las cookies del navegador
       } catch (error) {
         console.error(error);

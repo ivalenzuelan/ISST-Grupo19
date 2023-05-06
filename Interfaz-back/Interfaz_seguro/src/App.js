@@ -74,7 +74,7 @@ function App() {
           <Route path="/seguros" element={<SegurosUnTipo/>} />
           <Route path="/seguros/tipo/:tipo" element={<SegurosTipo losseguros={seguro.seguros}/>} />
           <Route path="/segurosCorredor" element={<SegurosCorredor losseguros={seguro.seguros}/>} />
-          <Route path="/clientesCorredor" element={<ClientesCorredor losclientes={cliente.clientes}/>} />
+          <Route path="/clientesCorredor" element={<ClientesCorredor />} />
           <Route path="/tareasCorredor" element={<TareasPendientes/>} />
           <Route path="/clientesCorredor/:id" element={<EditarCliente losseguros={seguro.seguros}/>}/>
           <Route path="/clientes/:id" element={<PolizasContratadas losclientes={cliente.clientes}/>} />
