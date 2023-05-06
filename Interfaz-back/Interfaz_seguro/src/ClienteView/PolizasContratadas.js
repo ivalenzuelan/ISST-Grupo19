@@ -18,7 +18,7 @@ import { Card } from "primereact/card";
 import ClientesCorredor from "../CorredorView/ClientesCorredor";
 
         
-export default function PolizasContratadas(props){
+export default function PolizasContratadas(){
 
     let {id} = useParams()
     const [cliente, setCliente] = useState({});

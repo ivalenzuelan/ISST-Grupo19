@@ -5,11 +5,14 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
  
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [logged, setLogged] = useState(false);
+    const navigate = useNavigate();
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -20,11 +23,16 @@ export default function Login() {
         });
         const token = response.data.token;
         localStorage.setItem('token', token)
+        const rol = response.data.authorities[0].authority;
+        localStorage.setItem('rol', rol)
+        console.log(rol)
+        setLogged(true)
         // Guarda el token JWT en el estado de la aplicación o en las cookies del navegador
       } catch (error) {
         console.error(error);
       }
     };
+
 
     return (
         <form onSubmit={handleSubmit}>

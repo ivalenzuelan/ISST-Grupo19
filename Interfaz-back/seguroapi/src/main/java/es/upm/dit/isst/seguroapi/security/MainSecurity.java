@@ -72,8 +72,8 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
         // Desactivamos cookies ya que enviamos un token
         // cada vez que hacemos una petición
         http.cors().and().csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/auth/**", "/seguros", "/seguros/tipo/{tipo}").permitAll()
+                .authorizeHttpRequests()
+                .antMatchers("/auth/**", "/seguros", "/seguros/tipo/{tipo}", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
