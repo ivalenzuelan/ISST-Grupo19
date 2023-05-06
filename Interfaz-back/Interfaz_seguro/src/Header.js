@@ -26,7 +26,7 @@ export default function Header (){
         <div>
         {jwt ?
         <div>
-        {rol == "ROLE_USER" ?
+        {rol == "ROLE_ADMIN" ?
     
             <div className="buttons">
                 <div className="general_buttons">

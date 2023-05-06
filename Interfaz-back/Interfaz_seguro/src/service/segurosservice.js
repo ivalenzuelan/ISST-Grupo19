@@ -23,54 +23,82 @@ export class SeguroService {
     }
 
     save(seguro) {
-        console.log(seguro)
-        return axios.post(this.baseUrl+"seguros", seguro, {headers:{"Content-Type" : "application/json"}}).then(res => {console.log(res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.post(this.baseUrl+"seguros", seguro, {headers:{"Content-Type" : "application/json", 'Authorization': `Bearer ${jwt}`}}).then(res => {console.log(res.data)
     })
     }
     editSeguro(seguro) {
-        return axios.put(this.baseUrl+"seguros/"+seguro.id, seguro, {headers:{"Content-Type" : "application/json"}}).then(res => {console.log(res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.put(this.baseUrl+"seguros/"+seguro.id, seguro, {headers:{"Content-Type" : "application/json", 'Authorization': `Bearer ${jwt}`}}).then(res => {console.log(res.data)
     })
     }
 
     delete(id) {
-        return axios.delete(this.baseUrl+"seguros/"+id).then(res => res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.delete(this.baseUrl+"seguros/"+id, {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then(res => res.data)
     }
 
     getAllClientes() {
-        return axios.get(this.baseUrl+"clientes").then(res => {
+        const jwt = localStorage.getItem('token')
+        return axios.get(this.baseUrl+"clientes", {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then(res => {
             return res.data
         })
     }
 
     getClientesConCita() {
-        return axios.get(this.baseUrl+"clientesConCita").then(res => {
+        const jwt = localStorage.getItem('token')
+        return axios.get(this.baseUrl+"clientesConCita", {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then(res => {
             return res.data
         })
     }
 
 
     saveCliente(cliente) {
-        return axios.post(this.baseUrl+"clientes", cliente, {headers:{"Content-Type" : "application/json"}}).then(res => {console.log(res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.post(this.baseUrl+"clientes", cliente, {headers:{"Content-Type" : "application/json", 'Authorization': `Bearer ${jwt}`}}).then(res => {console.log(res.data)
     })
     }
     editCliente(cliente) {
-        return axios.put(this.baseUrl +"clientes/"+cliente.id, cliente, {headers:{"Content-Type" : "application/json"}}).then(res => res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.put(this.baseUrl +"clientes/"+cliente.id, cliente, {headers:{"Content-Type" : "application/json", 'Authorization': `Bearer ${jwt}`}}).then(res => res.data)
     }
     deleteCliente(id) {
-        return axios.delete(this.baseUrl+"clientes/"+id).then(res => res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.delete(this.baseUrl+"clientes/"+id, {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then(res => res.data)
     }
 
     editPoliza(poliza) {
-        return axios.put(this.baseUrl +"polizas/"+ poliza.id, poliza, {headers:{"Content-Type" : "application/json"}}).then(res => res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.put(this.baseUrl +"polizas/"+ poliza.id, poliza, {headers:{"Content-Type" : "application/json", 'Authorization': `Bearer ${jwt}`}}).then(res => res.data)
     }
 
     deletePoliza(id) {
-        return axios.delete(this.baseUrl+"polizas/"+id).then(res => res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.delete(this.baseUrl+"polizas/"+id, {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then(res => res.data)
     }
 
     getCliente(id){
         const jwt = localStorage.getItem('token')
-        console.log(jwt)
         return axios.get(this.baseUrl+"clientes/"+id, {
             headers: {
               'Authorization': `Bearer ${jwt}`
@@ -81,33 +109,62 @@ export class SeguroService {
     }
 
     getClientesConCita() {
-        return axios.get(this.baseUrl+"clientesConCita").then(res => {
+        const jwt = localStorage.getItem('token')
+        return axios.get(this.baseUrl+"clientesConCita", {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then(res => {
             return res.data
         })
     }
 
     savePoliza(poliza) {
-        return axios.post(this.baseUrl+"polizas", poliza).then(res => {console.log(res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.post(this.baseUrl+"polizas", poliza, {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then(res => {console.log(res.data)
     })
     }
 
     getPolizasCliente(id_cliente){
-        return axios.get(this.baseUrl + "polizas/cliente/"+ id_cliente).then (res =>{
+        const jwt = localStorage.getItem('token')
+        return axios.get(this.baseUrl + "polizas/cliente/"+ id_cliente, {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then (res =>{
             return res.data
         })
     }
 
     getPolizasRenovar(){
-        return axios.get(this.baseUrl+ "polizas/renovar").then( res => res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.get(this.baseUrl+ "polizas/renovar", {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then( res => res.data)
     }
 
     getPolizasAnular(){
-        return axios.get(this.baseUrl+ "polizas/anular").then( res => res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.get(this.baseUrl+ "polizas/anular", {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then( res => res.data)
     }
 
     getPolizasSinSolicitud(){
-        
-        return axios.get(this.baseUrl+ "polizas/anularNoSolicitadas").then( res => res.data)
+        const jwt = localStorage.getItem('token')
+        return axios.get(this.baseUrl+ "polizas/anularNoSolicitadas", {
+            headers: {
+              'Authorization': `Bearer ${jwt}`
+            }
+        }).then( res => res.data)
         
     }
 
