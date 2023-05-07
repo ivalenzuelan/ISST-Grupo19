@@ -7,6 +7,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { Card } from "primereact/card";
+import Header from '../Header';
              
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -20,17 +21,28 @@ export default function SegurosCorredor(props){
 
     const url = new SeguroService()
     const [filtro,setFiltro] = useState(null)
-    const [seguros, setSeguros] = useState(props.losseguros);
-    if(props.losseguros){
+    const [loading, setLoading] = useState(true);
+    const [seguros, setSeguros] = useState({});
 
+    const callServerSeguros = async (param) =>{
+        await url.getAll().then(data => {
+          setSeguros(data)
+        })
     }
-    else{
-        const callServerSeguros = async (param) =>{
-            await url.getAll().then(data => {
-              setSeguros({seguros: data})
-            })
+
+    useEffect(() => {
+        function fetchData() {	
+            callServerSeguros();
+            setTimeout(()=>{
+                setLoading(false);
+            },150);		
         }
-    }
+  
+      fetchData();
+    }, []);
+
+    console.log(seguros)
+
     let SeguroSeleccionado;
     let aux = false;
     const [seguro,setSeguro] = useState({"seguro": {
@@ -161,7 +173,9 @@ export default function SegurosCorredor(props){
         }
     };
 
-    return <div id='seguro_por_tipo'>  
+    return(
+        <div>
+        {loading ? <Header/> : <div id='seguro_por_tipo'>
         <Toast ref={toast} />
         
         <div id="seccion">
@@ -196,19 +210,20 @@ export default function SegurosCorredor(props){
         <div className="lista_seguro">
             <div className="menubar-wrapper">
                 <Menubar model={items} className="custom-menubar" />
-            </div>
-            {seguros.map((item,index)=>(
-                <Card title={item.nombre}>
-                    <p>
-                        <p><b>Aseguradora:</b> {item.aseguradora}</p>
-                        <p><b>Precio:</b> {item.precio} €</p>
-                        <p><b>Periodicidad:</b> {item.periodicidad}</p>
-                        <p><b>Tipo:</b> {item.tipo}</p>
-                        <p><Button onClick={()=>{SeguroSeleccionado = ({seguro: item}); showEditDialog()}}>Editar Seguro</Button></p>
-                        <p><Button onClick={()=>{deleteSeguro(item.id)}}>Eliminar Seguro</Button></p>
-                    </p>
-                </Card>
-             ))}
+                </div>
+                {seguros.map((item,index)=>(
+                    <Card key={item.id} title={item.nombre}>
+                        <p>
+                            <p><b>Aseguradora:</b> {item.aseguradora}</p>
+                            <p><b>Precio:</b> {item.precio} €</p>
+                            <p><b>Periodicidad:</b> {item.periodicidad}</p>
+                            <p><b>Tipo:</b> {item.tipo}</p>
+                            <p><Button onClick={()=>{SeguroSeleccionado = ({seguro: item}); showEditDialog()}}>Editar Seguro</Button></p>
+                            <p><Button onClick={()=>{deleteSeguro(item.id)}}>Eliminar Seguro</Button></p>
+                        </p>
+                    </Card>
+                ))}
+
             
         </div>
         
@@ -396,8 +411,9 @@ export default function SegurosCorredor(props){
            
             </Dialog>
     </div>
+    }</div>
         
-
+    )
 }
 
 
