@@ -3,6 +3,7 @@ package es.upm.dit.isst.seguroapi;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
@@ -10,6 +11,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +31,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import es.upm.dit.isst.seguroapi.repository.*;
 import es.upm.dit.isst.seguroapi.security.dto.LoginUsuario;
+import es.upm.dit.isst.seguroapi.security.dto.NuevoUsuario;
 import es.upm.dit.isst.seguroapi.security.entity.UsuarioMain;
 import es.upm.dit.isst.seguroapi.security.jwt.JwtProvider;
 import es.upm.dit.isst.seguroapi.security.service.RolService;
@@ -217,4 +221,118 @@ public class SeguroapiApplicationTests {
         assertTrue(authorities.contains(new SimpleGrantedAuthority(RolNombre.ROLE_USER.name())));
 	}
 
-}
+	@Test
+    public void testValoresValidosLogin() {
+        LoginUsuario loginUsuario = new LoginUsuario();
+        loginUsuario.setUsername("usuario");
+        loginUsuario.setPassword("contraseña");
+
+        assertEquals("usuario", loginUsuario.getUsername());
+        assertEquals("contraseña", loginUsuario.getPassword());
+    }
+
+	@Test
+    public void testValoresNulosLogin() {
+		LoginUsuario loginUsuario = new LoginUsuario();
+		loginUsuario.setUsername(null);
+        loginUsuario.setPassword(null);
+        assertEquals(null, loginUsuario.getUsername());
+		assertEquals(null, loginUsuario.getPassword());
+    }
+
+	@Test
+    public void testValoresVaciosLogin() {
+        LoginUsuario loginUsuario = new LoginUsuario();
+        loginUsuario.setUsername("");
+        loginUsuario.setPassword("");
+		assertEquals("", loginUsuario.getUsername());
+		assertEquals("", loginUsuario.getPassword());
+        
+    }
+
+	@Test
+    public void testIgualdadLogin() {
+        LoginUsuario loginUsuario1 = new LoginUsuario();
+        loginUsuario1.setUsername("usuario");
+        loginUsuario1.setPassword("contraseña");
+
+        LoginUsuario loginUsuario2 = new LoginUsuario();
+        loginUsuario2.setUsername("usuario");
+        loginUsuario2.setPassword("contraseña");
+
+        assertEquals(loginUsuario1.getUsername(), loginUsuario2.getUsername());
+    }
+	
+
+	@Test
+    public void testValoresValidosNuevoUsuario() {
+        NuevoUsuario nuevoUsuario = new NuevoUsuario();
+        nuevoUsuario.setNombre("Nombre");
+        nuevoUsuario.setUsername("username");
+        nuevoUsuario.setMail("example@example.com");
+        nuevoUsuario.setPassword("password");
+
+        assertEquals("Nombre", nuevoUsuario.getNombre());
+        assertEquals("username", nuevoUsuario.getUsername());
+        assertEquals("example@example.com", nuevoUsuario.getMail());
+        assertEquals("password", nuevoUsuario.getPassword());
+    }
+
+	@Test
+    public void testValoresNulosNuevoUsuario() {
+            NuevoUsuario nuevoUsuario = new NuevoUsuario();
+            nuevoUsuario.setNombre(null);
+            nuevoUsuario.setUsername(null);
+            nuevoUsuario.setMail(null);
+            nuevoUsuario.setPassword(null);
+
+			assertEquals(null, nuevoUsuario.getNombre());
+			assertEquals(null, nuevoUsuario.getUsername());
+			assertEquals(null, nuevoUsuario.getMail());
+			assertEquals(null, nuevoUsuario.getPassword());
+    }
+
+	@Test
+    public void testValoresVaciosNuevoUsuario() {
+            NuevoUsuario nuevoUsuario = new NuevoUsuario();
+            nuevoUsuario.setNombre("");
+            nuevoUsuario.setUsername("");
+            nuevoUsuario.setMail("");
+            nuevoUsuario.setPassword("");
+
+			assertEquals("", nuevoUsuario.getNombre());
+			assertEquals("", nuevoUsuario.getUsername());
+			assertEquals("", nuevoUsuario.getMail());
+			assertEquals("", nuevoUsuario.getPassword());
+    }
+
+	@Test
+    public void testFormatoEmailIncorrectoNuevoUsuario() {
+            NuevoUsuario nuevoUsuario = new NuevoUsuario();
+            nuevoUsuario.setMail("emailincorrecto");
+
+			NuevoUsuario nuevoUsuario2 = new NuevoUsuario();
+			nuevoUsuario2.setMail("user2@email.com");
+
+			assertNotEquals(nuevoUsuario.getMail(), nuevoUsuario2.getMail());
+    }
+
+	@Test
+    public void testRolesNuevoUsuario() {
+        NuevoUsuario nuevoUsuario = new NuevoUsuario();
+        Set<String> roles = new HashSet<>();
+        roles.add("ROLE_ADMIN");
+        roles.add("ROLE_USER");
+        nuevoUsuario.setRoles(roles);
+
+        assertTrue(nuevoUsuario.getRoles().contains("ROLE_ADMIN"));
+        assertTrue(nuevoUsuario.getRoles().contains("ROLE_USER"));
+    }
+
+    }
+
+
+
+
+
+
