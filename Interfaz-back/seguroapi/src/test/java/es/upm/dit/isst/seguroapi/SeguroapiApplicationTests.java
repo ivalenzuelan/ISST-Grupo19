@@ -3,18 +3,41 @@ package es.upm.dit.isst.seguroapi;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import es.upm.dit.isst.seguroapi.repository.*;
+import es.upm.dit.isst.seguroapi.security.dto.LoginUsuario;
+import es.upm.dit.isst.seguroapi.security.entity.UsuarioMain;
+import es.upm.dit.isst.seguroapi.security.jwt.JwtProvider;
+import es.upm.dit.isst.seguroapi.security.service.RolService;
+import es.upm.dit.isst.seguroapi.security.service.UsuarioService;
+import io.jsonwebtoken.lang.Arrays;
+import es.upm.dit.isst.seguroapi.enums.RolNombre;
 import es.upm.dit.isst.seguroapi.model.*;
 
 @SpringBootTest
+
 public class SeguroapiApplicationTests {
 
 	@Autowired 
@@ -23,7 +46,10 @@ public class SeguroapiApplicationTests {
 	private SeguroRepository seguroRepository;
 	@Autowired 
 	private PolizaRepository polizaRepository;
-	
+	@Autowired 
+	private RolRepository rolRepository;
+
+
 
 	@Test
 	final void testNewCliente(){
@@ -143,5 +169,52 @@ public class SeguroapiApplicationTests {
 		clienteRepository.delete(cliente);
 	}
 	
+	@Test
+	public void testRoles() {
+    Rol rol = new Rol(RolNombre.ROLE_USER);
+	Rol rol2 = new Rol(RolNombre.ROLE_ADMIN);
 
+    assertEquals(RolNombre.ROLE_USER, rol.getRolNombre());
+	assertEquals(RolNombre.ROLE_ADMIN, rol2.getRolNombre());
+    // Asegúrate de que otros atributos sean nulos o tengan valores predeterminados según tu implementación
 	}
+
+	@Test
+	public void testSettersRol() {
+    Rol rol = new Rol();
+
+    rol.setRolNombre(RolNombre.ROLE_ADMIN);
+
+    assertEquals(RolNombre.ROLE_ADMIN, rol.getRolNombre());
+	}
+
+	@Test
+    public void testUsuarioMain() {
+
+        Cliente cliente = new Cliente();
+        cliente.setNombre("John Doe");
+        cliente.setUsername("johndoe");
+        cliente.setMail("johndoe@example.com");
+        cliente.setPassword("password");
+
+        Rol rol = new Rol(RolNombre.ROLE_USER);
+
+		Set<Rol> roles = new HashSet<>();
+
+		roles.add(rol);
+
+		cliente.setRoles(roles);	
+
+        UsuarioMain usuarioMain = UsuarioMain.build(cliente);
+
+        assertEquals(cliente.getNombre(), usuarioMain.getNombre());
+        assertEquals(cliente.getUsername(), usuarioMain.getUsername());
+        assertEquals(cliente.getMail(), usuarioMain.getEmail());
+        assertEquals(cliente.getPassword(), usuarioMain.getPassword());
+
+        Collection<? extends GrantedAuthority> authorities = usuarioMain.getAuthorities();
+        assertEquals(1, authorities.size());
+        assertTrue(authorities.contains(new SimpleGrantedAuthority(RolNombre.ROLE_USER.name())));
+	}
+
+}
