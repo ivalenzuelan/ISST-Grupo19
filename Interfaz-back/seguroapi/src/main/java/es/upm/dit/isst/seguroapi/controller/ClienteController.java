@@ -54,6 +54,12 @@ public class ClienteController {
 
     }
 
+    @GetMapping("/idClienteus/{username}")
+    ResponseEntity<Cliente> readClientes(@PathVariable String username) {
+        return clienteRepository.findByUsername(username).map(cliente -> ResponseEntity.ok().body(cliente))
+                .orElse(new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND));
+    }
+
     @GetMapping("/clientes/{id}")
     ResponseEntity<Cliente> readClientes(@PathVariable Integer id) {
         return clienteRepository.findById(id).map(cliente -> ResponseEntity.ok().body(cliente))

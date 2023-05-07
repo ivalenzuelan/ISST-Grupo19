@@ -7,11 +7,17 @@ export class SeguroService {
 
     // Aqui tenemos que poner la URL donde esté expuesta nuestra API
 
-    baseUrl = "http://localhost:8080/";
+    baseUrl = "https://localhost:8443/";
 
 
     getAll() {
         return axios.get(this.baseUrl+"seguros").then(res => {
+            return res.data
+        })
+    }
+
+    getIdUser(username){
+        return axios.get(this.baseUrl+"idClienteus/"+ username).then(res => {
             return res.data
         })
     }

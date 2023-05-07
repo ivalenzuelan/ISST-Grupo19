@@ -15,16 +15,17 @@ VALUES
 INSERT INTO CLIENTE (id, mail, id_Fiscal, username, nombre, apellidos, password, nacimiento, direccion, telefono, cita)
 VALUES 
   (1010, 'pepe@ejemplo.com', '12345678A', 'pepelopez', 'Pepe', 'López', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1990-01-01', 'Calle Mayor 1', '+34 912 345 678', '2022-05-04'),
-  (1011, 'laura@ejemplo.com', '87654321B', 'lauragarcia', 'Laura', 'García', 'miclave', '1995-05-05', 'Calle Cervantes 2', '+34 912 345 679', '2022-05-04'),
-  (1012, 'juan@ejemplo.com', '43215678C', 'juanmartinez', 'Juan', 'Martínez', 'miclave', '1985-12-25', 'Calle Goya 3', '+34 912 345 680', '2022-05-04'),
-  (1013, 'ana@ejemplo.com', '87654321D', 'anaperez', 'Ana', 'Pérez', 'miclave', '2000-08-15', 'Calle Alcalá 4', '+34 912 345 681', '2022-08-04'),
-  (1014, 'carlos@ejemplo.com', '13579246E', 'carlosrodriguez', 'Carlos', 'Rodríguez', 'miclave', '1992-04-30', 'Calle Gran Vía 5', '+34 912 345 682', '2022-07-04'),
-  (1015, 'maria@ejemplo.com', '98765432F', 'mariagonzalez', 'María', 'González', 'miclave', '1998-10-10', 'Calle Princesa 6', '+34 912 345 683', '2022-05-04'),
-  (1016, 'david@ejemplo.com', '12348765G', 'davidfernandez', 'David', 'Fernández', 'miclave', '1980-11-20', 'Calle Bravo Murillo 7', '+34 912 345 684', '2022-05-06'),
-  (1017, 'clara@ejemplo.com', '87651234H', 'clararodriguez', 'Clara', 'Rodríguez', 'miclave', '1996-07-12', 'Calle Paseo de la Castellana 8', '+34 912 345 685', null),
-  (1018, 'alberto@ejemplo.com', '43218765I', 'albertosanchez', 'Alberto', 'Sánchez', 'miclave', '1993-03-15', 'Calle Serrano 9', '+34 912 345 686', '2022-08-04'),
-  (1019, 'ireneg@ejemplo.com', '13572468J', 'irenegomez', 'Irene', 'Gómez', 'miclave', '1988-09-05', 'Calle Velázquez 10', '+34 912 345 687', '2023-05-04'),
-  (1020, 'irenea@ejemplo.com', '13572168J', 'irenealonso', 'Irene', 'Alonso', 'miclave', '1988-09-02', 'Calle Velázquez 31', '+34 912 321 687', null);
+  (1011, 'laura@ejemplo.com', '87654321B', 'lauragarcia', 'Laura', 'García', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1995-05-05', 'Calle Cervantes 2', '+34 912 345 679', '2022-05-04'),
+  (1012, 'juan@ejemplo.com', '43215678C', 'juanmartinez', 'Juan', 'Martínez', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1985-12-25', 'Calle Goya 3', '+34 912 345 680', '2022-05-04'),
+  (1013, 'ana@ejemplo.com', '87654321D', 'anaperez', 'Ana', 'Pérez', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '2000-08-15', 'Calle Alcalá 4', '+34 912 345 681', '2022-08-04'),
+  (1014, 'carlos@ejemplo.com', '13579246E', 'carlosrodriguez', 'Carlos', 'Rodríguez', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1992-04-30', 'Calle Gran Vía 5', '+34 912 345 682', '2022-07-04'),
+  (1015, 'maria@ejemplo.com', '98765432F', 'mariagonzalez', 'María', 'González', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1998-10-10', 'Calle Princesa 6', '+34 912 345 683', '2022-05-04'),
+  (1016, 'david@ejemplo.com', '12348765G', 'davidfernandez', 'David', 'Fernández', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1980-11-20', 'Calle Bravo Murillo 7', '+34 912 345 684', '2022-05-06'),
+  (1017, 'clara@ejemplo.com', '87651234H', 'clararodriguez', 'Clara', 'Rodríguez', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1996-07-12', 'Calle Paseo de la Castellana 8', '+34 912 345 685', null),
+  (1018, 'alberto@ejemplo.com', '43218765I', 'albertosanchez', 'Alberto', 'Sánchez', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1993-03-15', 'Calle Serrano 9', '+34 912 345 686', '2022-08-04'),
+  (1019, 'ireneg@ejemplo.com', '13572468J', 'irenegomez', 'Irene', 'Gómez', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1988-09-05', 'Calle Velázquez 10', '+34 912 345 687', '2023-05-04'),
+  (1020, 'irenea@ejemplo.com', '13572168J', 'irenealonso', 'Irene', 'Alonso', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1988-09-02', 'Calle Velázquez 31', '+34 912 321 687', null),
+  (1021, 'corredor@integral.com', '13572168J', 'corredor', 'Corredor', 'de Integral', '$2a$10$P1anpsWqXghCBhhzZh4S6.T/b5YpQtxrxTR3CktacgOw93pixZDp.', '1988-09-02', 'Calle Velázquez 31', '+34 912 321 687', null);
 
 INSERT INTO POLIZA (id, fecha_inicio, pdf_poliza, periodicidad, precio, fecha_termino, cliente, seguro, anular, renovar)
 VALUES

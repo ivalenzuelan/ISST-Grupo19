@@ -26,6 +26,7 @@ import 'primereact/resources/themes/saga-blue/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 import Login from './Login';
+import Signup from './Signup';
 
 
 
@@ -62,6 +63,7 @@ function App() {
        <Routes>
           <Route path="/" element={<Inicio/>} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/signup" element={<Signup/>} />
           <Route path="/seguros" element={<SegurosUnTipo/>} />
           <Route path="/seguros/tipo/:tipo" element={<SegurosTipo losseguros={seguro.seguros}/>} />
           <Route path="/segurosCorredor" element={<SegurosCorredor losseguros={seguro.seguros}/>} />

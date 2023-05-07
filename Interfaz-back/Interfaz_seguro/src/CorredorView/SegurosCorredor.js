@@ -18,9 +18,19 @@ import "primeicons/primeicons.css";
 
 export default function SegurosCorredor(props){ 
 
-
+    const url = new SeguroService()
     const [filtro,setFiltro] = useState(null)
     const [seguros, setSeguros] = useState(props.losseguros);
+    if(props.losseguros){
+
+    }
+    else{
+        const callServerSeguros = async (param) =>{
+            await url.getAll().then(data => {
+              setSeguros({seguros: data})
+            })
+        }
+    }
     let SeguroSeleccionado;
     let aux = false;
     const [seguro,setSeguro] = useState({"seguro": {
@@ -42,7 +52,6 @@ export default function SegurosCorredor(props){
             command: () => {showSaveDialog()}
         },
     ]
-    const url = new SeguroService()
     const toast = useRef(null)
   
     const filtrar=()=>{
@@ -54,8 +63,14 @@ export default function SegurosCorredor(props){
     }
     }
     
-    const categoria = props.losseguros.reduce((unique, item) => (unique.includes(item.tipo) ? unique : [...unique, item.tipo]),[],);
-    const aseguradora = props.losseguros.reduce((unique, item) => (unique.includes(item.aseguradora) ? unique : [...unique, item.aseguradora]),[],);
+    let categoria = [];
+    let aseguradora = [];
+    
+    if (props.losseguros) {
+      categoria = props.losseguros.reduce((unique, item) => (unique.includes(item.tipo) ? unique : [...unique, item.tipo]), []);
+      aseguradora = props.losseguros.reduce((unique, item) => (unique.includes(item.aseguradora) ? unique : [...unique, item.aseguradora]), []);
+    }
+    
 
     const filtrarCategoria = () => {
         const categoriaSeleccionada = document.getElementById("selector").value.toLowerCase();
@@ -148,6 +163,7 @@ export default function SegurosCorredor(props){
 
     return <div id='seguro_por_tipo'>  
         <Toast ref={toast} />
+        
         <div id="seccion">
             <div>
                 <Form.Select id="selector" aria-label="Default select example" title="Filtrar por tipo" onChange={()=>filtrarCategoria()}>  
