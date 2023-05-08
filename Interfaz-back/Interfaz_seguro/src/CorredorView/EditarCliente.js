@@ -2,6 +2,7 @@ import {useState, useEffect, useRef} from "react"
 
 import { useParams} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
+import NoAcces from './../NoAcces'
 
 import { Menubar } from 'primereact/menubar';  
 import { Dialog } from 'primereact/dialog';
@@ -31,6 +32,7 @@ export default function EditarCliente(props){
     const [polizas, setPolizas] = useState({})
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(true);
+    const rol = localStorage.getItem('rol')
     const items =[
         {
             label: 'Nueva Poliza',
@@ -75,7 +77,6 @@ export default function EditarCliente(props){
           },100);	          
         }
         fetchData();
-        console.log(polizas)
     }, []);
     
     const showSaveDialog = ()=> {
@@ -89,7 +90,7 @@ export default function EditarCliente(props){
     }
 
     const save = () =>{
-        console.log(poliza.poliza)
+  
         url.savePoliza(poliza.poliza).then( data =>{
             toast.current.show({severity:'success', summary: 'Success', detail:'Se ha solicitado la anulacion de la póliza', life: 3000});  
             setTimeout(2000)
@@ -131,6 +132,8 @@ export default function EditarCliente(props){
 
     
     return  <div>
+    {rol == "ROLE_ADMIN" ? 
+        <div>
             <Toast ref={toast} />
                 <div className="menubar-wrapper"> <Menubar model={items} className="custom-menubar" /> </div>   
                 <Card title={cliente.nombre+" "+cliente.apellidos}>
@@ -205,6 +208,10 @@ export default function EditarCliente(props){
                
             </Dialog>  
         </div>
+        :
+            <NoAcces />
+        }
+    </div>
 }
 
 

@@ -16,12 +16,6 @@ export class SeguroService {
         })
     }
 
-    getIdUser(username){
-        return axios.get(this.baseUrl+"idClienteus/"+ username).then(res => {
-            return res.data
-        })
-    }
-
     getTipo(tipo){
         return axios.get(this.baseUrl+"seguros/tipo/"+ tipo).then(res => {
             return res.data
@@ -58,18 +52,6 @@ export class SeguroService {
             return res.data
         })
     }
-
-    getClientesConCita() {
-        const jwt = localStorage.getItem('token')
-        return axios.get(this.baseUrl+"clientesConCita", {
-            headers: {
-              'Authorization': `Bearer ${jwt}`
-            }
-        }).then(res => {
-            return res.data
-        })
-    }
-
 
     saveCliente(cliente) {
         const jwt = localStorage.getItem('token')

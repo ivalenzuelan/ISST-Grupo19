@@ -15,7 +15,8 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";  
 import 'primeflex/primeflex.css';
 import { Card } from "primereact/card";
-import ClientesCorredor from "../CorredorView/ClientesCorredor";
+import NoAcess from "./../NoAcces";
+
 
         
 export default function PolizasContratadas(){
@@ -28,6 +29,7 @@ export default function PolizasContratadas(){
     const [loading, setLoading] = useState(true);
     const [minDate, setMinDate] = useState(new Date());
     const toast = useRef(null);
+    const rol = localStorage.getItem('rol')
     const items =[
         {
             label: 'Modificar datos',
@@ -51,11 +53,7 @@ export default function PolizasContratadas(){
             break;
         }
     }
-
     const url = new SeguroService()
-
-    console.log(cliente)
-
 
     const callServer = async (param) =>{
         await url.getCliente(id).then(data => {
@@ -128,6 +126,8 @@ export default function PolizasContratadas(){
     }
     
     return <div>
+        {rol == "ROLE_USER" ?
+        <div>
         <div>
         {cliente ? <div>
             <div>
@@ -147,6 +147,7 @@ export default function PolizasContratadas(){
                 <p> Algo ha fallado en el servidor. Intente de nuevo</p>
         }
         </div>
+        <div>
             {polizas.polizas ? <div>
                 <br/>
                 <h3><b>Pólizas contratadas</b></h3>
@@ -168,6 +169,7 @@ export default function PolizasContratadas(){
                 :
                 <p> Algo ha fallado en el servidor. Intente de nuevo</p>
             }
+        </div>
         <Dialog header="Modificar mis datos" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={()=>{editCliente(); setVisible(false)}}/>} onHide={() => setVisible(false)}>
             <span className="p-float-label">
                 <InputText style={{width: '60%', margin: '5px'}} id="username" value={cliente.username} onChange={(e) =>{         
@@ -178,6 +180,16 @@ export default function PolizasContratadas(){
                         return clienteEdit;
                     })}} />
                 <label htmlFor="username">Username</label>
+            </span>
+            <span className="p-float-label">
+                <InputText style={{width: '60%', margin: '5px'}} id="apellidos" value={cliente.apellidos} onChange={(e) =>{         
+                    let val = e.target.value;
+                    setCliente(prevState=>{
+                        let clienteEdit = {...prevState};
+                        clienteEdit.apellidos = val;
+                        return clienteEdit;
+                    })}} />
+                <label htmlFor="apellidos">Apellidos</label>
             </span>
             <span className="p-float-label">
                 <InputText style={{width: '60%', margin: '5px'}} id="mail" value={cliente.mail} onChange={(e) =>{         
@@ -235,7 +247,10 @@ export default function PolizasContratadas(){
                 <label htmlFor="Cita">Seleccione la fecha</label>
             </span>
         </Dialog>
-
+        </div>
+    :
+    <NoAcess />
+    }
         </div>
 }
     

@@ -17,9 +17,7 @@ export default function SolicitarRenovacion(props){
 
     const quitarRenovacion = (poliza) =>{
         setTimeout(() => {
-        console.log(poliza.value);
         poliza.value.renovar=false;
-        console.log(poliza.value);
         url.editPoliza(poliza.value).then( data =>{
             deletePoliza(polizasRenovar, poliza.value.id)
         })

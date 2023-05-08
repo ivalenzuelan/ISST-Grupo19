@@ -1,5 +1,5 @@
 import {useState, useRef, useEffect} from "react"
-import { Link, useParams} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import {SeguroService} from '../service/segurosservice'
 
 import { Menubar } from 'primereact/menubar';  
@@ -8,6 +8,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Card } from "primereact/card";
 import { Toast } from "primereact/toast";
+import NoAcces from './../NoAcces';
         
         
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -32,6 +33,7 @@ export default function ClientesCorredor(){
         "direccion": null,
         "telefono": null,
     })
+    const rol = localStorage.getItem('rol')
 
     const callServerClientes = async (param) =>{
         await url.getAllClientes().then(data => {
@@ -96,8 +98,9 @@ export default function ClientesCorredor(){
 
 
     return <div>
-    {
-        clientes.clientes ?
+    {rol == "ROLE_ADMIN" ?
+    <div>
+    {clientes.clientes ?
     <div id='seguro_por_tipo'>
         <Toast ref={toast} />  
         <div id="seccion">
@@ -214,6 +217,9 @@ export default function ClientesCorredor(){
     : 
 
     <p>Algo ha fallado en el servidor</p> } </div>
+    :
+    <NoAcces/>
+                } </div>
         
 
 }
