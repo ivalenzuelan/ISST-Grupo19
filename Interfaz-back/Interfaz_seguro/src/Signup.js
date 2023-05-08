@@ -30,16 +30,18 @@ export default function Login() {
           password,
         }).catch(error => {
           toast.current.show({severity:'error', summary: 'Error', detail:error.response.data, life: 3300, closable: false});
-          setTimeout(2000)
           console.error(error.response.data);
-          window.location.reload();
+          setTimeout(()=>{
+            window.location.reload();
+          },1500);		
       });
         toast.current.show({severity:'success', summary: 'Success', detail:response.data, life: 3300, closable: false});
-        setTimeout(2000)
         setRespuesta(response.data);
         console.log(response)
         // Redirect to the main page after a successful sign-up
-        navigate('/login');
+        setTimeout(()=>{
+          navigate('/login');
+        },1500);		
       } catch (error) {
       }
     };

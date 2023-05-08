@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.validation.ConstraintViolationException;
 
@@ -54,6 +55,7 @@ public class SeguroapiApplicationTests {
 	private RolRepository rolRepository;
 
 
+	private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
 
 	@Test
 	final void testNewCliente(){
@@ -306,15 +308,24 @@ public class SeguroapiApplicationTests {
 			assertEquals("", nuevoUsuario.getPassword());
     }
 
+
 	@Test
-    public void testFormatoEmailIncorrectoNuevoUsuario() {
-            NuevoUsuario nuevoUsuario = new NuevoUsuario();
-            nuevoUsuario.setMail("emailincorrecto");
+    public void testFormatoEmailIncorrectoNuevoUsuario1() {
+        NuevoUsuario nuevoUsuario = new NuevoUsuario();
+        nuevoUsuario.setMail("emailincorrecto");
 
-			NuevoUsuario nuevoUsuario2 = new NuevoUsuario();
-			nuevoUsuario2.setMail("user2@email.com");
+        NuevoUsuario nuevoUsuario2 = new NuevoUsuario();
+        nuevoUsuario2.setMail("user2@email.com");
 
-			assertNotEquals(nuevoUsuario.getMail(), nuevoUsuario2.getMail());
+        assertNotEquals(nuevoUsuario.getMail(), nuevoUsuario2.getMail());
+        
+        // Validar formato de email incorrecto para nuevoUsuario
+        assertFalse(validateEmailFormat(nuevoUsuario.getMail()));
+    }
+    
+    private boolean validateEmailFormat(String email) {
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        return pattern.matcher(email).matches();
     }
 
 	@Test
@@ -330,9 +341,3 @@ public class SeguroapiApplicationTests {
     }
 
     }
-
-
-
-
-
-

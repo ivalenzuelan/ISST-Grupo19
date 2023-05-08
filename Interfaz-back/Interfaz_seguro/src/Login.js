@@ -3,9 +3,10 @@ import React from 'react';
 import { Divider } from 'primereact/divider';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Toast } from 'primereact/toast';
 
 export default function Login() {
  
@@ -13,6 +14,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [logged, setLogged] = useState(false);
     const navigate = useNavigate();
+    const toast = useRef(null)
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -32,14 +34,19 @@ export default function Login() {
         navigate('/');
         // Guarda el token JWT en el estado de la aplicación o en las cookies del navegador
       } catch (error) {
+        toast.current.show({severity:'error', summary: 'Error', detail: 'Error en usuario/clave', life: 3300, closable: false});
         console.error(error);
         console.log("errorrrr")
+        setTimeout(()=>{
+          window.location.reload();
+        },1000);	
       }
     };
 
 
     return (
       <div>
+        <Toast ref={toast} />
         <form onSubmit={handleSubmit}>
           <div className="flex flex-column md:flex-row">
             <div className="w-full md:w-5 flex flex-column align-items-s justify-content-center gap-3 py-5">
