@@ -7,6 +7,7 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {SeguroService} from './service/segurosservice';
+import { Toast } from 'primereact/toast';
 
 export default function Login() {
  
@@ -14,6 +15,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [logged, setLogged] = useState(false);
     const navigate = useNavigate();
+    const toast = useRef(null)
     const url = new SeguroService()
 
     const callServerParaID = (nombre) => {
@@ -46,6 +48,9 @@ export default function Login() {
       } catch (error) {
         toast.current.show({severity:'error', summary: 'Error', detail: 'Error en usuario/clave', life: 3300, closable: false});
         console.error(error);
+        setTimeout(()=>{
+          window.location.reload();
+        },1000);		
       }
     };
 
