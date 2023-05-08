@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom"
 import React, { useRef } from 'react';
 import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Menu } from 'primereact/menu';
 import { Toast } from 'primereact/toast';
-import {SeguroService} from './service/segurosservice';
+
 
 export default function Header (){
     
@@ -17,21 +16,8 @@ export default function Header (){
   const [loggedOut, setLoggedOut] = useState(false);
   const jwt = localStorage.getItem('token')
   const rol = localStorage.getItem('rol')
+  const id = localStorage.getItem('id')
   const username = localStorage.getItem('nombreUsuario')
-  const [nombre, setNombre] = useState({id: null});
-
-  const url = new SeguroService()
-
-
-  const callServerParaID = () => {
-    url.getIdUser(username).then(data => {
-      setNombre(prevState => ({...prevState, id: data.id}))
-    });
-  }
-
-  console.log(callServerParaID())
-  console.log(nombre)
-
   const menu = useRef(null);
   //const router = useRouter();
   const toast = useRef(null);
@@ -76,18 +62,19 @@ export default function Header (){
       }
   ];
 
-  //console.log(rol)
 
   function handleLogout() {
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
     localStorage.removeItem('nombreUsuario');
+    localStorage.removeItem('id');
     setLoggedOut(true);
     navigate('/');
   }
 
 
     return(
+      
     
         <div className="header_integral">
           <div className="logo_image">
@@ -108,7 +95,7 @@ export default function Header (){
             <div className="buttons">
                 <div className="general_buttons">
                     
-                    <Link to={`/clientes/${nombre.id}`}><Button className="general_button" label="Mi informacion" text raised /></Link>
+                    <Link to={`/clientes/${id}`}><Button className="general_button" label="Mi informacion" text raised /></Link>
                     <Link to ="/seguros"><Button className="general_button" label= "Seguros" text raised/></Link>
                 </div>
                 <div className="register_buttons">

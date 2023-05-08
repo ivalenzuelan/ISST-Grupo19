@@ -1,9 +1,8 @@
 import React from 'react'; 
-import { Divider } from 'primereact/divider';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { useState, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Toast } from 'primereact/toast';
 
@@ -37,7 +36,6 @@ export default function Login() {
         toast.current.show({severity:'success', summary: 'Success', detail:response.data, life: 3300, closable: false});
         setTimeout(2000)
         setRespuesta(response.data);
-        console.log(response)
         // Redirect to the main page after a successful sign-up
         navigate('/login');
       } catch (error) {

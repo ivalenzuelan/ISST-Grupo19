@@ -17,12 +17,9 @@ export default function SolicitarAnulacion(props){
 
     const quitarAnulacion = (poliza) =>{
         setTimeout(() => {
-        console.log(poliza.value);
         poliza.value.anular=false;
-        console.log(poliza.value);
         url.editPoliza(poliza.value).then( data =>{
             deletePoliza(polizasAnular, poliza.value.id)
-            //console.log(data)
         })
     }, 300);
     }
@@ -38,7 +35,6 @@ export default function SolicitarAnulacion(props){
                 {polizasAnular.map((item,index)=>(
                     <Card title={item.cliente.nombre + " " +item.cliente.apellidos}>
                     <div className="p-field-checkbox">
-                    {console.log(item)}
                         <Checkbox id={item.id} value={item} onChange={quitarAnulacion} />
                             <label htmlFor={item.id} className="p-checkbox-label">
                                 <p><b>Fecha de termino:</b> {item.termino}</p>

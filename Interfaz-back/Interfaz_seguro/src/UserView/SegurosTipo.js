@@ -22,7 +22,7 @@ export default function SegurosTipo(props){
             const result = ({seguros: data})
             setSeguro(result.seguros)
           })
-          console.log(seguro)
+
       }
  
   

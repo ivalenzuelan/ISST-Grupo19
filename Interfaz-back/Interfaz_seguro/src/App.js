@@ -34,7 +34,6 @@ function App() {
 
   const [loading, setLoading] = useState(true);
   const [seguro, setSeguro] = useState({});
-  const [cliente, setCliente] = useState({});
   const url = new SeguroService()
 
   const callServerSeguros = async (param) =>{

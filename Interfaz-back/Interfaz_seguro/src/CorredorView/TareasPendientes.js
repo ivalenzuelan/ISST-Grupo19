@@ -13,6 +13,7 @@ import SolicitarAnulacion from "./Tareas/SolicitarAnulacion";
 import CitasClientes from "./Tareas/CitasClientes";
 import PolizasSinSolicitud from "./Tareas/PolizasSinSolicitud";
 import { TabView, TabPanel } from 'primereact/tabview';
+import NoAcces from './../NoAcces'
 
                                                       
 
@@ -22,6 +23,7 @@ export default function TareasPendientes(props){
     const [polizasAnular, setPolizasAnular] = useState({})
     const [clientesConCita, setClientesConCita] = useState({})
     const [polizasSinSolicitud, setPolizasSinSolicitud] = useState({})
+    const rol = localStorage.getItem('rol')
 
 
     const url = new SeguroService()
@@ -76,6 +78,8 @@ export default function TareasPendientes(props){
 
     
     return  <div className="lista_seguro"> 
+    {rol == "ROLE_ADMIN" ?   
+    <div>
     {(polizasRenovar.polizasRenovar && polizasAnular.polizasAnular && clientesConCita.clientesConCita && polizasSinSolicitud.polizasSinSolicitud) ? 
     
     <div className="card">
@@ -97,6 +101,10 @@ export default function TareasPendientes(props){
     </div> 
         :
         <p> Algo ha fallado en el servidor intentelo de nuevo</p>    
-    }    
+    } 
+    </div>
+    :
+    < NoAcces />
+    }   
         </div>
 }

@@ -8,6 +8,7 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { Card } from "primereact/card";
 import Header from '../Header';
+import NoAcces from './../NoAcces'
              
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";        
@@ -23,6 +24,7 @@ export default function SegurosCorredor(props){
     const [filtro,setFiltro] = useState(null)
     const [loading, setLoading] = useState(true);
     const [seguros, setSeguros] = useState({});
+    const rol = localStorage.getItem('rol')
 
     const callServerSeguros = async (param) =>{
         await url.getAll().then(data => {
@@ -41,7 +43,6 @@ export default function SegurosCorredor(props){
       fetchData();
     }, []);
 
-    console.log(seguros)
 
     let SeguroSeleccionado;
     let aux = false;
@@ -173,7 +174,8 @@ export default function SegurosCorredor(props){
         }
     };
 
-    return(
+    return(<div>
+        {rol == "ROLE_ADMIN" ?
         <div>
         {loading ? <Header/> : <div id='seguro_por_tipo'>
         <Toast ref={toast} />
@@ -364,7 +366,6 @@ export default function SegurosCorredor(props){
                     <InputText style={{width: '60%', margin: '5px'}} id="descripcion" onChange={(e) =>{         
                         let val = e.target.value;
                         setSeguro(prevState=>{
-                            //console.log(prevState)
                             let seguroEdit = Object.assign({}, prevState);
                             seguroEdit.seguro.descripcion = val
                             let seguro = seguroEdit.seguro
@@ -376,7 +377,6 @@ export default function SegurosCorredor(props){
                     <InputText style={{width: '60%', margin: '5px'}} id="precio" onChange={(e) =>{         
                         let val = e.target.value;
                         setSeguro(prevState=>{
-                            //console.log(prevState)
                             let seguroEdit = Object.assign({}, prevState);
                             seguroEdit.seguro.precio = val
                             let seguro = seguroEdit.seguro
@@ -388,7 +388,6 @@ export default function SegurosCorredor(props){
                     <InputText style={{width: '60%', margin: '5px'}} id="periodicidad" onChange={(e) =>{         
                         let val = e.target.value;
                         setSeguro(prevState=>{
-                            //console.log(prevState)
                             let seguroEdit = Object.assign({}, prevState);
                             seguroEdit.seguro.periodicidad = val
                             let seguro = seguroEdit.seguro
@@ -400,7 +399,6 @@ export default function SegurosCorredor(props){
                     <InputText style={{width: '60%', margin: '5px'}} id="aseguradora" onChange={(e) =>{         
                         let val = e.target.value;
                         setSeguro(prevState=>{
-                            //console.log(prevState)
                             let seguroEdit = Object.assign({}, prevState);
                             seguroEdit.seguro.aseguradora = val
                             let seguro = seguroEdit.seguro
@@ -412,7 +410,10 @@ export default function SegurosCorredor(props){
             </Dialog>
     </div>
     }</div>
-        
+    : 
+        <NoAcces />
+    }
+    </div>    
     )
 }
 
