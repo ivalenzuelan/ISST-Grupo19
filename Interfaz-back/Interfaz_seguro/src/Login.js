@@ -24,12 +24,10 @@ export default function Login() {
         console.log(response.data)
         const token = response.data.token;
         localStorage.setItem('token', token);
-        const rol = response.data.authorities[0].authority;
+        const rol = response.data.authorities[0] ? response.data.authorities[0].authority : '';
         localStorage.setItem('rol', rol);
         const nombreUsuario = response.data.nombreUsuario;
         localStorage.setItem('nombreUsuario', nombreUsuario);
-        console.log(token)
-        console.log(rol)
         setLogged(true)
         navigate('/');
         // Guarda el token JWT en el estado de la aplicación o en las cookies del navegador

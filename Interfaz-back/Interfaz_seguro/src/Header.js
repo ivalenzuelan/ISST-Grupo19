@@ -29,8 +29,8 @@ export default function Header (){
     });
   }
 
-  //console.log(callServerParaID())
-  //console.log(nombre)
+  console.log(callServerParaID())
+  console.log(nombre)
 
   const menu = useRef(null);
   //const router = useRouter();
@@ -89,7 +89,10 @@ export default function Header (){
 
     return(
     
-        <div>
+        <div className="header_integral">
+          <div className="logo_image">
+                <img className="logo" src={process.env.PUBLIC_URL + "/logo.png"} alt="logo" />
+          </div>
         {jwt ?
         <div>
         {rol == "ROLE_ADMIN" ?
@@ -116,10 +119,7 @@ export default function Header (){
             }
             </div>     
         :
-        <div className="header_integral">
-            <div className="logo_image">
-                <img className="logo" src={process.env.PUBLIC_URL + "/logo.png"} alt="logo" />
-            </div>
+        <div >
             <div className="buttons">
                 <div className="general_buttons">
                     <Link to ="/seguros"><Button className="general_button" label= "Seguros" text raised/></Link>

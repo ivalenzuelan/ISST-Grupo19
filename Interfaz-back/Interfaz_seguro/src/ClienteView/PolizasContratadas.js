@@ -56,6 +56,7 @@ export default function PolizasContratadas(){
 
     console.log(cliente)
 
+
     const callServer = async (param) =>{
         await url.getCliente(id).then(data => {
           setCliente(data)   
