@@ -5,6 +5,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Toast } from 'primereact/toast';
+import { Password } from 'primereact/password';
 
 
 export default function Login() {
@@ -54,13 +55,13 @@ export default function Login() {
                     <InputText id="username" type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
                 </div>
                 <div className="flex flex-wrap justify-content-center align-items-center gap-2">
-                    <InputText id="password" type="password"  placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)}/>
-                </div>
-                <div className="flex flex-wrap justify-content-center align-items-center gap-2">
                     <InputText id="nombre" type="text"  placeholder="Nombre" onChange={(e) => setNombre(e.target.value)}/>
                 </div>
                 <div className="flex flex-wrap justify-content-center align-items-center gap-2">
                     <InputText id="email" type="email"  placeholder="Email" onChange={(e) => setMail(e.target.value)}/>
+                </div>
+                <div className="flex flex-wrap justify-content-center align-items-center gap-2">
+                    <Password id="password"  placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <Button label="Sign up" icon="pi pi-user" className="w-10rem mx-auto" type="submit" />
             </div>

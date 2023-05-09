@@ -172,14 +172,14 @@ export default function PolizasContratadas(){
         </div>
         <Dialog header="Modificar mis datos" visible={visible} style={{ width: '70%' }} footer={<Button label='Guardar' icon="pi pi-check" onClick={()=>{editCliente(); setVisible(false)}}/>} onHide={() => setVisible(false)}>
             <span className="p-float-label">
-                <InputText style={{width: '60%', margin: '5px'}} id="username" value={cliente.username} onChange={(e) =>{         
+                <InputText style={{width: '60%', margin: '5px'}} id="nombre" value={cliente.nombre} onChange={(e) =>{         
                     let val = e.target.value;
                     setCliente(prevState=>{
                         let clienteEdit = {...prevState};
-                        clienteEdit.username = val;
+                        clienteEdit.nombre = val;
                         return clienteEdit;
                     })}} />
-                <label htmlFor="username">Username</label>
+                <label htmlFor="nombre">Nombre</label>
             </span>
             <span className="p-float-label">
                 <InputText style={{width: '60%', margin: '5px'}} id="apellidos" value={cliente.apellidos} onChange={(e) =>{         
@@ -201,16 +201,7 @@ export default function PolizasContratadas(){
                     })}} />
                 <label htmlFor="mail">Mail</label>
             </span>
-            <span className="p-float-label">
-                <InputText style={{width: '60%', margin: '5px'}} id="password" value={cliente.password} onChange={(e) =>{         
-                    let val = e.target.value;
-                    setCliente(prevState=>{
-                        let clienteEdit = {...prevState};
-                        clienteEdit.password = val;
-                        return clienteEdit;
-                    })}} />
-                <label htmlFor="password">Contraseña</label>
-            </span>
+
             <span className="p-float-label">
                 <InputText style={{width: '60%', margin: '5px'}} id="direccion" value={cliente.direccion} onChange={(e) =>{         
                     let val = e.target.value;
