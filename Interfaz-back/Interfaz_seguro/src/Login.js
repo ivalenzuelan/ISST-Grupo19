@@ -28,12 +28,12 @@ export default function Login() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('https://localhost:8443/auth/login', {
+        const response = await axios.post('https://34.175.88.214:8443/auth/login', {
           username,
           password,
         });
 
-        const idResponse = await axios.get('https://localhost:8443/idClienteus/'+ response.data.nombreUsuario)
+        const idResponse = await axios.get('https://34.175.88.214:8443/idClienteus/'+ response.data.nombreUsuario)
         const token = response.data.token;
         localStorage.setItem('token', token);
         const rol = response.data.authorities[0] ? response.data.authorities[0].authority : '';
