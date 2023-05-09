@@ -41,24 +41,30 @@ function App() {
           setSeguro({seguros: data})
         })
     }
-  const callH2 = async (param) =>{
-      await url.h2().then(data => {
-        setSeguro({seguros: data})
-      })
-  }
 
-  useEffect(() => {
-      function fetchData() {	
-        callServerSeguros();
-        callH2();
-          setTimeout(()=>{
-            setLoading(false);
-          },50);		
+
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const response = await fetch('/server-seguros', {
+            method: 'GET',
+            credentials: 'include' // send cookies with the request
+          });
+    
+          if (response.ok) {
+            const cookie = response.headers.get('Set-Cookie');
+            // save the cookie in local storage
+            localStorage.setItem('myCookie', cookie);
+          }
+          setLoading(false);
+        } catch (error) {
+          console.error(error);
+        }
       }
-  
+    
       fetchData();
     }, []);
-
+    
   const navigate=useNavigate()
 
   return (

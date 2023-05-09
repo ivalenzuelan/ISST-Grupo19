@@ -15,9 +15,10 @@ export class SeguroService {
             return res.data
         })
     }
+    
 
     h2() {
-        return axios.get(this.baseUrl+"h2-console").then(res => {
+        return axios.get(this.baseUrl+"h2-console/").then(res => {
             return res.data
         })
     }

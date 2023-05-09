@@ -83,9 +83,9 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
                 .sessionManagement(session -> session
                     .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                     .invalidSessionUrl("/logout")
-                    .maximumSessions(60)
+                    .maximumSessions(100)
                     .maxSessionsPreventsLogin(false))
-                .logout(logout->logout.deleteCookies("JSESSIONID").invalidateHttpSession(true));
+                .logout(logout->logout.deleteCookies("SESSION").invalidateHttpSession(true));
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
