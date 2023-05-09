@@ -72,6 +72,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
         // Desactivamos cookies ya que enviamos un token
         // cada vez que hacemos una petición
         http.headers().frameOptions().disable();
+        http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/auth/**", "/seguros", "/seguros/tipo/{tipo}","/h2-console/**", "/idClienteus/*").permitAll()
@@ -79,7 +80,12 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement(session -> session
+                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                    .invalidSessionUrl("/logout")
+                    .maximumSessions(4)
+                    .maxSessionsPreventsLogin(false))
+                .logout(logout->logout.deleteCookies("JSESSIONID").invalidateHttpSession(true));
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

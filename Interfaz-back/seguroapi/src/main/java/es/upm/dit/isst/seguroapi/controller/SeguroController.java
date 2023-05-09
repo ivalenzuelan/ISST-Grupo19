@@ -9,8 +9,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
 
 @RestController
 @CrossOrigin
@@ -42,8 +39,7 @@ public class SeguroController {
     // SEGUROS //
     /* TODOS */
     @GetMapping("/seguros") // ok
-    List<Seguro> readAllSeguro(Model model, HttpSession session) {
-        model.addAttribute("sessionId", session.getId());
+    List<Seguro> readAllSeguro() {
         return (List<Seguro>) seguroRepository.findAll();
 
     }
