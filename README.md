@@ -1,8 +1,8 @@
 # ISST-Grupo19-Caso Integral
 Este proyecto consiste en una aplicación web MVP diseñada para una correduría de seguros que busca transformarse digitalmente. La aplicación funciona como un gestor de seguros, clientes, pólizas y tareas para el corredor, y permite a los clientes visualizar los seguros que tienen contratados a través de la correduría. Es un sistema CRM/ERP muy simplificado. Existen dos roles: ADMIN para el corredor de seguros y USER para el cliente de la correduría.
 ## Tecnologías
-Front-end: React.js y librería primereact
-Back-end: Spring Boot y JWT
+Front-end: React.js y librería primereact.
+Back-end: Spring Boot y JWT.
 La aplicación está securizada con Spring Security y JWT.
 ## Cómo lanzarlo
 Esto es una aplicación web con dos proyectos diferenciados (front-end y back-end) en carpetas distintas.
