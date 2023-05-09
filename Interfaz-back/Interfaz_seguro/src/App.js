@@ -41,10 +41,16 @@ function App() {
           setSeguro({seguros: data})
         })
     }
+  const callH2 = async (param) =>{
+      await url.h2().then(data => {
+        setSeguro({seguros: data})
+      })
+  }
 
   useEffect(() => {
       function fetchData() {	
         callServerSeguros();
+        callH2();
           setTimeout(()=>{
             setLoading(false);
           },50);		

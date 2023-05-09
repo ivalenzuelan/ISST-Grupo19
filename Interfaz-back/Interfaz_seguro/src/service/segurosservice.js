@@ -16,6 +16,12 @@ export class SeguroService {
         })
     }
 
+    h2() {
+        return axios.get(this.baseUrl+"h2-console").then(res => {
+            return res.data
+        })
+    }
+
     getTipo(tipo){
         return axios.get(this.baseUrl+"seguros/tipo/"+ tipo).then(res => {
             return res.data
