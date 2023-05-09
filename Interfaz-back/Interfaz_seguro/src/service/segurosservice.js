@@ -7,7 +7,7 @@ export class SeguroService {
 
     // Aqui tenemos que poner la URL donde esté expuesta nuestra API
 
-    baseUrl = "https://34.175.88.214:8443/";
+    baseUrl = "https://localhost:8443/";
 
 
     getAll() {

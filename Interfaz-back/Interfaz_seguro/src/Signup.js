@@ -22,7 +22,7 @@ export default function Login() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('https://34.175.88.214:8443/auth/nuevoUsuario', {
+        const response = await axios.post('https://localhost:8443/auth/nuevoUsuario', {
           username,
           nombre,
           mail,
