@@ -46,7 +46,7 @@ function App() {
     useEffect(() => {
       async function fetchData() {
         try {
-          const response = await fetch('/server-seguros', {
+          const response = await fetch('https://34.175.88.214:8443/login', {
             method: 'GET',
             credentials: 'include' // send cookies with the request
           });
