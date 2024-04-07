@@ -43,16 +43,21 @@ This is a web application with two separate projects (front-end and back-end) in
 
 To run the server, use:
 
-./mvnw clean install spring-boot:run -DskipTests=true
-
+```bash
+    ./mvnw clean install spring-boot:run -DskipTests=true
+```
 
 The client application should be launched with:
 
-npm install
+```bash
+    npm install
+```
 
 followed by
 
-npm start
+```bash
+    npm start
+```
 
 
 ### Additional Instructions
