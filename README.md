@@ -26,7 +26,7 @@ y posteriormente
     npm start
 ```
 
-# ISST-Group19-Comprehensive Case
+# ISST-Group19 Integral Project
 
 This project consists of an MVP web application designed for an insurance brokerage aiming to undergo digital transformation. The application serves as an insurance manager for policies, clients, and tasks for the broker, while also allowing clients to view the insurance policies they have contracted through the brokerage. It functions as a simplified CRM/ERP system. There are two roles: ADMIN for the insurance broker and USER for the brokerage's client.
 
