@@ -1,3 +1,5 @@
+# An Spring + React web application for storing data related to an insurance bróker company.
+
 (English below)
 # 💡 ISST-Grupo19-Caso Integral
 Este proyecto consiste en una aplicación web MVP diseñada para una correduría de seguros que busca transformarse digitalmente. La aplicación funciona como un gestor de seguros, clientes, pólizas y tareas para el corredor, y permite a los clientes visualizar los seguros que tienen contratados a través de la correduría. Es un sistema CRM/ERP muy simplificado. Existen dos roles: ADMIN para el corredor de seguros y USER para el cliente de la correduría.
